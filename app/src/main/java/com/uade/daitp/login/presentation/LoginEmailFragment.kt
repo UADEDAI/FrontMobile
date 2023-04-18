@@ -8,6 +8,7 @@ import androidx.navigation.findNavController
 import com.uade.daitp.R
 import com.uade.daitp.databinding.FragmentLoginEmailBinding
 import com.uade.daitp.module.di.ViewModelDI
+import com.uade.daitp.presentation.util.setOnClickListenerWithThrottle
 
 class LoginEmailFragment : Fragment(R.layout.fragment_login_email) {
 
@@ -18,19 +19,19 @@ class LoginEmailFragment : Fragment(R.layout.fragment_login_email) {
 
         binding = FragmentLoginEmailBinding.bind(view)
 
-        binding.loginButton.setOnClickListener {
+        binding.loginButton.setOnClickListenerWithThrottle {
             viewModel.login(
                 binding.loginUsername.text.toString(),
                 binding.loginPassword.text.toString()
             )
         }
 
-        binding.loginRegister.setOnClickListener {
+        binding.loginRegister.setOnClickListenerWithThrottle {
             view.findNavController()
                 .navigate(R.id.action_loginEmailFragment_to_ownerRegisterFragment)
         }
 
-        binding.loginRecover.setOnClickListener {
+        binding.loginRecover.setOnClickListenerWithThrottle {
             view.findNavController()
                 .navigate(R.id.action_loginEmailFragment_to_ownerRecoverEmailFragment)
         }

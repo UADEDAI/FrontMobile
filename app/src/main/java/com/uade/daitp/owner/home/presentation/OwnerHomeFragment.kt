@@ -9,6 +9,7 @@ import com.uade.daitp.R
 import com.uade.daitp.databinding.FragmentOwnerHomeBinding
 import com.uade.daitp.module.di.ViewModelDI
 import com.uade.daitp.owner.home.presentation.adapters.CinemaAdapter
+import com.uade.daitp.presentation.util.setOnClickListenerWithThrottle
 
 class OwnerHomeFragment : Fragment(R.layout.fragment_owner_home) {
 
@@ -20,7 +21,7 @@ class OwnerHomeFragment : Fragment(R.layout.fragment_owner_home) {
 
         binding = FragmentOwnerHomeBinding.bind(view)
 
-        binding.homeCinemaAdd.setOnClickListener {
+        binding.homeCinemaAdd.setOnClickListenerWithThrottle {
             view.findNavController()
                 .navigate(R.id.action_ownerHomeFragment_to_ownerCinemaFormFragment)
         }

@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.uade.daitp.R
 import com.uade.daitp.databinding.FragmentLoginChoiceBinding
+import com.uade.daitp.presentation.util.setOnClickListenerWithThrottle
 
 class LoginChoiceFragment : Fragment(R.layout.fragment_login_choice) {
 
@@ -14,11 +15,11 @@ class LoginChoiceFragment : Fragment(R.layout.fragment_login_choice) {
 
         val binding = FragmentLoginChoiceBinding.bind(view)
 
-        binding.loginEmail.setOnClickListener {
+        binding.loginEmail.setOnClickListenerWithThrottle {
             it.findNavController().navigate(R.id.action_loginChoiceFragment_to_loginEmailFragment)
         }
 
-        binding.loginGoogle.setOnClickListener {
+        binding.loginGoogle.setOnClickListenerWithThrottle {
 
         }
     }

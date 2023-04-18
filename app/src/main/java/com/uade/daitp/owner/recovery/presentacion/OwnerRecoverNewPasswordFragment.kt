@@ -10,6 +10,7 @@ import com.uade.daitp.databinding.FragmentOwnerForgotEmailBinding
 import com.uade.daitp.databinding.FragmentOwnerForgotNewPasswordBinding
 import com.uade.daitp.databinding.FragmentOwnerRegisterBinding
 import com.uade.daitp.module.di.ViewModelDI
+import com.uade.daitp.presentation.util.setOnClickListenerWithThrottle
 
 class OwnerRecoverNewPasswordFragment : Fragment(R.layout.fragment_owner_forgot_new_password) {
 
@@ -21,7 +22,7 @@ class OwnerRecoverNewPasswordFragment : Fragment(R.layout.fragment_owner_forgot_
 
         binding = FragmentOwnerForgotNewPasswordBinding.bind(view)
 
-        binding.recoverButton.setOnClickListener {
+        binding.recoverButton.setOnClickListenerWithThrottle {
             val password = binding.recoverPasswordText.text.toString()
             val passwordConfirm = binding.recoverNewPasswordText.text.toString()
             if (password != passwordConfirm)
@@ -30,7 +31,7 @@ class OwnerRecoverNewPasswordFragment : Fragment(R.layout.fragment_owner_forgot_
             viewModel.recover(binding.recoverCodeText.text.toString(), password)
         }
 
-        binding.recoverBack.setOnClickListener {
+        binding.recoverBack.setOnClickListenerWithThrottle {
             view.findNavController()
                 .popBackStack(R.id.loginEmailFragment, false)
         }

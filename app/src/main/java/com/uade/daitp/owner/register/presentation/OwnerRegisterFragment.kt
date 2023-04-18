@@ -8,6 +8,7 @@ import androidx.navigation.findNavController
 import com.uade.daitp.R
 import com.uade.daitp.databinding.FragmentOwnerRegisterBinding
 import com.uade.daitp.module.di.ViewModelDI
+import com.uade.daitp.presentation.util.setOnClickListenerWithThrottle
 
 class OwnerRegisterFragment : Fragment(R.layout.fragment_owner_register) {
 
@@ -19,7 +20,7 @@ class OwnerRegisterFragment : Fragment(R.layout.fragment_owner_register) {
 
         binding = FragmentOwnerRegisterBinding.bind(view)
 
-        binding.registerButton.setOnClickListener {
+        binding.registerButton.setOnClickListenerWithThrottle {
             viewModel.register(
                 binding.registerEmail.text.toString(),
                 binding.registerPassword.text.toString(),

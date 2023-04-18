@@ -9,6 +9,7 @@ import com.uade.daitp.R
 import com.uade.daitp.databinding.FragmentOwnerForgotEmailBinding
 import com.uade.daitp.databinding.FragmentOwnerRegisterBinding
 import com.uade.daitp.module.di.ViewModelDI
+import com.uade.daitp.presentation.util.setOnClickListenerWithThrottle
 
 class OwnerRecoverEmailFragment : Fragment(R.layout.fragment_owner_forgot_email) {
 
@@ -20,11 +21,11 @@ class OwnerRecoverEmailFragment : Fragment(R.layout.fragment_owner_forgot_email)
 
         binding = FragmentOwnerForgotEmailBinding.bind(view)
 
-        binding.recoverButton.setOnClickListener {
+        binding.recoverButton.setOnClickListenerWithThrottle {
             viewModel.recover(binding.recoverEmailText.text.toString())
         }
 
-        binding.recoverBack.setOnClickListener {
+        binding.recoverBack.setOnClickListenerWithThrottle {
             view.findNavController().popBackStack()
         }
 

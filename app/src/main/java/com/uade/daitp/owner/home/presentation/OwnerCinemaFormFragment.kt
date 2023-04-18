@@ -9,6 +9,7 @@ import com.uade.daitp.R
 import com.uade.daitp.databinding.FragmentOwnerCinemaFormBinding
 import com.uade.daitp.module.di.ViewModelDI
 import com.uade.daitp.owner.home.core.models.CreateCinemaIntent
+import com.uade.daitp.presentation.util.setOnClickListenerWithThrottle
 
 class OwnerCinemaFormFragment : Fragment(R.layout.fragment_owner_cinema_form) {
 
@@ -20,7 +21,7 @@ class OwnerCinemaFormFragment : Fragment(R.layout.fragment_owner_cinema_form) {
 
         binding = FragmentOwnerCinemaFormBinding.bind(view)
 
-        binding.cinemaFormButton.setOnClickListener {
+        binding.cinemaFormButton.setOnClickListenerWithThrottle {
             val createIntent = CreateCinemaIntent(
                 name = binding.cinemaFormNameText.text.toString(),
                 address = binding.cinemaFormAddressText.text.toString(),
