@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">CINEMAPP</string>
+
+    <string name="login_email">SIGN IN WITH EMAIL</string>
+    <string name="login_google">SIGN IN WITH GOOGLE</string>
+
+    <string name="username_hint">Username</string>
+    <string name="password_hint">Password</string>
+    <string name="login_owner_button">LOGIN</string>
+
+    <string name="login_register_button">REGISTER</string>
+    <string name="owner_register">You don\'t have an account? Register here</string>
+    <string name="email_hint">Email</string>
+    <string name="company_hint">Company</string>
+    <string name="confirm_button">CONFIRM</string>
+    <string name="confirm_password_hint">Confirm password</string>
+    <string name="recovery_hint">Recovery code</string>
+    <string name="back_to_login">BACK TO LOGIN</string>
+    <string name="owner_recover">FORGOT YOU PASSWORD?</string>
+    <string name="recover_code_hint">Recovery code</string>
+    <string name="recover_password_hint">New password</string>
+    <string name="recover_new_password_hint">Confirm password</string>
+    <string name="owner_home_cinemas">My Theaters</string>
+    <string name="create_cinema_title">Create Cinema</string>
+    <string name="cinema_form_name_hint">Cinema name</string>
+    <string name="cinema_form_address_hint">Address</string>
+    <string name="cinema_form_address_number_hint">St number</string>
+    <string name="cinema_form_country_hint">Country</string>
+    <string name="cinema_form_province_hint">Province</string>
+    <string name="cinema_form_locality_hint">Locality</string>
+    <string name="cinema_form_neighbourhood_hint">Neighbourhood</string>
+    <string name="cinema_form_latitude_hint">Latitude</string>
+    <string name="cinema_form_longitude_hint">Longitude</string>
+    <string name="cinema_form_price_hint">Price</string>
+    <string name="cinema_form_enabled_hint">Cinema enabled</string>
+</resources>

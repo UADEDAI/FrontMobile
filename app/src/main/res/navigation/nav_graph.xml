@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/loginChoiceFragment">
+
+    <fragment
+        android:id="@+id/loginChoiceFragment"
+        android:name="com.uade.daitp.login.presentation.LoginChoiceFragment"
+        android:label="LoginChoiceFragment"
+        tools:layout="@layout/fragment_login_choice">
+        <action
+            android:id="@+id/action_loginChoiceFragment_to_loginEmailFragment"
+            app:destination="@id/loginEmailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginEmailFragment"
+        android:name="com.uade.daitp.login.presentation.LoginEmailFragment"
+        android:label="LoginEmailFragment"
+        tools:layout="@layout/fragment_login_email">
+        <action
+            android:id="@+id/action_loginEmailFragment_to_ownerHomeFragment"
+            app:destination="@id/ownerHomeFragment"
+            app:launchSingleTop="true" />
+        <action
+            android:id="@+id/action_loginEmailFragment_to_ownerRegisterFragment"
+            app:destination="@id/ownerRegisterFragment" />
+        <action
+            android:id="@+id/action_loginEmailFragment_to_ownerRecoverEmailFragment"
+            app:destination="@id/ownerRecoverEmailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ownerHomeFragment"
+        android:name="com.uade.daitp.owner.home.presentation.OwnerHomeFragment"
+        android:label="OwnerHomeFragment"
+        tools:layout="@layout/fragment_owner_home" >
+        <action
+            android:id="@+id/action_ownerHomeFragment_to_ownerCinemaFormFragment"
+            app:destination="@id/ownerCinemaFormFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ownerRegisterFragment"
+        android:name="com.uade.daitp.owner.register.presentation.OwnerRegisterFragment"
+        android:label="OwnerRegisterFragment"
+        tools:layout="@layout/fragment_owner_register">
+        <action
+            android:id="@+id/action_ownerRegisterFragment_to_ownerHomeFragment"
+            app:destination="@id/ownerHomeFragment"
+            app:launchSingleTop="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/ownerRecoverEmailFragment"
+        android:name="com.uade.daitp.owner.recovery.presentacion.OwnerRecoverEmailFragment"
+        android:label="OwnerRecoverEmailFragment"
+        tools:layout="@layout/fragment_owner_forgot_email" >
+        <action
+            android:id="@+id/action_ownerRecoverEmailFragment_to_ownerRecoverNewPasswordFragment"
+            app:destination="@id/ownerRecoverNewPasswordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ownerRecoverNewPasswordFragment"
+        android:name="com.uade.daitp.owner.recovery.presentacion.OwnerRecoverNewPasswordFragment"
+        android:label="OwnerRecoverNewPasswordFragment"
+        tools:layout="@layout/fragment_owner_forgot_new_password">
+        <action
+            android:id="@+id/action_ownerRecoverNewPasswordFragment_to_ownerHomeFragment"
+            app:destination="@id/ownerHomeFragment"
+            app:launchSingleTop="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/ownerCinemaFormFragment"
+        android:name="com.uade.daitp.owner.home.presentation.OwnerCinemaFormFragment"
+        android:label="OwnerCinemaFormFragment"
+        tools:layout="@layout/fragment_owner_cinema_form" />
+</navigation>
