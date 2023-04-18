@@ -5,6 +5,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.navArgs
 import com.uade.daitp.R
 import com.uade.daitp.databinding.FragmentOwnerCinemaFormBinding
 import com.uade.daitp.module.di.ViewModelDI
@@ -33,9 +34,9 @@ class OwnerCinemaFormFragment : Fragment(R.layout.fragment_owner_cinema_form) {
                 latitude = binding.cinemaFormLatitudeText.text.toString().toLong(),
                 longitude = binding.cinemaFormLongitudeText.text.toString().toLong(),
                 price = binding.cinemaFormPriceText.text.toString().toDouble(),
-                enabled = binding.cinemaFormEnabled.isEnabled,
+                enabled = binding.cinemaFormEnabled.isChecked,
             )
-            viewModel.processForm(null, createIntent)
+            viewModel.processForm(createIntent)
         }
 
         viewModel.error.observe(viewLifecycleOwner) {
@@ -45,7 +46,26 @@ class OwnerCinemaFormFragment : Fragment(R.layout.fragment_owner_cinema_form) {
         viewModel.processSuccess.observe(viewLifecycleOwner) {
             view.findNavController().popBackStack()
         }
+
+        viewModel.cinemaToEdit.observe(viewLifecycleOwner) {
+            binding.cinemaFormNameText.setText(it.name)
+            binding.cinemaFormAddressText.setText(it.address)
+            binding.cinemaFormAddressNumberText.setText(it.addressNumber.toString())
+            binding.cinemaFormCountryText.setText(it.country)
+            binding.cinemaFormProvinceText.setText(it.province)
+            binding.cinemaFormLocalityText.setText(it.locality)
+            binding.cinemaFormNeighbourhoodText.setText(it.neighbourhood)
+            binding.cinemaFormLatitudeText.setText(it.latitude.toString())
+            binding.cinemaFormLongitudeText.setText(it.longitude.toString())
+            binding.cinemaFormPriceText.setText(it.price.toString())
+            binding.cinemaFormEnabled.isChecked = it.enabled
+        }
+
+        val cinemaToEdit = arguments?.getInt(CINEMA_ID)
+        cinemaToEdit?.let { viewModel.getCinemaToEdit(it) }
     }
 
-
+    companion object {
+        const val CINEMA_ID = "cinemaId"
+    }
 }

@@ -22,7 +22,9 @@
         <action
             android:id="@+id/action_loginEmailFragment_to_ownerHomeFragment"
             app:destination="@id/ownerHomeFragment"
-            app:launchSingleTop="true" />
+            app:launchSingleTop="true"
+            app:popUpTo="@id/loginChoiceFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_loginEmailFragment_to_ownerRegisterFragment"
             app:destination="@id/ownerRegisterFragment" />
@@ -34,7 +36,7 @@
         android:id="@+id/ownerHomeFragment"
         android:name="com.uade.daitp.owner.home.presentation.OwnerHomeFragment"
         android:label="OwnerHomeFragment"
-        tools:layout="@layout/fragment_owner_home" >
+        tools:layout="@layout/fragment_owner_home">
         <action
             android:id="@+id/action_ownerHomeFragment_to_ownerCinemaFormFragment"
             app:destination="@id/ownerCinemaFormFragment" />
@@ -47,13 +49,15 @@
         <action
             android:id="@+id/action_ownerRegisterFragment_to_ownerHomeFragment"
             app:destination="@id/ownerHomeFragment"
-            app:launchSingleTop="true" />
+            app:launchSingleTop="true"
+            app:popUpTo="@id/loginChoiceFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/ownerRecoverEmailFragment"
         android:name="com.uade.daitp.owner.recovery.presentacion.OwnerRecoverEmailFragment"
         android:label="OwnerRecoverEmailFragment"
-        tools:layout="@layout/fragment_owner_forgot_email" >
+        tools:layout="@layout/fragment_owner_forgot_email">
         <action
             android:id="@+id/action_ownerRecoverEmailFragment_to_ownerRecoverNewPasswordFragment"
             app:destination="@id/ownerRecoverNewPasswordFragment" />
@@ -66,7 +70,9 @@
         <action
             android:id="@+id/action_ownerRecoverNewPasswordFragment_to_ownerHomeFragment"
             app:destination="@id/ownerHomeFragment"
-            app:launchSingleTop="true" />
+            app:launchSingleTop="true"
+            app:popUpTo="@id/loginChoiceFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/ownerCinemaFormFragment"

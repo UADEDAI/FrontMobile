@@ -40,6 +40,12 @@ class InMemoryOwnerRepository : OwnerRepository {
         return cinemas
     }
 
+    override fun getCinema(cinemaId: Int): Cinema {
+        val cinema = cinemas.find { cinema: Cinema -> cinema.id == cinemaId }
+        cinema?.let { return cinema }
+            ?: throw InvalidCinemaNotFoundException("$cinemaId does not exist")
+    }
+
     private fun getNewId(): Int {
         return cinemas.size
     }

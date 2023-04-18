@@ -10,4 +10,5 @@ interface OwnerRepository {
     fun createCinema(cinemaIntent: CreateCinemaIntent)
     fun deleteCinema(cinemaId: Int)
     fun getCinemas(): List<Cinema>
+    fun getCinema(cinemaId: Int): Cinema
 }

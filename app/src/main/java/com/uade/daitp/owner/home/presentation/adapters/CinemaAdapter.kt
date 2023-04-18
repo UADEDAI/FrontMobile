@@ -1,5 +1,6 @@
 package com.uade.daitp.owner.home.presentation.adapters
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.findNavController
@@ -8,8 +9,10 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.uade.daitp.R
 import com.uade.daitp.databinding.ListItemCinemaBinding
 import com.uade.daitp.owner.home.core.models.Cinema
+import com.uade.daitp.owner.home.presentation.OwnerCinemaFormFragment.Companion.CINEMA_ID
 import com.uade.daitp.owner.home.presentation.OwnerHomeViewModel
 import com.uade.daitp.presentation.util.setOnClickListenerWithThrottle
+
 
 class CinemaAdapter(private val cinemas: List<Cinema>, private val viewModel: OwnerHomeViewModel) :
     RecyclerView.Adapter<CinemaAdapter.ViewHolder>() {
@@ -36,8 +39,10 @@ class CinemaAdapter(private val cinemas: List<Cinema>, private val viewModel: Ow
             }
 
             binding.itemCinemaEditButton.setOnClickListenerWithThrottle {
-//                itemView.findNavController()
-//                    .navigate(R.id.)
+                val bundle = Bundle()
+                bundle.putInt(CINEMA_ID, cinema.id)
+                itemView.findNavController()
+                    .navigate(R.id.action_ownerHomeFragment_to_ownerCinemaFormFragment, bundle)
             }
         }
     }
