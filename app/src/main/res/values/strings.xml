@@ -33,4 +33,7 @@
     <string name="cinema_form_longitude_hint">Longitude</string>
     <string name="cinema_form_price_hint">Price</string>
     <string name="cinema_form_enabled_hint">Cinema enabled</string>
+    <string name="cinema_dialog_text">Delete cinema</string>
+    <string name="accept">Accept</string>
+    <string name="decline">Decline</string>
 </resources>

@@ -30,7 +30,7 @@ class OwnerHomeFragment : Fragment(R.layout.fragment_owner_home) {
 
 
         viewModel.cinemas.observe(viewLifecycleOwner) {
-            recyclerView.adapter = CinemaAdapter(it)
+            recyclerView.adapter = CinemaAdapter(it, viewModel)
         }
     }
 
