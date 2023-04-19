@@ -1,6 +1,7 @@
 package com.uade.daitp.owner.home.presentation
 
 import android.os.Bundle
+import android.text.Editable
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -26,14 +27,14 @@ class OwnerCinemaFormFragment : Fragment(R.layout.fragment_owner_cinema_form) {
             val createIntent = CreateCinemaIntent(
                 name = binding.cinemaFormNameText.text.toString(),
                 address = binding.cinemaFormAddressText.text.toString(),
-                addressNumber = binding.cinemaFormAddressNumberText.text.toString().toInt(),
+                addressNumber = binding.cinemaFormAddressNumberText.text.toInt(),
                 country = binding.cinemaFormCountryText.text.toString(),
                 province = binding.cinemaFormProvinceText.text.toString(),
                 locality = binding.cinemaFormLocalityText.text.toString(),
                 neighbourhood = binding.cinemaFormNeighbourhoodText.text.toString(),
-                latitude = binding.cinemaFormLatitudeText.text.toString().toLong(),
-                longitude = binding.cinemaFormLongitudeText.text.toString().toLong(),
-                price = binding.cinemaFormPriceText.text.toString().toDouble(),
+                latitude = binding.cinemaFormLatitudeText.text.toLong(),
+                longitude = binding.cinemaFormLongitudeText.text.toLong(),
+                price = binding.cinemaFormPriceText.text.toDouble(),
                 enabled = binding.cinemaFormEnabled.isChecked,
             )
             viewModel.processForm(createIntent)
@@ -63,6 +64,21 @@ class OwnerCinemaFormFragment : Fragment(R.layout.fragment_owner_cinema_form) {
 
         val cinemaToEdit = arguments?.getInt(CINEMA_ID)
         cinemaToEdit?.let { viewModel.getCinemaToEdit(it) }
+    }
+
+    private fun Editable?.toInt(): Int {
+        if (this == null || this.isEmpty()) return 0
+        return this.toString().toInt()
+    }
+
+    private fun Editable?.toLong(): Long {
+        if (this == null || this.isEmpty()) return 0L
+        return this.toString().toLong()
+    }
+
+    private fun Editable?.toDouble(): Double {
+        if (this == null || this.isEmpty()) return 0.0
+        return this.toString().toDouble()
     }
 
     companion object {

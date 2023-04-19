@@ -26,12 +26,19 @@ class OwnerHomeFragment : Fragment(R.layout.fragment_owner_home) {
                 .navigate(R.id.action_ownerHomeFragment_to_ownerCinemaFormFragment)
         }
 
+        binding.homeCinemaEmptyButton.setOnClickListenerWithThrottle {
+            view.findNavController()
+                .navigate(R.id.action_ownerHomeFragment_to_ownerCinemaFormFragment)
+        }
+
         val recyclerView = binding.homeCinemaList
         recyclerView.layoutManager = LinearLayoutManager(context)
 
 
         viewModel.cinemas.observe(viewLifecycleOwner) {
             recyclerView.adapter = CinemaAdapter(it, viewModel)
+
+            binding.homeCinemaEmpty.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
         }
     }
 
