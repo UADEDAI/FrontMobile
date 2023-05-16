@@ -22,6 +22,7 @@
     <string name="recover_new_password_hint">Confirm password</string>
     <string name="owner_home_cinemas">My Theaters</string>
     <string name="create_cinema_title">Create Cinema</string>
+    <string name="edit_cinema_title">Edit Cinema</string>
     <string name="cinema_form_name_hint">Cinema name</string>
     <string name="cinema_form_address_hint">Address</string>
     <string name="cinema_form_address_number_hint">St number</string>
@@ -38,4 +39,9 @@
     <string name="decline">Decline</string>
     <string name="home_empty_text">You don\'t have any cinemas created</string>
     <string name="home_cinema_empty_button">Create cinema</string>
+
+    <string name="owner_home_rooms">My Cinema Rooms</string>
+    <string name="home_room_empty_button">Create now</string>
+    <string name="home_room_empty_text">You don\'t have any rooms created</string>
+    <string name="owner_home_movies">Movies</string>
 </resources>

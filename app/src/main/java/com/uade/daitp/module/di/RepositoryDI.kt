@@ -1,7 +1,8 @@
 package com.uade.daitp.module.di
 
 import com.uade.daitp.login.infrastructure.repository.DummyLoginRepository
-import com.uade.daitp.module.infrastructure.InMemoryOwnerRepository
+import com.uade.daitp.owner.home.infrastructure.InMemoryCinemaRepository
+import com.uade.daitp.owner.register.infrastructure.InMemoryOwnerRepository
 
 object RepositoryDI {
     private val loginRepo by lazy { DummyLoginRepository() }
@@ -9,4 +10,7 @@ object RepositoryDI {
 
     private val ownerRepo by lazy { InMemoryOwnerRepository() }
     fun getOwnerRepository() = ownerRepo
+
+    private val cinemaRepo by lazy { InMemoryCinemaRepository() }
+    fun getCinemaRepository() = cinemaRepo
 }

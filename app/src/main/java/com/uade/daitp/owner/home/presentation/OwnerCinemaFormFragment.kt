@@ -6,7 +6,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.navArgs
 import com.uade.daitp.R
 import com.uade.daitp.databinding.FragmentOwnerCinemaFormBinding
 import com.uade.daitp.module.di.ViewModelDI
@@ -60,6 +59,8 @@ class OwnerCinemaFormFragment : Fragment(R.layout.fragment_owner_cinema_form) {
             binding.cinemaFormLongitudeText.setText(it.longitude.toString())
             binding.cinemaFormPriceText.setText(it.price.toString())
             binding.cinemaFormEnabled.isChecked = it.enabled
+
+            binding.cinemaFormTitle.text = getText(R.string.edit_cinema_title)
         }
 
         val cinemaToEdit = arguments?.getInt(CINEMA_ID)

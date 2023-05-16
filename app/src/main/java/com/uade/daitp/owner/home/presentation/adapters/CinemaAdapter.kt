@@ -9,7 +9,8 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.uade.daitp.R
 import com.uade.daitp.databinding.ListItemCinemaBinding
 import com.uade.daitp.owner.home.core.models.Cinema
-import com.uade.daitp.owner.home.presentation.OwnerCinemaFormFragment.Companion.CINEMA_ID
+import com.uade.daitp.owner.home.presentation.OwnerCinemaFormFragment
+import com.uade.daitp.owner.home.presentation.OwnerCinemaFragment
 import com.uade.daitp.owner.home.presentation.OwnerHomeViewModel
 import com.uade.daitp.presentation.util.setOnClickListenerWithThrottle
 
@@ -40,9 +41,16 @@ class CinemaAdapter(private val cinemas: List<Cinema>, private val viewModel: Ow
 
             binding.itemCinemaEditButton.setOnClickListenerWithThrottle {
                 val bundle = Bundle()
-                bundle.putInt(CINEMA_ID, cinema.id)
+                bundle.putInt(OwnerCinemaFormFragment.CINEMA_ID, cinema.id)
                 itemView.findNavController()
                     .navigate(R.id.action_ownerHomeFragment_to_ownerCinemaFormFragment, bundle)
+            }
+
+            binding.root.setOnClickListenerWithThrottle {
+                val bundle = Bundle()
+                bundle.putInt(OwnerCinemaFragment.CINEMA_ID, cinema.id)
+                itemView.findNavController()
+                    .navigate(R.id.action_ownerHomeFragment_to_ownerCinemaFragment, bundle)
             }
         }
     }

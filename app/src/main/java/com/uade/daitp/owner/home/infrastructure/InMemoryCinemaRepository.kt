@@ -1,28 +1,18 @@
-package com.uade.daitp.module.infrastructure
+package com.uade.daitp.owner.home.infrastructure
 
 import com.uade.daitp.owner.home.core.models.Cinema
+import com.uade.daitp.owner.home.core.models.CinemaRoom
 import com.uade.daitp.owner.home.core.models.CreateCinemaIntent
+import com.uade.daitp.owner.home.core.models.CreateCinemaRoomIntent
 import com.uade.daitp.owner.home.core.models.exceptions.InvalidCinemaNameException
 import com.uade.daitp.owner.home.core.models.exceptions.InvalidCinemaNotFoundException
-import com.uade.daitp.owner.recovery.core.models.exceptions.InvalidRecoveryEmailException
-import com.uade.daitp.owner.recovery.core.models.exceptions.InvalidRecoveryPasswordException
-import com.uade.daitp.owner.register.core.model.exceptions.InvalidRegisterDataError
-import com.uade.daitp.owner.register.core.repository.OwnerRepository
+import com.uade.daitp.owner.home.core.models.exceptions.InvalidCinemaRoomNameException
+import com.uade.daitp.owner.home.core.models.exceptions.InvalidCinemaRoomNotFoundException
+import com.uade.daitp.owner.home.core.repository.CinemaRepository
 
-class InMemoryOwnerRepository : OwnerRepository {
+class InMemoryCinemaRepository : CinemaRepository {
     private val cinemas: MutableList<Cinema> = mutableListOf()
-
-    override fun registerOwner(email: String, password: String, username: String, company: String) {
-        if (email != "test@test.com") throw InvalidRegisterDataError("Email already used")
-    }
-
-    override fun recoverEmail(email: String) {
-        if (email != "test@test.com") throw InvalidRecoveryEmailException("Invalid email")
-    }
-
-    override fun recoverPassword(code: String, password: String) {
-        if (code != "1234") throw InvalidRecoveryPasswordException("Invalid code")
-    }
+    private val cinemaRooms: MutableList<CinemaRoom> = mutableListOf()
 
     override fun createCinema(cinemaIntent: CreateCinemaIntent) {
         if (cinemaIntent.name == "invalid") throw InvalidCinemaNameException("Name already in use")
@@ -44,6 +34,22 @@ class InMemoryOwnerRepository : OwnerRepository {
         val cinema = cinemas.find { cinema: Cinema -> cinema.id == cinemaId }
         cinema?.let { return cinema }
             ?: throw InvalidCinemaNotFoundException("$cinemaId does not exist")
+    }
+
+    override fun createCinemaRoom(cinemaRoomIntent: CreateCinemaRoomIntent) {
+        if (cinemaRoomIntent.name == "invalid") throw InvalidCinemaRoomNameException("Name already in use")
+
+        cinemaRooms.add(cinemaRoomIntent.toCinemaRoom(getNewId()))
+    }
+
+    override fun deleteCinemaRoom(id: Int) {
+        val deleted = cinemaRooms.removeIf { cinemaRoom -> cinemaRoom.id == id }
+
+        if (!deleted) throw InvalidCinemaRoomNotFoundException("$id does not exist")
+    }
+
+    override fun getCinemaRooms(cinemaId: Int): List<CinemaRoom> {
+        return cinemaRooms.filter { cinemaRoom -> cinemaRoom.cinemaId == cinemaId }
     }
 
     private fun getNewId(): Int {

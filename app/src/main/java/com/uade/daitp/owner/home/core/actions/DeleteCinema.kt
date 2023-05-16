@@ -1,10 +1,10 @@
 package com.uade.daitp.owner.home.core.actions
 
-import com.uade.daitp.owner.register.core.repository.OwnerRepository
+import com.uade.daitp.owner.home.core.repository.CinemaRepository
 
-class DeleteCinema (private val ownerRepository: OwnerRepository) {
+class DeleteCinema(private val cinemaRepository: CinemaRepository) {
 
     operator fun invoke(cinemaId: Int) {
-        ownerRepository.deleteCinema(cinemaId)
+        cinemaRepository.deleteCinema(cinemaId)
     }
 }

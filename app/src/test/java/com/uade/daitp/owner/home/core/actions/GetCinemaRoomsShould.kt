@@ -1,20 +1,19 @@
 package com.uade.daitp.owner.home.core.actions
 
-import com.uade.daitp.owner.home.core.models.Cinema
+import com.uade.daitp.owner.home.core.models.CinemaRoom
 import com.uade.daitp.owner.home.core.repository.CinemaRepository
 import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 
-internal class GetCinemasShould {
-
+internal class GetCinemaRoomsShould {
     private lateinit var repository: CinemaRepository
-    private lateinit var getCinemas: GetCinemas
-    private lateinit var cinemas: List<Cinema>
+    private lateinit var getCinemaRooms: GetCinemaRooms
+    private lateinit var cinemaRooms: List<CinemaRoom>
 
     @Test
-    fun `get cinemas should call repository`() {
+    fun `get cinemaRooms should call repository`() {
         givenAnAction()
 
         whenGettingCinemas()
@@ -23,7 +22,7 @@ internal class GetCinemasShould {
     }
 
     @Test
-    fun `get empty cinema list if there are no cinemas`() {
+    fun `get empty cinema list if there are no cinema rooms`() {
         givenAnActionWithEmptyRepository()
 
         whenGettingCinemas()
@@ -33,41 +32,39 @@ internal class GetCinemasShould {
 
     private fun givenAnAction() {
         repository = mock()
-        whenever(repository.getCinemas()).thenReturn(listOf(mockCinema))
-        getCinemas = GetCinemas(repository)
+        whenever(repository.getCinemaRooms(mockCinemaRoom.cinemaId)).thenReturn(
+            listOf(
+                mockCinemaRoom
+            )
+        )
+        getCinemaRooms = GetCinemaRooms(repository)
     }
 
     private fun givenAnActionWithEmptyRepository() {
         repository = mock()
         whenever(repository.getCinemas()).thenReturn(listOf())
-        getCinemas = GetCinemas(repository)
+        getCinemaRooms = GetCinemaRooms(repository)
     }
 
     private fun whenGettingCinemas() {
-        cinemas = getCinemas()
+        cinemaRooms = getCinemaRooms(mockCinemaRoom.cinemaId)
     }
 
     private fun thenRepositoryIsCalled() {
-        verify(repository).getCinemas()
+        verify(repository).getCinemaRooms(mockCinemaRoom.cinemaId)
     }
 
     private fun thenGetsEmptyList() {
-        assert(cinemas.isEmpty())
+        assert(cinemaRooms.isEmpty())
     }
 
     private companion object {
-        val mockCinema = Cinema(
+        val mockCinemaRoom = CinemaRoom(
             1,
-            "Hoyts",
-            "Av Corrientes",
-            1234,
-            "Argentina",
-            "Buenos Aires",
-            "CABA",
-            "Almagro",
-            1234,
-            1234,
-            1000.0,
+            7,
+            "Sala 1",
+            30,
+            20,
             true
         )
     }

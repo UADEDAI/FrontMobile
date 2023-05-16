@@ -2,7 +2,7 @@ package com.uade.daitp.owner.home.core.actions
 
 import com.uade.daitp.owner.home.core.models.CreateCinemaIntent
 import com.uade.daitp.owner.home.core.models.exceptions.InvalidCinemaNameException
-import com.uade.daitp.owner.register.core.repository.OwnerRepository
+import com.uade.daitp.owner.home.core.repository.CinemaRepository
 import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
@@ -10,7 +10,7 @@ import org.mockito.kotlin.whenever
 
 internal class AddCinemaShould {
 
-    private lateinit var repository: OwnerRepository
+    private lateinit var repository: CinemaRepository
     private lateinit var addCinema: AddCinemas
     private var error: Exception? = null
 

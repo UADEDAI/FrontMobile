@@ -40,6 +40,9 @@
         <action
             android:id="@+id/action_ownerHomeFragment_to_ownerCinemaFormFragment"
             app:destination="@id/ownerCinemaFormFragment" />
+        <action
+            android:id="@+id/action_ownerHomeFragment_to_ownerCinemaFragment"
+            app:destination="@id/ownerCinemaFragment" />
     </fragment>
     <fragment
         android:id="@+id/ownerRegisterFragment"
@@ -79,4 +82,9 @@
         android:name="com.uade.daitp.owner.home.presentation.OwnerCinemaFormFragment"
         android:label="OwnerCinemaFormFragment"
         tools:layout="@layout/fragment_owner_cinema_form" />
+    <fragment
+        android:id="@+id/ownerCinemaFragment"
+        android:name="com.uade.daitp.owner.home.presentation.OwnerCinemaFragment"
+        android:label="OwnerCinemaFragment"
+        tools:layout="@layout/fragment_owner_cinema" />
 </navigation>

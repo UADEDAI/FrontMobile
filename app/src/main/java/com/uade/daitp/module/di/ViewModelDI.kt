@@ -2,6 +2,7 @@ package com.uade.daitp.module.di
 
 import com.uade.daitp.login.presentation.LoginOwnerViewModel
 import com.uade.daitp.owner.home.presentation.OwnerCinemaFormViewModel
+import com.uade.daitp.owner.home.presentation.OwnerCinemaViewModel
 import com.uade.daitp.owner.home.presentation.OwnerHomeViewModel
 import com.uade.daitp.owner.recovery.presentacion.OwnerRecoverEmailViewModel
 import com.uade.daitp.owner.recovery.presentacion.OwnerRecoverPasswordViewModel
@@ -27,4 +28,6 @@ object ViewModelDI {
         ActionsDI.getDeleteCinema(),
         ActionsDI.getCinema()
     )
+
+    fun getOwnerCinemaViewModel() = OwnerCinemaViewModel(ActionsDI.getCinema())
 }

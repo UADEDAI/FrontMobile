@@ -6,9 +6,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.uade.daitp.R
-import com.uade.daitp.databinding.FragmentOwnerForgotEmailBinding
 import com.uade.daitp.databinding.FragmentOwnerForgotNewPasswordBinding
-import com.uade.daitp.databinding.FragmentOwnerRegisterBinding
 import com.uade.daitp.module.di.ViewModelDI
 import com.uade.daitp.presentation.util.setOnClickListenerWithThrottle
 

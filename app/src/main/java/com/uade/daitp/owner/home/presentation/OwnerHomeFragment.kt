@@ -34,7 +34,6 @@ class OwnerHomeFragment : Fragment(R.layout.fragment_owner_home) {
         val recyclerView = binding.homeCinemaList
         recyclerView.layoutManager = LinearLayoutManager(context)
 
-
         viewModel.cinemas.observe(viewLifecycleOwner) {
             recyclerView.adapter = CinemaAdapter(it, viewModel)
 
