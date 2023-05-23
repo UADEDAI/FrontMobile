@@ -20,7 +20,7 @@
         tools:text="Sala 1" />
 
     <TextView
-        android:id="@+id/item_cinema_location"
+        android:id="@+id/item_room_capacity"
         style="@style/TextAppearance.AppCompat.Body1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -86,5 +86,14 @@
         android:id="@+id/ownerCinemaFragment"
         android:name="com.uade.daitp.owner.home.presentation.OwnerCinemaFragment"
         android:label="OwnerCinemaFragment"
-        tools:layout="@layout/fragment_owner_cinema" />
+        tools:layout="@layout/fragment_owner_cinema" >
+        <action
+            android:id="@+id/action_ownerCinemaFragment_to_ownerCinemaRoomFormFragment"
+            app:destination="@id/ownerCinemaRoomFormFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ownerCinemaRoomFormFragment"
+        android:name="com.uade.daitp.owner.home.presentation.OwnerCinemaRoomFormFragment"
+        android:label="OwnerCinemaRoomFormFragment"
+        tools:layout="@layout/fragment_owner_cinema_room_form" />
 </navigation>

@@ -1,58 +1,54 @@
 package com.uade.daitp.owner.home.presentation.adapters
 
-//class CinemaRoomAdapter(
-//    private val cinemas: List<Cinema>,
-//    private val viewModel: OwnerCinemaViewModel
-//) :
-//    RecyclerView.Adapter<CinemaRoomAdapter.ViewHolder>() {
-//
-//    class ViewHolder(
-//        private val binding: ListItemCinemaBinding,
-//        private val viewModel: OwnerHomeViewModel
-//    ) :
-//        RecyclerView.ViewHolder(binding.root) {
-//        fun bind(cinema: Cinema) {
-//            binding.itemCinemaTitle.text = cinema.name
-//            binding.itemCinemaMovies.text = "5 Movies"
-//            binding.itemCinemaRoom.text = "5 Rooms"
-//            //TODO
-//
-//            binding.itemCinemaDeleteButton.setOnClickListenerWithThrottle {
-//                MaterialAlertDialogBuilder(itemView.context)
-//                    .setMessage(itemView.resources.getString(R.string.cinema_dialog_text))
-//                    .setNegativeButton(itemView.resources.getString(R.string.decline)) { _, _ -> }
-//                    .setPositiveButton(itemView.resources.getString(R.string.accept)) { _, _ ->
-//                        viewModel.delete(cinema)
-//                    }
-//                    .show()
-//            }
-//
-//            binding.itemCinemaEditButton.setOnClickListenerWithThrottle {
-//                val bundle = Bundle()
-//                bundle.putInt(OwnerCinemaFormFragment.CINEMA_ID, cinema.id)
-//                itemView.findNavController()
-//                    .navigate(R.id.action_ownerHomeFragment_to_ownerCinemaFormFragment, bundle)
-//            }
-//
-//            binding.root.setOnClickListenerWithThrottle {
-//                val bundle = Bundle()
-//                bundle.putInt(OwnerCinemaFragment.CINEMA_ID, cinema.id)
-//                itemView.findNavController()
-//                    .navigate(R.id.action_ownerHomeFragment_to_ownerCinemaFragment, bundle)
-//            }
-//        }
-//    }
-//
-//    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-//        val binding =
-//            ListItemCinemaBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-//        return ViewHolder(binding, viewModel)
-//    }
-//
-//    override fun getItemCount() = cinemas.size
-//
-//    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-//        holder.bind(cinemas[position])
-//    }
-//
-//}
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import com.uade.daitp.databinding.ListItemRoomBinding
+import com.uade.daitp.owner.home.core.models.CinemaRoom
+import com.uade.daitp.owner.home.presentation.OwnerCinemaViewModel
+import com.uade.daitp.presentation.util.setOnClickListenerWithThrottle
+
+class CinemaRoomAdapter(
+    private val cinemaRooms: List<CinemaRoom>,
+    private val viewModel: OwnerCinemaViewModel
+) : RecyclerView.Adapter<CinemaRoomAdapter.ViewHolder>() {
+
+    private val views = mutableListOf<View>()
+
+    class ViewHolder(
+        private val binding: ListItemRoomBinding,
+        private val viewModel: OwnerCinemaViewModel,
+        private val onItemSelected: () -> Unit
+    ) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(cinemaRoom: CinemaRoom) {
+            binding.itemRoomTitle.text = cinemaRoom.name
+            binding.itemRoomCapacity.text = "15 Movies"
+            //TODO
+
+            binding.root.setOnClickListenerWithThrottle {
+                viewModel.onCinemaRoomSelected(cinemaRoom)
+                onItemSelected()
+                it.isActivated = true
+            }
+        }
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val binding =
+            ListItemRoomBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        views.add(binding.root)
+        return ViewHolder(binding, viewModel, this::onItemSelected)
+    }
+
+    override fun getItemCount() = cinemaRooms.size
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(cinemaRooms[position])
+    }
+
+    private fun onItemSelected() {
+        views.forEach { view -> view.isActivated = false }
+    }
+}

@@ -13,4 +13,5 @@ interface CinemaRepository {
     fun createCinemaRoom(cinemaRoomIntent: CreateCinemaRoomIntent)
     fun deleteCinemaRoom(id: Int)
     fun getCinemaRooms(cinemaId: Int): List<CinemaRoom>
+    fun getCinemaRoom(cinemaRoomId: Int): CinemaRoom
 }

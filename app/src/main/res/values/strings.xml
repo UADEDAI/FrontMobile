@@ -44,4 +44,10 @@
     <string name="home_room_empty_button">Create now</string>
     <string name="home_room_empty_text">You don\'t have any rooms created</string>
     <string name="owner_home_movies">Movies</string>
+    <string name="create_room_title">Create Room</string>
+    <string name="cinema_room_form_name_hint">Room name</string>
+    <string name="cinema_room_form_row_hint">Row</string>
+    <string name="cinema_room_form_seat_hint">Seats in row</string>
+    <string name="cinema_room_form_enabled_hint">Room enabled</string>
+    <string name="edit_cinema_room_title">Edit Room</string>
 </resources>

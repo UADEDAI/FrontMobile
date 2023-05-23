@@ -1,10 +1,7 @@
 package com.uade.daitp.module.di
 
 import com.uade.daitp.login.core.actions.LoginOwner
-import com.uade.daitp.owner.home.core.actions.AddCinemas
-import com.uade.daitp.owner.home.core.actions.DeleteCinema
-import com.uade.daitp.owner.home.core.actions.GetCinema
-import com.uade.daitp.owner.home.core.actions.GetCinemas
+import com.uade.daitp.owner.home.core.actions.*
 import com.uade.daitp.owner.recovery.core.actions.RecoverEmail
 import com.uade.daitp.owner.recovery.core.actions.RecoverPassword
 import com.uade.daitp.owner.register.core.actions.RegisterOwner
@@ -25,4 +22,12 @@ object ActionsDI {
     fun getGetCinemasOwner() = GetCinemas(RepositoryDI.getCinemaRepository())
 
     fun getCinema() = GetCinema(RepositoryDI.getCinemaRepository())
+
+    fun getCinemaRooms() = GetCinemaRooms(RepositoryDI.getCinemaRepository())
+
+    fun getCinemaRoom() = GetCinemaRoom(RepositoryDI.getCinemaRepository())
+
+    fun getAddCinemaRoom() = AddCinemaRoom(RepositoryDI.getCinemaRepository())
+
+    fun getDeleteCinemaRoom() = DeleteCinemaRoom(RepositoryDI.getCinemaRepository())
 }

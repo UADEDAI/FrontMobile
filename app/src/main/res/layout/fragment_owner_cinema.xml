@@ -44,10 +44,12 @@
         style="@style/Widget.Material3.Button.IconButton.Filled"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:icon="@drawable/ic_edit"
         app:layout_constraintBottom_toBottomOf="@id/home_title"
         app:layout_constraintEnd_toStartOf="@id/home_room_add"
-        app:layout_constraintTop_toTopOf="@id/home_title" />
+        app:layout_constraintTop_toTopOf="@id/home_title"
+        tools:visibility="visible" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/home_room_add"
@@ -64,12 +66,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/home_title"
-        android:orientation="horizontal"
         tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/list_item_room"/>
+        tools:listitem="@layout/list_item_room" />
 
     <TextView
         android:id="@+id/home_movies_title"

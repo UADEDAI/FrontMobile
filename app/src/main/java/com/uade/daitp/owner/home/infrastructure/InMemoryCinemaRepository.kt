@@ -11,7 +11,22 @@ import com.uade.daitp.owner.home.core.models.exceptions.InvalidCinemaRoomNotFoun
 import com.uade.daitp.owner.home.core.repository.CinemaRepository
 
 class InMemoryCinemaRepository : CinemaRepository {
-    private val cinemas: MutableList<Cinema> = mutableListOf()
+    private val cinemas: MutableList<Cinema> = mutableListOf(
+        Cinema(
+            0,
+            "Hoyts",
+            "Av Corrientes",
+            1234,
+            "Argentina",
+            "CABA",
+            "CABA",
+            "CABA",
+            1234,
+            1234,
+            1000.0,
+            true
+        )
+    )
     private val cinemaRooms: MutableList<CinemaRoom> = mutableListOf()
 
     override fun createCinema(cinemaIntent: CreateCinemaIntent) {
@@ -39,7 +54,7 @@ class InMemoryCinemaRepository : CinemaRepository {
     override fun createCinemaRoom(cinemaRoomIntent: CreateCinemaRoomIntent) {
         if (cinemaRoomIntent.name == "invalid") throw InvalidCinemaRoomNameException("Name already in use")
 
-        cinemaRooms.add(cinemaRoomIntent.toCinemaRoom(getNewId()))
+        cinemaRooms.add(cinemaRoomIntent.toCinemaRoom(getNewRoomId()))
     }
 
     override fun deleteCinemaRoom(id: Int) {
@@ -52,7 +67,18 @@ class InMemoryCinemaRepository : CinemaRepository {
         return cinemaRooms.filter { cinemaRoom -> cinemaRoom.cinemaId == cinemaId }
     }
 
+    override fun getCinemaRoom(cinemaRoomId: Int): CinemaRoom {
+        val cinemaRoom =
+            cinemaRooms.find { cinemaRoom: CinemaRoom -> cinemaRoom.id == cinemaRoomId }
+        cinemaRoom?.let { return cinemaRoom }
+            ?: throw InvalidCinemaRoomNotFoundException("$cinemaRoomId does not exist")
+    }
+
     private fun getNewId(): Int {
         return cinemas.size
+    }
+
+    private fun getNewRoomId(): Int {
+        return cinemaRooms.size
     }
 }

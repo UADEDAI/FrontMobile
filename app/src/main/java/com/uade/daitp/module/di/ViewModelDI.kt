@@ -2,6 +2,7 @@ package com.uade.daitp.module.di
 
 import com.uade.daitp.login.presentation.LoginOwnerViewModel
 import com.uade.daitp.owner.home.presentation.OwnerCinemaFormViewModel
+import com.uade.daitp.owner.home.presentation.OwnerCinemaRoomFormViewModel
 import com.uade.daitp.owner.home.presentation.OwnerCinemaViewModel
 import com.uade.daitp.owner.home.presentation.OwnerHomeViewModel
 import com.uade.daitp.owner.recovery.presentacion.OwnerRecoverEmailViewModel
@@ -29,5 +30,12 @@ object ViewModelDI {
         ActionsDI.getCinema()
     )
 
-    fun getOwnerCinemaViewModel() = OwnerCinemaViewModel(ActionsDI.getCinema())
+    fun getOwnerCinemaRoomFormViewModel() = OwnerCinemaRoomFormViewModel(
+        ActionsDI.getCinemaRoom(),
+        ActionsDI.getAddCinemaRoom(),
+        ActionsDI.getDeleteCinemaRoom()
+    )
+
+    fun getOwnerCinemaViewModel() =
+        OwnerCinemaViewModel(ActionsDI.getCinema(), ActionsDI.getCinemaRooms())
 }
