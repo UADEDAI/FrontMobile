@@ -83,7 +83,7 @@ class OwnerCinemaFragment : Fragment(R.layout.fragment_owner_cinema) {
         viewModel.selectedCinemaRoom.observe(viewLifecycleOwner) {
             binding.homeRoomEdit.visibility = View.VISIBLE
 
-            viewModel.getRoomMovies(it.id)
+//            viewModel.getRoomMovies(it.id)
         }
     }
 
