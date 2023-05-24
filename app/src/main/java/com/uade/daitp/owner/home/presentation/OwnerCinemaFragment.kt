@@ -14,7 +14,7 @@ import com.uade.daitp.presentation.util.setOnClickListenerWithThrottle
 
 class OwnerCinemaFragment : Fragment(R.layout.fragment_owner_cinema) {
 
-    private val viewModel : OwnerCinemaViewModel = ViewModelDI.getOwnerCinemaViewModel()
+    private val viewModel: OwnerCinemaViewModel = ViewModelDI.getOwnerCinemaViewModel()
     private lateinit var binding: FragmentOwnerCinemaBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -52,7 +52,11 @@ class OwnerCinemaFragment : Fragment(R.layout.fragment_owner_cinema) {
         }
 
         binding.homeMovieAdd.setOnClickListenerWithThrottle {
-            //TODO
+            val bundle = Bundle()
+            bundle.putInt(CINEMA_ID, cinemaId!!)
+            bundle.putInt(CINEMA_ROOM_ID, viewModel.selectedCinemaRoom.value!!.id)
+            view.findNavController()
+                .navigate(R.id.action_ownerCinemaFragment_to_ownerCinemaRoomFormFragment, bundle)
         }
 
         binding.homeCinemaEmptyButton.setOnClickListenerWithThrottle {
@@ -60,7 +64,10 @@ class OwnerCinemaFragment : Fragment(R.layout.fragment_owner_cinema) {
                 val bundle = Bundle()
                 bundle.putInt(CINEMA_ID, cinemaId!!)
                 view.findNavController()
-                    .navigate(R.id.action_ownerCinemaFragment_to_ownerCinemaRoomFormFragment, bundle)
+                    .navigate(
+                        R.id.action_ownerCinemaFragment_to_ownerCinemaRoomFormFragment,
+                        bundle
+                    )
             } else {
 
             }
@@ -82,8 +89,10 @@ class OwnerCinemaFragment : Fragment(R.layout.fragment_owner_cinema) {
 
         viewModel.selectedCinemaRoom.observe(viewLifecycleOwner) {
             binding.homeRoomEdit.visibility = View.VISIBLE
+            binding.homeMoviesTitle.visibility = View.VISIBLE
+            binding.homeMovieAdd.visibility = View.VISIBLE
 
-//            viewModel.getRoomMovies(it.id)
+            viewModel.getRoomMoviesBy(it.id)
         }
     }
 

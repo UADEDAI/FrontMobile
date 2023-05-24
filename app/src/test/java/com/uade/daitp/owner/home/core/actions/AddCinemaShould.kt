@@ -11,7 +11,7 @@ import org.mockito.kotlin.whenever
 internal class AddCinemaShould {
 
     private lateinit var repository: CinemaRepository
-    private lateinit var addCinema: AddCinemas
+    private lateinit var addCinema: AddCinema
     private var error: Exception? = null
 
     @Test
@@ -37,7 +37,7 @@ internal class AddCinemaShould {
         whenever(repository.createCinema(invalidCinemaIntent)).thenThrow(
             InvalidCinemaNameException("Name already in use")
         )
-        addCinema = AddCinemas(repository)
+        addCinema = AddCinema(repository)
     }
 
     private fun whenAddingACinema(cinemaIntent: CreateCinemaIntent) {

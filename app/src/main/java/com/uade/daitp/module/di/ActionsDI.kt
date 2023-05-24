@@ -15,7 +15,7 @@ object ActionsDI {
 
     fun getRecoverPasswordOwner() = RecoverPassword(RepositoryDI.getOwnerRepository())
 
-    fun getAddCinema() = AddCinemas(RepositoryDI.getCinemaRepository())
+    fun getAddCinema() = AddCinema(RepositoryDI.getCinemaRepository())
 
     fun getDeleteCinema() = DeleteCinema(RepositoryDI.getCinemaRepository())
 

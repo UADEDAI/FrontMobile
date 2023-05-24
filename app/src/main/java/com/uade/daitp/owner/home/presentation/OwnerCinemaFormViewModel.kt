@@ -3,14 +3,14 @@ package com.uade.daitp.owner.home.presentation
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.uade.daitp.owner.home.core.actions.AddCinemas
+import com.uade.daitp.owner.home.core.actions.AddCinema
 import com.uade.daitp.owner.home.core.actions.DeleteCinema
 import com.uade.daitp.owner.home.core.actions.GetCinema
 import com.uade.daitp.owner.home.core.models.Cinema
 import com.uade.daitp.owner.home.core.models.CreateCinemaIntent
 
 class OwnerCinemaFormViewModel(
-    private val addCinema: AddCinemas,
+    private val addCinema: AddCinema,
     private val deleteCinema: DeleteCinema,
     private val getCinema: GetCinema
 ) : ViewModel() {

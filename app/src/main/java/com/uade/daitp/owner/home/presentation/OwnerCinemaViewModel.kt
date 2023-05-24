@@ -10,7 +10,7 @@ import com.uade.daitp.owner.home.core.models.CinemaRoom
 
 class OwnerCinemaViewModel(
     private val getCinema: GetCinema,
-    private val getCinemaRooms: GetCinemaRooms
+    private val getCinemaRooms: GetCinemaRooms,
 ) : ViewModel() {
 
     private val _error: MutableLiveData<String> by lazy { MutableLiveData<String>() }
