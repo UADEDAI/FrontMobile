@@ -23,11 +23,9 @@ class MoviesAdapter(private val movies: List<Movie>) :
         fun bind(movie: Movie) {
             binding.itemMovieTitle.text = movie.title
             binding.itemMovieDuration.text = formatMinutes(movie.duration)
-//            Glide.with(itemView.context)
-//                .load(movie.imageUrl)
-//                .into(binding.itemMovieThumbnail);
-
-            Log.d("TESTYTEST", movie.imageUrl)
+            Glide.with(itemView.context)
+                .load(movie.imageUrl)
+                .into(binding.itemMovieThumbnail);
 
             binding.root.setOnClickListenerWithThrottle {
                 it.isActivated = !it.isActivated

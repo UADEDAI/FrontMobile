@@ -16,25 +16,25 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/login_email"
+        android:id="@+id/login_google"
+        style="@style/Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/login_email"
-        app:tint="@color/purple_500"
+        android:text="@string/login_google"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/login_google"
+        android:id="@+id/login_email"
+        style="@style/Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/login_google"
-        app:tint="@color/purple_500"
+        android:text="@string/login_email"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/login_email" />
+        app:layout_constraintTop_toBottomOf="@id/login_google" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

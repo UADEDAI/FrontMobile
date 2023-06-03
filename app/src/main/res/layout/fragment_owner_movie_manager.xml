@@ -6,15 +6,15 @@
     android:layout_height="match_parent"
     android:padding="@dimen/activity_margin">
 
-    <com.google.android.material.button.MaterialButton
+    <ImageButton
         android:id="@+id/movies_back"
-        style="@style/Widget.Material3.Button.IconButton.Filled"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="-10dp"
+        style="@style/BackButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_left"
+        android:layout_marginStart="-15dp"
+        android:padding="15dp"
         android:backgroundTint="@color/white"
-        app:icon="@drawable/ic_left"
-        app:iconTint="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -39,36 +39,36 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.button.MaterialButton
+    <ImageButton
         android:id="@+id/movies_delete_confirm"
-        style="@style/Widget.Material3.Button.IconButton.Filled"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/IconButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_check"
         android:visibility="gone"
-        app:icon="@drawable/ic_check"
         app:layout_constraintBottom_toBottomOf="@id/movies_own"
         app:layout_constraintEnd_toStartOf="@id/movies_delete_cancel"
         app:layout_constraintTop_toTopOf="@id/movies_own"
         tools:visibility="visible" />
 
-    <com.google.android.material.button.MaterialButton
+    <ImageButton
         android:id="@+id/movies_delete_cancel"
-        style="@style/Widget.Material3.Button.IconButton.Filled"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/IconButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_close"
         android:visibility="gone"
-        app:icon="@drawable/ic_close"
         app:layout_constraintBottom_toBottomOf="@id/movies_own"
         app:layout_constraintEnd_toStartOf="@id/movies_delete"
         app:layout_constraintTop_toTopOf="@id/movies_own"
         tools:visibility="visible" />
 
-    <com.google.android.material.button.MaterialButton
+    <ImageButton
         android:id="@+id/movies_delete"
-        style="@style/Widget.Material3.Button.IconButton.Filled"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:icon="@drawable/ic_delete"
+        style="@style/IconButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_delete"
         app:layout_constraintBottom_toBottomOf="@id/movies_own"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/movies_own" />
@@ -95,36 +95,36 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/movies_own_list" />
 
-    <com.google.android.material.button.MaterialButton
+    <ImageButton
         android:id="@+id/movies_info"
-        style="@style/Widget.Material3.Button.IconButton.Filled"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/IconButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_movie"
         android:visibility="gone"
-        app:icon="@drawable/ic_movie"
         app:layout_constraintBottom_toBottomOf="@id/movies_add"
         app:layout_constraintEnd_toStartOf="@id/movies_add"
         app:layout_constraintTop_toTopOf="@id/movies_add"
         tools:visibility="visible" />
 
-    <com.google.android.material.button.MaterialButton
+    <ImageButton
         android:id="@+id/movies_add"
-        style="@style/Widget.Material3.Button.IconButton.Filled"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/IconButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_plus"
         android:visibility="gone"
-        app:icon="@drawable/ic_plus"
         app:layout_constraintBottom_toBottomOf="@id/movie_switch"
         app:layout_constraintEnd_toStartOf="@id/movie_switch"
         app:layout_constraintTop_toTopOf="@id/movie_switch"
         tools:visibility="visible" />
 
-    <com.google.android.material.button.MaterialButton
+    <ImageButton
         android:id="@+id/movie_switch"
-        style="@style/Widget.Material3.Button.IconButton.Filled"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:icon="@drawable/ic_swap_movie"
+        style="@style/IconButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_swap_movie"
         app:layout_constraintBottom_toBottomOf="@id/movies_available_list_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/movies_available_list_title" />
@@ -143,9 +143,10 @@
 
     <Button
         android:id="@+id/movies_discard_button"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        style="@style/InvertedButton"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginHorizontal="3dp"
         android:text="@string/discard_button_text"
         app:layout_constraintBottom_toTopOf="@id/movies_confirm_button"
         app:layout_constraintEnd_toEndOf="parent"
@@ -153,6 +154,7 @@
 
     <Button
         android:id="@+id/movies_confirm_button"
+        style="@style/Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/confirm_button"

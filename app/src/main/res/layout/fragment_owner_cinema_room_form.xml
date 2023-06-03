@@ -19,8 +19,8 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/cinema_room_form_name_hint"
         android:layout_marginTop="16dp"
+        android:hint="@string/cinema_room_form_name_hint"
         app:endIconMode="clear_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -84,6 +84,7 @@
 
     <Button
         android:id="@+id/cinema_form_button"
+        style="@style/Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/confirm_button"

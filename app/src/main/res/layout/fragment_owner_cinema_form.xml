@@ -221,6 +221,7 @@
 
     <Button
         android:id="@+id/cinema_form_button"
+        style="@style/Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/confirm_button"

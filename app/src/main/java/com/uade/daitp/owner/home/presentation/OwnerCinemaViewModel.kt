@@ -60,7 +60,7 @@ class OwnerCinemaViewModel(
             moviesToShow.addAll(movies.comingSoon)
             _selectedRoomMovies.value = moviesToShow
         } catch (e: Exception) {
-            _error.value = e.message
+            _selectedRoomMovies.value = emptyList()
         }
     }
 }

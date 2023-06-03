@@ -6,14 +6,14 @@
     android:layout_height="match_parent"
     android:padding="@dimen/activity_margin">
 
-    <com.google.android.material.button.MaterialButton
+    <ImageButton
         android:id="@+id/home_cinema_back"
-        style="@style/Widget.Material3.Button.IconButton.Filled"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="-10dp"
-        android:backgroundTint="@color/white"
-        app:icon="@drawable/ic_left"
+        style="@style/BackButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_left"
+        android:layout_marginStart="-15dp"
+        android:padding="15dp"
         app:iconTint="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -39,24 +39,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.button.MaterialButton
+    <ImageButton
         android:id="@+id/home_room_edit"
-        style="@style/Widget.Material3.Button.IconButton.Filled"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/IconButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_edit"
         android:visibility="gone"
-        app:icon="@drawable/ic_edit"
         app:layout_constraintBottom_toBottomOf="@id/home_title"
         app:layout_constraintEnd_toStartOf="@id/home_room_add"
         app:layout_constraintTop_toTopOf="@id/home_title"
         tools:visibility="visible" />
 
-    <com.google.android.material.button.MaterialButton
+    <ImageButton
         android:id="@+id/home_room_add"
-        style="@style/Widget.Material3.Button.IconButton.Filled"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:icon="@drawable/ic_plus"
+        style="@style/IconButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_plus"
         app:layout_constraintBottom_toBottomOf="@id/home_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/home_title" />
@@ -85,13 +85,13 @@
         app:layout_constraintTop_toBottomOf="@id/home_room_list"
         tools:visibility="visible" />
 
-    <com.google.android.material.button.MaterialButton
+    <ImageButton
         android:id="@+id/home_movie_add"
-        style="@style/Widget.Material3.Button.IconButton.Filled"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/IconButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_plus"
         android:visibility="gone"
-        app:icon="@drawable/ic_plus"
         app:layout_constraintBottom_toBottomOf="@id/home_movies_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/home_movies_title"
@@ -129,6 +129,7 @@
 
         <Button
             android:id="@+id/home_cinema_empty_button"
+            style="@style/Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
