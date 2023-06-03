@@ -90,10 +90,18 @@
         <action
             android:id="@+id/action_ownerCinemaFragment_to_ownerCinemaRoomFormFragment"
             app:destination="@id/ownerCinemaRoomFormFragment" />
+        <action
+            android:id="@+id/action_ownerCinemaFragment_to_ownerMovieManagerFragment"
+            app:destination="@id/ownerMovieManagerFragment" />
     </fragment>
     <fragment
         android:id="@+id/ownerCinemaRoomFormFragment"
         android:name="com.uade.daitp.owner.home.presentation.OwnerCinemaRoomFormFragment"
         android:label="OwnerCinemaRoomFormFragment"
         tools:layout="@layout/fragment_owner_cinema_room_form" />
+    <fragment
+        android:id="@+id/ownerMovieManagerFragment"
+        android:name="com.uade.daitp.owner.home.presentation.OwnerMovieManagerFragment"
+        android:label="OwnerMovieManagerFragment"
+        tools:layout="@layout/fragment_owner_movie_manager"/>
 </navigation>

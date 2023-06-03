@@ -11,7 +11,7 @@ data class Movie(
     val genre: String,
     val director: String,
     val cast: List<String>,
-    val score: Double,
+    val score: Double?,
     val certificate: String,
     val imageUrl: String,
     val createdAt: Date,

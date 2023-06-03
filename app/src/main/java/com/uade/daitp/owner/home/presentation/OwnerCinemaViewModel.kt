@@ -5,12 +5,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.uade.daitp.owner.home.core.actions.GetCinema
 import com.uade.daitp.owner.home.core.actions.GetCinemaRooms
+import com.uade.daitp.owner.home.core.actions.GetMoviesByRoom
 import com.uade.daitp.owner.home.core.models.Cinema
 import com.uade.daitp.owner.home.core.models.CinemaRoom
+import com.uade.daitp.owner.home.core.models.Movie
 
 class OwnerCinemaViewModel(
     private val getCinema: GetCinema,
     private val getCinemaRooms: GetCinemaRooms,
+    private val getMoviesByRoom: GetMoviesByRoom
 ) : ViewModel() {
 
     private val _error: MutableLiveData<String> by lazy { MutableLiveData<String>() }
@@ -24,6 +27,9 @@ class OwnerCinemaViewModel(
 
     private val _selectedCinemaRoom: MutableLiveData<CinemaRoom> by lazy { MutableLiveData<CinemaRoom>() }
     val selectedCinemaRoom: LiveData<CinemaRoom> get() = _selectedCinemaRoom
+
+    private val _selectedRoomMovies: MutableLiveData<List<Movie>> by lazy { MutableLiveData<List<Movie>>() }
+    val selectedRoomMovies: LiveData<List<Movie>> get() = _selectedRoomMovies
 
     fun getCinemaBy(cinemaId: Int) {
         try {
@@ -48,6 +54,13 @@ class OwnerCinemaViewModel(
     }
 
     fun getRoomMoviesBy(roomId: Int) {
-        
+        try {
+            val movies = getMoviesByRoom(roomId)
+            val moviesToShow = movies.showing
+            moviesToShow.addAll(movies.comingSoon)
+            _selectedRoomMovies.value = moviesToShow
+        } catch (e: Exception) {
+            _error.value = e.message
+        }
     }
 }

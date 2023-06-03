@@ -2,6 +2,8 @@ package com.uade.daitp.owner.home.presentation
 
 import android.os.Bundle
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
@@ -56,7 +58,7 @@ class OwnerCinemaFragment : Fragment(R.layout.fragment_owner_cinema) {
             bundle.putInt(CINEMA_ID, cinemaId!!)
             bundle.putInt(CINEMA_ROOM_ID, viewModel.selectedCinemaRoom.value!!.id)
             view.findNavController()
-                .navigate(R.id.action_ownerCinemaFragment_to_ownerCinemaRoomFormFragment, bundle)
+                .navigate(R.id.action_ownerCinemaFragment_to_ownerMovieManagerFragment, bundle)
         }
 
         binding.homeCinemaEmptyButton.setOnClickListenerWithThrottle {
@@ -69,7 +71,11 @@ class OwnerCinemaFragment : Fragment(R.layout.fragment_owner_cinema) {
                         bundle
                     )
             } else {
-
+                val bundle = Bundle()
+                bundle.putInt(CINEMA_ID, cinemaId!!)
+                bundle.putInt(CINEMA_ROOM_ID, viewModel.selectedCinemaRoom.value!!.id)
+                view.findNavController()
+                    .navigate(R.id.action_ownerCinemaFragment_to_ownerMovieManagerFragment, bundle)
             }
         }
 
@@ -80,7 +86,7 @@ class OwnerCinemaFragment : Fragment(R.layout.fragment_owner_cinema) {
         viewModel.cinemaRooms.observe(viewLifecycleOwner) {
             recyclerView.adapter = CinemaRoomAdapter(it, viewModel)
 
-            binding.homeCinemaEmpty.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
+            binding.homeCinemaEmpty.visibility = if (it.isEmpty()) VISIBLE else GONE
         }
 
         viewModel.error.observe(viewLifecycleOwner) {
@@ -88,11 +94,21 @@ class OwnerCinemaFragment : Fragment(R.layout.fragment_owner_cinema) {
         }
 
         viewModel.selectedCinemaRoom.observe(viewLifecycleOwner) {
-            binding.homeRoomEdit.visibility = View.VISIBLE
-            binding.homeMoviesTitle.visibility = View.VISIBLE
-            binding.homeMovieAdd.visibility = View.VISIBLE
+            binding.homeRoomEdit.visibility = VISIBLE
+            binding.homeMoviesTitle.visibility = VISIBLE
+            binding.homeMovieAdd.visibility = VISIBLE
 
             viewModel.getRoomMoviesBy(it.id)
+        }
+
+        viewModel.selectedRoomMovies.observe(viewLifecycleOwner) {
+            if (it.isEmpty()) {
+                binding.homeCinemaEmpty.visibility = VISIBLE
+                binding.homeCinemaEmptyText.setText(R.string.cinema_home_empty_movies)
+                binding.homeCinemaEmptyButton.setText(R.string.cinema_home_empty_movies_button)
+            } else {
+                binding.homeCinemaEmpty.visibility = GONE
+            }
         }
     }
 

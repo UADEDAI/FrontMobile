@@ -1,6 +1,6 @@
 package com.uade.daitp.owner.home.core.actions
 
-import com.uade.daitp.owner.home.core.models.exceptions.InvalidCinemaRoomNotFoundException
+import com.uade.daitp.owner.home.core.models.exceptions.CinemaRoomNotFoundException
 import com.uade.daitp.owner.home.core.repository.CinemaRepository
 import org.junit.Test
 import org.mockito.kotlin.mock
@@ -33,7 +33,7 @@ internal class DeleteCinemaRoomShould {
     private fun givenAnAction() {
         repository = mock()
         whenever(repository.deleteCinemaRoom(invalidCinemaRoomId)).thenThrow(
-            InvalidCinemaRoomNotFoundException("$invalidCinemaRoomId not found")
+            CinemaRoomNotFoundException("$invalidCinemaRoomId not found")
         )
         deleteCinemaRoom = DeleteCinemaRoom(repository)
     }
@@ -51,7 +51,7 @@ internal class DeleteCinemaRoomShould {
     }
 
     private fun thenErrorIsThrown() {
-        assert(error is InvalidCinemaRoomNotFoundException)
+        assert(error is CinemaRoomNotFoundException)
     }
 
     private companion object {

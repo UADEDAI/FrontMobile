@@ -5,9 +5,9 @@ import com.uade.daitp.owner.home.core.models.CinemaRoom
 import com.uade.daitp.owner.home.core.models.CreateCinemaIntent
 import com.uade.daitp.owner.home.core.models.CreateCinemaRoomIntent
 import com.uade.daitp.owner.home.core.models.exceptions.InvalidCinemaNameException
-import com.uade.daitp.owner.home.core.models.exceptions.InvalidCinemaNotFoundException
+import com.uade.daitp.owner.home.core.models.exceptions.CinemaNotFoundException
 import com.uade.daitp.owner.home.core.models.exceptions.InvalidCinemaRoomNameException
-import com.uade.daitp.owner.home.core.models.exceptions.InvalidCinemaRoomNotFoundException
+import com.uade.daitp.owner.home.core.models.exceptions.CinemaRoomNotFoundException
 import com.uade.daitp.owner.home.core.repository.CinemaRepository
 
 class InMemoryCinemaRepository : CinemaRepository {
@@ -38,7 +38,7 @@ class InMemoryCinemaRepository : CinemaRepository {
     override fun deleteCinema(cinemaId: Int) {
         val deleted = cinemas.removeIf { cinema -> cinema.id == cinemaId }
 
-        if (!deleted) throw InvalidCinemaNotFoundException("$cinemaId does not exist")
+        if (!deleted) throw CinemaNotFoundException("$cinemaId does not exist")
     }
 
     override fun getCinemas(): List<Cinema> {
@@ -48,7 +48,7 @@ class InMemoryCinemaRepository : CinemaRepository {
     override fun getCinema(cinemaId: Int): Cinema {
         val cinema = cinemas.find { cinema: Cinema -> cinema.id == cinemaId }
         cinema?.let { return cinema }
-            ?: throw InvalidCinemaNotFoundException("$cinemaId does not exist")
+            ?: throw CinemaNotFoundException("$cinemaId does not exist")
     }
 
     override fun createCinemaRoom(cinemaRoomIntent: CreateCinemaRoomIntent) {
@@ -60,7 +60,7 @@ class InMemoryCinemaRepository : CinemaRepository {
     override fun deleteCinemaRoom(id: Int) {
         val deleted = cinemaRooms.removeIf { cinemaRoom -> cinemaRoom.id == id }
 
-        if (!deleted) throw InvalidCinemaRoomNotFoundException("$id does not exist")
+        if (!deleted) throw CinemaRoomNotFoundException("$id does not exist")
     }
 
     override fun getCinemaRooms(cinemaId: Int): List<CinemaRoom> {
@@ -71,7 +71,7 @@ class InMemoryCinemaRepository : CinemaRepository {
         val cinemaRoom =
             cinemaRooms.find { cinemaRoom: CinemaRoom -> cinemaRoom.id == cinemaRoomId }
         cinemaRoom?.let { return cinemaRoom }
-            ?: throw InvalidCinemaRoomNotFoundException("$cinemaRoomId does not exist")
+            ?: throw CinemaRoomNotFoundException("$cinemaRoomId does not exist")
     }
 
     private fun getNewId(): Int {

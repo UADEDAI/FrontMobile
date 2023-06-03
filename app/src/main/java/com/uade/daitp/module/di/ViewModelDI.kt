@@ -1,10 +1,7 @@
 package com.uade.daitp.module.di
 
 import com.uade.daitp.login.presentation.LoginOwnerViewModel
-import com.uade.daitp.owner.home.presentation.OwnerCinemaFormViewModel
-import com.uade.daitp.owner.home.presentation.OwnerCinemaRoomFormViewModel
-import com.uade.daitp.owner.home.presentation.OwnerCinemaViewModel
-import com.uade.daitp.owner.home.presentation.OwnerHomeViewModel
+import com.uade.daitp.owner.home.presentation.*
 import com.uade.daitp.owner.recovery.presentacion.OwnerRecoverEmailViewModel
 import com.uade.daitp.owner.recovery.presentacion.OwnerRecoverPasswordViewModel
 import com.uade.daitp.owner.register.presentation.OwnerRegisterViewModel
@@ -37,5 +34,17 @@ object ViewModelDI {
     )
 
     fun getOwnerCinemaViewModel() =
-        OwnerCinemaViewModel(ActionsDI.getCinema(), ActionsDI.getCinemaRooms())
+        OwnerCinemaViewModel(
+            ActionsDI.getCinema(),
+            ActionsDI.getCinemaRooms(),
+            ActionsDI.getMoviesByRoom()
+        )
+
+    fun getOwnerMoviesViewModel() = OwnerMoviesViewModel(
+        ActionsDI.getCinemaRoom(),
+        ActionsDI.getMoviesByRoom(),
+        ActionsDI.addMoviesToRoom(),
+        ActionsDI.deleteMoviesFromRoom(),
+        ActionsDI.getMovies(),
+    )
 }

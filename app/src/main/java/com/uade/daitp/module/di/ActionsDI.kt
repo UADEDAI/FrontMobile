@@ -30,4 +30,12 @@ object ActionsDI {
     fun getAddCinemaRoom() = AddCinemaRoom(RepositoryDI.getCinemaRepository())
 
     fun getDeleteCinemaRoom() = DeleteCinemaRoom(RepositoryDI.getCinemaRepository())
+
+    fun getMoviesByRoom() = GetMoviesByRoom(RepositoryDI.getMovieRepository())
+
+    fun addMoviesToRoom() = AddMovieToRoom(RepositoryDI.getMovieRepository())
+
+    fun deleteMoviesFromRoom() = DeleteMovieFromRoom(RepositoryDI.getMovieRepository())
+
+    fun getMovies() = GetMovies(RepositoryDI.getMovieRepository())
 }

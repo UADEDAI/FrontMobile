@@ -50,4 +50,10 @@
     <string name="cinema_room_form_seat_hint">Seats in row</string>
     <string name="cinema_room_form_enabled_hint">Room enabled</string>
     <string name="edit_cinema_room_title">Edit Room</string>
+    <string name="cinema_home_empty_movies">You don\'t have any movies added</string>
+    <string name="cinema_home_empty_movies_button">Add now</string>
+    <string name="movies_own_title">My Movies</string>
+    <string name="movies_available_soon">Coming Soon</string>
+    <string name="movies_available_showing">Billboard</string>
+    <string name="discard_button_text">Discard</string>
 </resources>

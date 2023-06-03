@@ -1,7 +1,7 @@
 package com.uade.daitp.owner.home.core.actions
 
 import com.uade.daitp.owner.home.core.models.Movie
-import com.uade.daitp.owner.home.core.models.exceptions.InvalidMovieNotFoundException
+import com.uade.daitp.owner.home.core.models.exceptions.MovieNotFoundException
 import com.uade.daitp.owner.home.core.repository.MovieRepository
 import org.junit.Test
 import org.junit.jupiter.api.Assertions.assertTrue
@@ -35,12 +35,12 @@ internal class GetMovieShould {
     }
 
     private fun thenGetsEmptyList() {
-        assertTrue { error is InvalidMovieNotFoundException }
+        assertTrue { error is MovieNotFoundException }
     }
 
     private fun givenAnActionWithEmptyRepository() {
         repository = mock()
-        whenever(repository.getMovie(movieId)).thenThrow(InvalidMovieNotFoundException("invalid movie id"))
+        whenever(repository.getMovie(movieId)).thenThrow(MovieNotFoundException("invalid movie id"))
         getMovie = GetMovie(repository)
     }
 

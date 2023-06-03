@@ -61,13 +61,13 @@ internal class GetMoviesShould {
 
     private companion object {
         val mockEmptyMoviesList = MoviesList(
-            listOf(),
-            listOf(),
+            mutableListOf(),
+            mutableListOf(),
             Pagination(1, 100, 1, 0),
             Pagination(1, 100, 1, 0)
         )
         val mockMoviesList = MoviesList(
-            listOf(
+            mutableListOf(
                 Movie(
                     0, "The Batman",
                     "The film sees Batman , who has been fighting crime in Gotham City for two years, uncover corruption while pursuing the Riddler (Dano), a serial killer who targets Gotham's corrupt elite.",
@@ -83,7 +83,7 @@ internal class GetMoviesShould {
                     Calendar.getInstance().time
                 ),
             ),
-            listOf(
+            mutableListOf(
                 Movie(
                     1, "Spiderman: Far From Home",
                     "Following the events of Avengers: Endgame (2019), Spider-Man must step up to take on new threats in a world that has changed forever.",
