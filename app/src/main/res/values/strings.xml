@@ -56,4 +56,10 @@
     <string name="movies_available_soon">Coming Soon</string>
     <string name="movies_available_showing">Billboard</string>
     <string name="discard_button_text">Discard</string>
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sodales a mi eu consequat. Praesent ante enim, maximus vel purus vel, consequat auctor eros. Pellentesque sodales, sem sodales fringilla sodales, nisl nulla feugiat magna, sed tincidunt erat nunc faucibus magna. Nunc in orci mattis, molestie orci ut, vehicula est. Mauris mollis pulvinar diam eu lobortis. Phasellus consequat tempor nibh, sed ornare mauris pulvinar non. Praesent nec placerat diam, at egestas elit.</string>
+    <string name="movie_duration">Duration</string>
+    <string name="movie_year">Year</string>
+    <string name="movie_category">Category</string>
+    <string name="movie_director">Director</string>
+    <string name="movie_cast">Cast</string>
 </resources>

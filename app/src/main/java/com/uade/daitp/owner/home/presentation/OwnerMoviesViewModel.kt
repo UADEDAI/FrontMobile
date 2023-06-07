@@ -4,8 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.uade.daitp.owner.home.core.actions.*
-import com.uade.daitp.owner.home.core.models.CinemaRoom
-import com.uade.daitp.owner.home.core.models.MoviesList
+import com.uade.daitp.owner.home.core.models.*
 
 class OwnerMoviesViewModel(
     private val getCinemaRoom: GetCinemaRoom,
@@ -27,6 +26,8 @@ class OwnerMoviesViewModel(
     private val _moviesList: MutableLiveData<MoviesList> by lazy { MutableLiveData<MoviesList>() }
     val moviesList: LiveData<MoviesList> get() = _moviesList
 
+    private var roomId = -1
+
     init {
         try {
             _moviesList.value = getMovies()
@@ -36,6 +37,7 @@ class OwnerMoviesViewModel(
     }
 
     fun getRoom(roomId: Int) {
+        this.roomId = roomId
         try {
             val room = getCinemaRoom(roomId)
             _cinemaRoom.value = room
@@ -45,12 +47,43 @@ class OwnerMoviesViewModel(
     }
 
     fun getMoviesInRoom(roomId: Int) {
+        this.roomId = roomId
         try {
             val movies = getMoviesByRoom(roomId)
             _ownerMovies.value = movies
         } catch (e: Exception) {
-            _error.value = e.message
+            _ownerMovies.value = emptyMovieList()
         }
+    }
+
+    fun addMovie(movie: Movie) {
+        if (movie.isShowing()) {
+            if (!_ownerMovies.value!!.showing.contains(movie)) {
+                _ownerMovies.value!!.showing.add(movie)
+                addMoviesToRoom(roomId, movie)
+            }
+        } else {
+            if (!_ownerMovies.value!!.comingSoon.contains(movie)) {
+                _ownerMovies.value!!.comingSoon.add(movie)
+                addMoviesToRoom(roomId, movie)
+            }
+        }
+        _ownerMovies.postValue(_ownerMovies.value)
+    }
+
+    fun deleteMovie(movie: Movie) {
+        if (movie.isShowing()) {
+            if (_ownerMovies.value!!.showing.contains(movie)) {
+                _ownerMovies.value!!.showing.remove(movie)
+                deleteMoviesFromRoom(roomId, movie.id)
+            }
+        } else {
+            if (_ownerMovies.value!!.comingSoon.contains(movie)) {
+                _ownerMovies.value!!.comingSoon.remove(movie)
+                deleteMoviesFromRoom(roomId, movie.id)
+            }
+        }
+        _ownerMovies.postValue(_ownerMovies.value)
     }
 
 }

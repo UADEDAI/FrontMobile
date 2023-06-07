@@ -6,3 +6,20 @@ data class MoviesList(
     val showingPagination: Pagination,
     val comingSoonPagination: Pagination,
 )
+
+fun emptyMovieList(): MoviesList = MoviesList(
+    emptyList<Movie>().toMutableList(),
+    emptyList<Movie>().toMutableList(),
+    Pagination(
+        1,
+        0,
+        1,
+        0,
+    ),
+    Pagination(
+        1,
+        0,
+        1,
+        0,
+    )
+)

@@ -38,4 +38,6 @@ object ActionsDI {
     fun deleteMoviesFromRoom() = DeleteMovieFromRoom(RepositoryDI.getMovieRepository())
 
     fun getMovies() = GetMovies(RepositoryDI.getMovieRepository())
+
+    fun getMovie() = GetMovie(RepositoryDI.getMovieRepository())
 }

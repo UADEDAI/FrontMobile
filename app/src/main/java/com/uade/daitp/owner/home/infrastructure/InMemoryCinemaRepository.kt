@@ -4,10 +4,10 @@ import com.uade.daitp.owner.home.core.models.Cinema
 import com.uade.daitp.owner.home.core.models.CinemaRoom
 import com.uade.daitp.owner.home.core.models.CreateCinemaIntent
 import com.uade.daitp.owner.home.core.models.CreateCinemaRoomIntent
-import com.uade.daitp.owner.home.core.models.exceptions.InvalidCinemaNameException
 import com.uade.daitp.owner.home.core.models.exceptions.CinemaNotFoundException
-import com.uade.daitp.owner.home.core.models.exceptions.InvalidCinemaRoomNameException
 import com.uade.daitp.owner.home.core.models.exceptions.CinemaRoomNotFoundException
+import com.uade.daitp.owner.home.core.models.exceptions.InvalidCinemaNameException
+import com.uade.daitp.owner.home.core.models.exceptions.InvalidCinemaRoomNameException
 import com.uade.daitp.owner.home.core.repository.CinemaRepository
 
 class InMemoryCinemaRepository : CinemaRepository {
@@ -27,7 +27,9 @@ class InMemoryCinemaRepository : CinemaRepository {
             true
         )
     )
-    private val cinemaRooms: MutableList<CinemaRoom> = mutableListOf()
+    private val cinemaRooms: MutableList<CinemaRoom> = mutableListOf(
+        CinemaRoom(0, 0, "Main Hall", 20, 20, true)
+    )
 
     override fun createCinema(cinemaIntent: CreateCinemaIntent) {
         if (cinemaIntent.name == "invalid") throw InvalidCinemaNameException("Name already in use")

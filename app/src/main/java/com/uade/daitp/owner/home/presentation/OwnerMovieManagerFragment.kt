@@ -1,20 +1,15 @@
 package com.uade.daitp.owner.home.presentation
 
 import android.os.Bundle
-import android.text.Editable
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.uade.daitp.R
-import com.uade.daitp.databinding.FragmentOwnerCinemaFormBinding
 import com.uade.daitp.databinding.FragmentOwnerMovieManagerBinding
 import com.uade.daitp.module.di.ViewModelDI
-import com.uade.daitp.owner.home.core.models.CreateCinemaIntent
-import com.uade.daitp.owner.home.core.models.Movie
-import com.uade.daitp.owner.home.core.models.MoviesList
-import com.uade.daitp.owner.home.presentation.adapters.CinemaRoomAdapter
+import com.uade.daitp.owner.home.core.models.emptyMovieList
 import com.uade.daitp.owner.home.presentation.adapters.MoviesAdapter
 import com.uade.daitp.presentation.util.setOnClickListenerWithThrottle
 
@@ -38,18 +33,94 @@ class OwnerMovieManagerFragment : Fragment(R.layout.fragment_owner_movie_manager
             Toast.makeText(requireContext(), "Invalid Data", Toast.LENGTH_LONG).show()
         }
 
-        viewModel.ownerMovies.observe(viewLifecycleOwner) {
-            val recyclerView = binding.moviesOwnList
-            recyclerView.layoutManager =
-                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            recyclerView.adapter = MoviesAdapter(parseAllMovies(it))
+        viewModel.cinemaRoom.observe(viewLifecycleOwner) {
+            binding.moviesRoomName.text = it.name
         }
 
+        val ownListView = binding.moviesOwnList
+        ownListView.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        ownListView.adapter = MoviesAdapter(emptyMovieList(), false)
+
+        viewModel.ownerMovies.observe(viewLifecycleOwner) {
+            getOwnerListAdapter().updateData(it)
+
+            getOwnerListAdapter().selectedMovies.observe(viewLifecycleOwner) { selectedMovies ->
+                if (selectedMovies.isEmpty()) {
+                    binding.moviesDeleteCancel.visibility = View.GONE
+                    binding.moviesDeleteConfirm.visibility = View.GONE
+                    binding.moviesDelete.visibility = View.GONE
+                } else {
+                    binding.moviesDeleteCancel.visibility = View.GONE
+                    binding.moviesDeleteConfirm.visibility = View.GONE
+                    binding.moviesDelete.visibility = View.VISIBLE
+                }
+            }
+        }
+
+        binding.moviesDeleteCancel.setOnClickListenerWithThrottle {
+            binding.moviesDeleteCancel.visibility = View.GONE
+            binding.moviesDeleteConfirm.visibility = View.GONE
+            binding.moviesDelete.visibility = View.VISIBLE
+        }
+
+        binding.moviesDeleteConfirm.setOnClickListenerWithThrottle {
+            viewModel.deleteMovie(getOwnerListAdapter().selectedMovies.value!![0])
+        }
+
+        binding.moviesDelete.setOnClickListenerWithThrottle {
+            binding.moviesDeleteCancel.visibility = View.VISIBLE
+            binding.moviesDeleteConfirm.visibility = View.VISIBLE
+            binding.moviesDelete.visibility = View.GONE
+        }
+
+        val moviesView = binding.moviesAvailableList
+        moviesView.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        moviesView.adapter = MoviesAdapter(emptyMovieList(), false)
+
         viewModel.moviesList.observe(viewLifecycleOwner) {
-            val recyclerView = binding.moviesAvailableList
-            recyclerView.layoutManager =
-                LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            recyclerView.adapter = MoviesAdapter(parseAllMovies(it))
+            getAvailableListAdapter().updateData(it)
+
+            getAvailableListAdapter().selectedMovies.observe(viewLifecycleOwner) { selectedMovies ->
+                if (selectedMovies.isEmpty()) {
+                    binding.moviesInfo.visibility = View.GONE
+                    binding.moviesAdd.visibility = View.GONE
+                    binding.movieSwitch.visibility = View.VISIBLE
+                } else {
+                    binding.moviesInfo.visibility = View.VISIBLE
+                    binding.moviesAdd.visibility = View.VISIBLE
+                    binding.movieSwitch.visibility = View.GONE
+                }
+            }
+        }
+
+        binding.moviesInfo.setOnClickListenerWithThrottle {
+            val selectedMovie = getAvailableListAdapter().selectedMovies.value!![0]
+
+            val bundle = Bundle()
+            bundle.putInt(MOVIE_ID, selectedMovie.id)
+            view.findNavController()
+                .navigate(R.id.action_ownerMovieManagerFragment_to_ownerMovieDetailFragment, bundle)
+        }
+
+        binding.moviesAdd.setOnClickListenerWithThrottle {
+            viewModel.addMovie(getAvailableListAdapter().selectedMovies.value!![0])
+            getAvailableListAdapter().resetSelection()
+        }
+
+        binding.movieSwitch.setOnClickListenerWithThrottle {
+            getOwnerListAdapter().toggleMoviesType()
+            getAvailableListAdapter().toggleMoviesType()
+        }
+
+        binding.moviesConfirmButton.setOnClickListenerWithThrottle {
+            view.findNavController().popBackStack()
+        }
+
+        binding.moviesDiscardButton.setOnClickListenerWithThrottle {
+            val adapter = binding.moviesAvailableList.adapter as MoviesAdapter
+            adapter.resetSelection()
         }
 
         binding.moviesBack.setOnClickListenerWithThrottle {
@@ -57,10 +128,16 @@ class OwnerMovieManagerFragment : Fragment(R.layout.fragment_owner_movie_manager
         }
     }
 
-    private fun parseAllMovies(moviesList: MoviesList): List<Movie> {
-        val movies = moviesList.showing
-        movies.addAll(moviesList.comingSoon)
-        return movies
+    private fun getOwnerListAdapter(): MoviesAdapter {
+        return (binding.moviesOwnList.adapter as MoviesAdapter)
+    }
+
+    private fun getAvailableListAdapter(): MoviesAdapter {
+        return (binding.moviesAvailableList.adapter as MoviesAdapter)
+    }
+
+    companion object {
+        const val MOVIE_ID = "movieId"
     }
 
 }

@@ -1,6 +1,9 @@
 package com.uade.daitp.owner.home.core.repository
 
-import com.uade.daitp.owner.home.core.models.*
+import com.uade.daitp.owner.home.core.models.CreateScreeningIntent
+import com.uade.daitp.owner.home.core.models.Movie
+import com.uade.daitp.owner.home.core.models.MoviesList
+import com.uade.daitp.owner.home.core.models.Screening
 
 interface MovieRepository {
     fun getMovies(): MoviesList

@@ -86,7 +86,7 @@
         android:id="@+id/ownerCinemaFragment"
         android:name="com.uade.daitp.owner.home.presentation.OwnerCinemaFragment"
         android:label="OwnerCinemaFragment"
-        tools:layout="@layout/fragment_owner_cinema" >
+        tools:layout="@layout/fragment_owner_cinema">
         <action
             android:id="@+id/action_ownerCinemaFragment_to_ownerCinemaRoomFormFragment"
             app:destination="@id/ownerCinemaRoomFormFragment" />
@@ -103,5 +103,14 @@
         android:id="@+id/ownerMovieManagerFragment"
         android:name="com.uade.daitp.owner.home.presentation.OwnerMovieManagerFragment"
         android:label="OwnerMovieManagerFragment"
-        tools:layout="@layout/fragment_owner_movie_manager"/>
+        tools:layout="@layout/fragment_owner_movie_manager">
+        <action
+            android:id="@+id/action_ownerMovieManagerFragment_to_ownerMovieDetailFragment"
+            app:destination="@id/ownerMovieDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ownerMovieDetailFragment"
+        android:name="com.uade.daitp.owner.home.presentation.OwnerMovieDetailFragment"
+        android:label="OwnerMovieDetailFragment"
+        tools:layout="@layout/fragment_owner_movie_detail" />
 </navigation>

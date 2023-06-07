@@ -1,7 +1,7 @@
 package com.uade.daitp.owner.home.core.models
 
 import com.uade.daitp.owner.home.core.models.enums.ScreeningFormat
-import java.util.Date
+import java.util.*
 
 data class Screening(
     val id: Int,

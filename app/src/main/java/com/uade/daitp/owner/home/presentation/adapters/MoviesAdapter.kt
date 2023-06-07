@@ -1,24 +1,44 @@
 package com.uade.daitp.owner.home.presentation.adapters
 
-import android.content.Context
-import android.util.Log
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.uade.daitp.databinding.ListItemMovieBinding
 import com.uade.daitp.owner.home.core.models.Movie
+import com.uade.daitp.owner.home.core.models.MoviesList
 import com.uade.daitp.presentation.util.setOnClickListenerWithThrottle
 import java.util.concurrent.TimeUnit
 
-class MoviesAdapter(private val movies: List<Movie>) :
+@SuppressLint("NotifyDataSetChanged")
+class MoviesAdapter(
+    private var movies: MoviesList,
+    private val multipleSelectionEnabled: Boolean
+) :
     RecyclerView.Adapter<MoviesAdapter.ViewHolder>() {
 
     private val views = mutableListOf<View>()
+    private val visibleMovies = mutableListOf<Movie>()
+    private var showingMovies = true
+
+    private val _selectedMovies: MutableLiveData<MutableList<Movie>> by lazy { MutableLiveData<MutableList<Movie>>() }
+    val selectedMovies: LiveData<MutableList<Movie>> get() = _selectedMovies
+
+    init {
+        _selectedMovies.postValue(mutableListOf())
+        visibleMovies.addAll(movies.showing)
+        notifyDataSetChanged()
+    }
 
     class ViewHolder(
-        private val binding: ListItemMovieBinding
+        private val binding: ListItemMovieBinding,
+        private val multipleSelectionEnabled: Boolean,
+        private val resetSelection: () -> Unit,
+        private val selectedMovies: MutableLiveData<MutableList<Movie>>
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: Movie) {
             binding.itemMovieTitle.text = movie.title
@@ -27,8 +47,18 @@ class MoviesAdapter(private val movies: List<Movie>) :
                 .load(movie.imageUrl)
                 .into(binding.itemMovieThumbnail);
 
-            binding.root.setOnClickListenerWithThrottle {
-                it.isActivated = !it.isActivated
+            binding.root.setOnClickListenerWithThrottle(periodInMillis = 500L) {
+                val isActivated = it.isActivated
+                if (!multipleSelectionEnabled) resetSelection()
+                it.isActivated = !isActivated
+
+                val selected = selectedMovies.value!!
+                if (it.isActivated) {
+                    selected.add(movie)
+                } else {
+                    selected.remove(movie)
+                }
+                selectedMovies.postValue(selected)
             }
         }
 
@@ -44,13 +74,41 @@ class MoviesAdapter(private val movies: List<Movie>) :
         val binding =
             ListItemMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         views.add(binding.root)
-        return ViewHolder(binding)
+        return ViewHolder(binding, multipleSelectionEnabled, this::resetSelection, _selectedMovies)
     }
 
-    override fun getItemCount() = movies.size
+    override fun getItemCount() = visibleMovies.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(movies[position])
+        holder.bind(visibleMovies[position])
+    }
+
+    fun updateData(data: MoviesList) {
+        movies = data
+        resetData()
+    }
+
+    fun resetSelection() {
+        views.forEach { it.isActivated = false }
+        _selectedMovies.postValue(mutableListOf())
+    }
+
+    fun toggleMoviesType() {
+        showingMovies = !showingMovies
+        resetData()
+    }
+
+    private fun resetData() {
+        resetSelection()
+        visibleMovies.clear()
+
+        if (showingMovies) {
+            visibleMovies.addAll(movies.showing)
+        } else {
+            visibleMovies.addAll(movies.comingSoon)
+        }
+
+        notifyDataSetChanged()
     }
 
 }

@@ -11,10 +11,10 @@
         style="@style/BackButton"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:src="@drawable/ic_left"
         android:layout_marginStart="-15dp"
-        android:padding="15dp"
         android:backgroundTint="@color/white"
+        android:padding="15dp"
+        android:src="@drawable/ic_left"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -69,9 +69,11 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:src="@drawable/ic_delete"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@id/movies_own"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/movies_own" />
+        app:layout_constraintTop_toTopOf="@id/movies_own"
+        tools:visibility="visible" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/movies_own_list"

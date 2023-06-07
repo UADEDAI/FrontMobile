@@ -16,4 +16,8 @@ data class Movie(
     val imageUrl: String,
     val createdAt: Date,
     val updatedAt: Date,
-)
+) {
+    fun isShowing(): Boolean {
+        return score != null && score >= 0
+    }
+}

@@ -47,4 +47,8 @@ object ViewModelDI {
         ActionsDI.deleteMoviesFromRoom(),
         ActionsDI.getMovies(),
     )
+
+    fun getOwnerMovieDetailViewModel() = OwnerMovieDetailViewModel(
+        ActionsDI.getMovie()
+    )
 }
