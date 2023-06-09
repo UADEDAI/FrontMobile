@@ -8,7 +8,7 @@ import com.uade.daitp.owner.home.core.models.CreateCinemaRoomIntent
 interface CinemaRepository {
     fun createCinema(cinemaIntent: CreateCinemaIntent)
     fun deleteCinema(cinemaId: Int)
-    fun getCinemas(): List<Cinema>
+    suspend fun getCinemas(): List<Cinema>
     fun getCinema(cinemaId: Int): Cinema
 
     fun createCinemaRoom(cinemaRoomIntent: CreateCinemaRoomIntent)

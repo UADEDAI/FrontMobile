@@ -2,6 +2,7 @@ package com.uade.daitp.owner.home.core.actions
 
 import com.uade.daitp.owner.home.core.models.CinemaRoom
 import com.uade.daitp.owner.home.core.repository.CinemaRepository
+import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
@@ -13,7 +14,7 @@ internal class GetCinemaRoomsShould {
     private lateinit var cinemaRooms: List<CinemaRoom>
 
     @Test
-    fun `get cinemaRooms should call repository`() {
+    fun `get cinemaRooms should call repository`() = runTest {
         givenAnAction()
 
         whenGettingCinemas()
@@ -22,7 +23,7 @@ internal class GetCinemaRoomsShould {
     }
 
     @Test
-    fun `get empty cinema list if there are no cinema rooms`() {
+    fun `get empty cinema list if there are no cinema rooms`() = runTest  {
         givenAnActionWithEmptyRepository()
 
         whenGettingCinemas()
@@ -40,7 +41,7 @@ internal class GetCinemaRoomsShould {
         getCinemaRooms = GetCinemaRooms(repository)
     }
 
-    private fun givenAnActionWithEmptyRepository() {
+    private suspend fun givenAnActionWithEmptyRepository() {
         repository = mock()
         whenever(repository.getCinemas()).thenReturn(listOf())
         getCinemaRooms = GetCinemaRooms(repository)

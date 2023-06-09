@@ -42,4 +42,10 @@ class OwnerCinemaFormViewModel(
         val cinema = getCinema(cinemaId)
         _cinemaToEdit.value = cinema
     }
+
+    fun getUserId(): Int {
+        return 0
+
+        //TODO get saved User Id
+    }
 }

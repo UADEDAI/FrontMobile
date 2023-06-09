@@ -6,6 +6,9 @@ import androidx.lifecycle.ViewModel
 import com.uade.daitp.owner.home.core.actions.DeleteCinema
 import com.uade.daitp.owner.home.core.actions.GetCinemas
 import com.uade.daitp.owner.home.core.models.Cinema
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class OwnerHomeViewModel(
     private val getCinemas: GetCinemas,
@@ -16,7 +19,9 @@ class OwnerHomeViewModel(
     val cinemas: LiveData<List<Cinema>> get() = _cinemas
 
     fun refresh() {
-        _cinemas.value = getCinemas()
+        CoroutineScope(Dispatchers.IO).launch {
+            _cinemas.postValue(getCinemas())
+        }
     }
 
     fun delete(cinema: Cinema) {

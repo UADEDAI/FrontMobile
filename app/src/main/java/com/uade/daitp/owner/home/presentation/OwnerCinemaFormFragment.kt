@@ -24,6 +24,7 @@ class OwnerCinemaFormFragment : Fragment(R.layout.fragment_owner_cinema_form) {
 
         binding.cinemaFormButton.setOnClickListenerWithThrottle {
             val createIntent = CreateCinemaIntent(
+                userId = viewModel.getUserId(),
                 name = binding.cinemaFormNameText.text.toString(),
                 address = binding.cinemaFormAddressText.text.toString(),
                 addressNumber = binding.cinemaFormAddressNumberText.text.toInt(),
@@ -31,8 +32,8 @@ class OwnerCinemaFormFragment : Fragment(R.layout.fragment_owner_cinema_form) {
                 province = binding.cinemaFormProvinceText.text.toString(),
                 locality = binding.cinemaFormLocalityText.text.toString(),
                 neighbourhood = binding.cinemaFormNeighbourhoodText.text.toString(),
-                latitude = binding.cinemaFormLatitudeText.text.toLong(),
-                longitude = binding.cinemaFormLongitudeText.text.toLong(),
+                latitude = binding.cinemaFormLatitudeText.text.toString(),
+                longitude = binding.cinemaFormLongitudeText.text.toString(),
                 price = binding.cinemaFormPriceText.text.toDouble(),
                 enabled = binding.cinemaFormEnabled.isChecked,
             )
@@ -49,14 +50,14 @@ class OwnerCinemaFormFragment : Fragment(R.layout.fragment_owner_cinema_form) {
 
         viewModel.cinemaToEdit.observe(viewLifecycleOwner) {
             binding.cinemaFormNameText.setText(it.name)
-            binding.cinemaFormAddressText.setText(it.address)
-            binding.cinemaFormAddressNumberText.setText(it.addressNumber.toString())
+            binding.cinemaFormAddressText.setText(it.street)
+            binding.cinemaFormAddressNumberText.setText(it.streetNum.toString())
             binding.cinemaFormCountryText.setText(it.country)
-            binding.cinemaFormProvinceText.setText(it.province)
-            binding.cinemaFormLocalityText.setText(it.locality)
+            binding.cinemaFormProvinceText.setText(it.city)
+            binding.cinemaFormLocalityText.setText(it.state)
             binding.cinemaFormNeighbourhoodText.setText(it.neighbourhood)
-            binding.cinemaFormLatitudeText.setText(it.latitude.toString())
-            binding.cinemaFormLongitudeText.setText(it.longitude.toString())
+            binding.cinemaFormLatitudeText.setText(it.latitude)
+            binding.cinemaFormLongitudeText.setText(it.longitude)
             binding.cinemaFormPriceText.setText(it.price.toString())
             binding.cinemaFormEnabled.isChecked = it.enabled
 

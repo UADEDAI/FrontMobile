@@ -2,6 +2,7 @@ package com.uade.daitp.owner.home.core.actions
 
 import com.uade.daitp.owner.home.core.models.Cinema
 import com.uade.daitp.owner.home.core.repository.CinemaRepository
+import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
@@ -14,7 +15,7 @@ internal class GetCinemasShould {
     private lateinit var cinemas: List<Cinema>
 
     @Test
-    fun `get cinemas should call repository`() {
+    fun `get cinemas should call repository`() = runTest {
         givenAnAction()
 
         whenGettingCinemas()
@@ -23,7 +24,7 @@ internal class GetCinemasShould {
     }
 
     @Test
-    fun `get empty cinema list if there are no cinemas`() {
+    fun `get empty cinema list if there are no cinemas`() = runTest {
         givenAnActionWithEmptyRepository()
 
         whenGettingCinemas()
@@ -31,23 +32,23 @@ internal class GetCinemasShould {
         thenGetsEmptyList()
     }
 
-    private fun givenAnAction() {
+    private suspend fun givenAnAction() {
         repository = mock()
         whenever(repository.getCinemas()).thenReturn(listOf(mockCinema))
         getCinemas = GetCinemas(repository)
     }
 
-    private fun givenAnActionWithEmptyRepository() {
+    private suspend fun givenAnActionWithEmptyRepository() {
         repository = mock()
         whenever(repository.getCinemas()).thenReturn(listOf())
         getCinemas = GetCinemas(repository)
     }
 
-    private fun whenGettingCinemas() {
+    private suspend fun whenGettingCinemas() {
         cinemas = getCinemas()
     }
 
-    private fun thenRepositoryIsCalled() {
+    private suspend fun thenRepositoryIsCalled() {
         verify(repository).getCinemas()
     }
 
@@ -58,6 +59,7 @@ internal class GetCinemasShould {
     private companion object {
         val mockCinema = Cinema(
             1,
+            0,
             "Hoyts",
             "Av Corrientes",
             1234,
@@ -65,8 +67,8 @@ internal class GetCinemasShould {
             "Buenos Aires",
             "CABA",
             "Almagro",
-            1234,
-            1234,
+            "1234",
+            "1234",
             1000.0,
             true
         )

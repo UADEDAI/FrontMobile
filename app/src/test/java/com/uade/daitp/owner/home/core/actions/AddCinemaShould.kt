@@ -58,6 +58,7 @@ internal class AddCinemaShould {
 
     private companion object {
         val cinemaIntent = CreateCinemaIntent(
+            0,
             "Hoyts",
             "Av Corrientes",
             1234,
@@ -65,12 +66,13 @@ internal class AddCinemaShould {
             "Buenos Aires",
             "CABA",
             "Almagro",
-            1234,
-            1234,
+            "1234",
+            "1234",
             1000.0,
             true
         )
         val invalidCinemaIntent =  CreateCinemaIntent(
+            0,
             "INVALID",
             "Av Corrientes",
             1234,
@@ -78,8 +80,8 @@ internal class AddCinemaShould {
             "Buenos Aires",
             "CABA",
             "Almagro",
-            1234,
-            1234,
+            "1234",
+            "1234",
             1000.0,
             true
         )

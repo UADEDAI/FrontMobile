@@ -9,25 +9,10 @@ import com.uade.daitp.owner.home.core.models.exceptions.CinemaRoomNotFoundExcept
 import com.uade.daitp.owner.home.core.models.exceptions.InvalidCinemaNameException
 import com.uade.daitp.owner.home.core.models.exceptions.InvalidCinemaRoomNameException
 import com.uade.daitp.owner.home.core.repository.CinemaRepository
+import com.uade.daitp.owner.home.core.repository.service.CinemaService
 
-class InMemoryCinemaRepository : CinemaRepository {
-    private val cinemas: MutableList<Cinema> = mutableListOf(
-        Cinema(
-            0,
-            0,
-            "Hoyts",
-            "Av Corrientes",
-            1234,
-            "Argentina",
-            "CABA",
-            "CABA",
-            "CABA",
-            "1234",
-            "1234",
-            1000.0,
-            true
-        )
-    )
+class RemoteCinemaRepository(private val cinemaService: CinemaService) : CinemaRepository {
+    private val cinemas: MutableList<Cinema> = mutableListOf()
     private val cinemaRooms: MutableList<CinemaRoom> = mutableListOf(
         CinemaRoom(0, 0, "Main Hall", 20, 20, true)
     )
@@ -45,6 +30,7 @@ class InMemoryCinemaRepository : CinemaRepository {
     }
 
     override suspend fun getCinemas(): List<Cinema> {
+        if(cinemas.isEmpty()) cinemas.addAll(cinemaService.getCinemas())
         return cinemas
     }
 

@@ -1,6 +1,7 @@
 package com.uade.daitp.owner.home.core.models
 
 data class CreateCinemaIntent(
+    val userId: Int,
     val name: String,
     val address: String,
     val addressNumber: Int,
@@ -8,14 +9,15 @@ data class CreateCinemaIntent(
     val province: String,
     val locality: String,
     val neighbourhood: String,
-    val latitude: Long,
-    val longitude: Long,
+    val latitude: String,
+    val longitude: String,
     val price: Double,
     val enabled: Boolean
 ) {
     fun toCinema(id: Int): Cinema {
         return Cinema(
             id,
+            userId,
             name,
             address,
             addressNumber,
