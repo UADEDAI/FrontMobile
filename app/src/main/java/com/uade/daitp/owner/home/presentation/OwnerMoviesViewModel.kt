@@ -50,9 +50,9 @@ class OwnerMoviesViewModel(
         this.roomId = roomId
         try {
             val movies = getMoviesByRoom(roomId)
-            _ownerMovies.value = movies
+            _ownerMovies.postValue(movies)
         } catch (e: Exception) {
-            _ownerMovies.value = emptyMovieList()
+            _ownerMovies.postValue(emptyMovieList())
         }
     }
 
@@ -85,5 +85,4 @@ class OwnerMoviesViewModel(
         }
         _ownerMovies.postValue(_ownerMovies.value)
     }
-
 }

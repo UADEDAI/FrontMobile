@@ -11,7 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.uade.daitp.R
 import com.uade.daitp.databinding.FragmentOwnerCinemaBinding
 import com.uade.daitp.module.di.ViewModelDI
+import com.uade.daitp.owner.home.core.models.emptyMovieList
 import com.uade.daitp.owner.home.presentation.adapters.CinemaRoomAdapter
+import com.uade.daitp.owner.home.presentation.adapters.MoviesAdapter
 import com.uade.daitp.presentation.util.setOnClickListenerWithThrottle
 
 class OwnerCinemaFragment : Fragment(R.layout.fragment_owner_cinema) {
@@ -101,13 +103,35 @@ class OwnerCinemaFragment : Fragment(R.layout.fragment_owner_cinema) {
             viewModel.getRoomMoviesBy(it.id)
         }
 
+        val moviesView = binding.homeMoviesList
+        moviesView.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        moviesView.adapter = MoviesAdapter(emptyMovieList(), false)
+
         viewModel.selectedRoomMovies.observe(viewLifecycleOwner) {
-            if (it.isEmpty()) {
+            if (it.showing.isEmpty()) {
+                binding.homeMoviesList.visibility = GONE
                 binding.homeCinemaEmpty.visibility = VISIBLE
                 binding.homeCinemaEmptyText.setText(R.string.cinema_home_empty_movies)
                 binding.homeCinemaEmptyButton.setText(R.string.cinema_home_empty_movies_button)
             } else {
                 binding.homeCinemaEmpty.visibility = GONE
+
+                getMovieListAdapter().updateData(it)
+
+                getMovieListAdapter().selectedMovies.observe(viewLifecycleOwner) { selectedMovies ->
+                    if (selectedMovies.isEmpty()) {
+//                        binding.moviesInfo.visibility = View.GONE
+//                        binding.moviesAdd.visibility = View.GONE
+//                        binding.movieSwitch.visibility = View.VISIBLE
+                    } else {
+//                        binding.moviesInfo.visibility = View.VISIBLE
+//                        binding.moviesAdd.visibility = View.VISIBLE
+//                        binding.movieSwitch.visibility = View.GONE
+                    }
+                }
+
+                binding.homeMoviesList.visibility = VISIBLE
             }
         }
     }
@@ -120,6 +144,10 @@ class OwnerCinemaFragment : Fragment(R.layout.fragment_owner_cinema) {
             viewModel.getCinemaBy(id)
             viewModel.getCinemaRoomsById(id)
         }
+    }
+
+    private fun getMovieListAdapter(): MoviesAdapter {
+        return (binding.homeMoviesList.adapter as MoviesAdapter)
     }
 
     companion object {

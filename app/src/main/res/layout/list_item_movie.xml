@@ -33,7 +33,7 @@
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Sala 1" />
+            tools:text="Spiderman" />
 
         <TextView
             android:id="@+id/item_movie_duration"

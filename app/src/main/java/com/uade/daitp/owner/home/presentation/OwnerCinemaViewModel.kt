@@ -6,9 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.uade.daitp.owner.home.core.actions.GetCinema
 import com.uade.daitp.owner.home.core.actions.GetCinemaRooms
 import com.uade.daitp.owner.home.core.actions.GetMoviesByRoom
-import com.uade.daitp.owner.home.core.models.Cinema
-import com.uade.daitp.owner.home.core.models.CinemaRoom
-import com.uade.daitp.owner.home.core.models.Movie
+import com.uade.daitp.owner.home.core.models.*
 
 class OwnerCinemaViewModel(
     private val getCinema: GetCinema,
@@ -28,8 +26,8 @@ class OwnerCinemaViewModel(
     private val _selectedCinemaRoom: MutableLiveData<CinemaRoom> by lazy { MutableLiveData<CinemaRoom>() }
     val selectedCinemaRoom: LiveData<CinemaRoom> get() = _selectedCinemaRoom
 
-    private val _selectedRoomMovies: MutableLiveData<List<Movie>> by lazy { MutableLiveData<List<Movie>>() }
-    val selectedRoomMovies: LiveData<List<Movie>> get() = _selectedRoomMovies
+    private val _selectedRoomMovies: MutableLiveData<MoviesList> by lazy { MutableLiveData<MoviesList>() }
+    val selectedRoomMovies: LiveData<MoviesList> get() = _selectedRoomMovies
 
     fun getCinemaBy(cinemaId: Int) {
         try {
@@ -56,11 +54,9 @@ class OwnerCinemaViewModel(
     fun getRoomMoviesBy(roomId: Int) {
         try {
             val movies = getMoviesByRoom(roomId)
-            val moviesToShow = movies.showing
-            moviesToShow.addAll(movies.comingSoon)
-            _selectedRoomMovies.value = moviesToShow
+            _selectedRoomMovies.postValue(movies)
         } catch (e: Exception) {
-            _selectedRoomMovies.value = emptyList()
+            _selectedRoomMovies.postValue(emptyMovieList())
         }
     }
 }
