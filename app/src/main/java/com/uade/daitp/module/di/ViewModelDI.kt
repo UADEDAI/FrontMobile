@@ -37,7 +37,10 @@ object ViewModelDI {
         OwnerCinemaViewModel(
             ActionsDI.getCinema(),
             ActionsDI.getCinemaRooms(),
-            ActionsDI.getMoviesByRoom()
+            ActionsDI.getMoviesByRoom(),
+            ActionsDI.getScreeningsBy(),
+            ActionsDI.addScreening(),
+            ActionsDI.deleteScreening()
         )
 
     fun getOwnerMoviesViewModel() = OwnerMoviesViewModel(

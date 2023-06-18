@@ -9,9 +9,6 @@ data class CreateScreeningIntent(
     val format: ScreeningFormat,
     val startAt: Date,
     val endAt: Date,
-    val availableSeats: List<String>,
-    val createdAt: Date,
-    val updatedAt: Date
 ) {
     fun toScreening(id: Int): Screening {
         return Screening(
@@ -21,9 +18,9 @@ data class CreateScreeningIntent(
             format,
             startAt,
             endAt,
-            availableSeats,
-            createdAt,
-            updatedAt
+            emptyList(),
+            Calendar.getInstance().time,
+            Calendar.getInstance().time
         )
     }
 }

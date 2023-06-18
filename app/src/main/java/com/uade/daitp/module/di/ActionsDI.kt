@@ -40,4 +40,10 @@ object ActionsDI {
     fun getMovies() = GetMovies(RepositoryDI.getMovieRepository())
 
     fun getMovie() = GetMovie(RepositoryDI.getMovieRepository())
+
+    fun getScreeningsBy() = GetScreeningsBy(RepositoryDI.getMovieRepository())
+
+    fun addScreening() = AddScreening(RepositoryDI.getMovieRepository())
+
+    fun deleteScreening() = DeleteScreening(RepositoryDI.getMovieRepository())
 }

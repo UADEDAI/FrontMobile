@@ -1,6 +1,7 @@
 package com.uade.daitp.owner.home.infrastructure
 
 import com.uade.daitp.owner.home.core.models.*
+import com.uade.daitp.owner.home.core.models.enums.ScreeningFormat
 import com.uade.daitp.owner.home.core.models.exceptions.MovieNotFoundException
 import com.uade.daitp.owner.home.core.models.exceptions.ScreeningNotFoundException
 import com.uade.daitp.owner.home.core.repository.MovieRepository
@@ -45,7 +46,16 @@ class InMemoryMovieRepository : MovieRepository {
     )
     private val moviesByRoom = mutableMapOf<Int, MoviesList>()
 
-    private val screenings = mutableListOf<Screening>()
+    private val screenings = mutableListOf(
+        Screening(
+            0, 1, 0, ScreeningFormat.SUBTITLED,
+            Calendar.getInstance().time,
+            GregorianCalendar(2023, 7, 20, 5, 3).time,
+            listOf(),
+            Calendar.getInstance().time,
+            Calendar.getInstance().time
+        )
+    )
 
     override fun getMovies(): MoviesList {
         return moviesList
@@ -94,6 +104,10 @@ class InMemoryMovieRepository : MovieRepository {
 
     override fun getScreenings(): List<Screening> {
         return screenings
+    }
+
+    override fun getScreeningsBy(movieId: Int, roomId: Int): List<Screening> {
+        return screenings.filter { screening -> screening.movieId == movieId && screening.roomId == roomId }
     }
 
     override fun getScreening(screeningId: Int): Screening {

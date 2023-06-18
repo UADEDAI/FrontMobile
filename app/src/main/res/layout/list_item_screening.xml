@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:background="@drawable/cinema_screening_background"
+    android:paddingHorizontal="10dp"
+    android:paddingVertical="5dp">
+
+    <ImageView
+        android:id="@+id/item_screening_icon"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:src="@drawable/ic_clock"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/white" />
+
+    <TextView
+        android:id="@+id/item_screening_time"
+        style="@style/TextAppearance.AppCompat.Subhead"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/item_screening_icon"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="14:30 - 16:17" />
+
+    <ImageView
+        android:id="@+id/item_screening_close"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:padding="8dp"
+        android:layout_marginStart="10dp"
+        android:src="@drawable/ic_close"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@id/item_screening_time"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="@color/white" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

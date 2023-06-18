@@ -12,7 +12,7 @@ object RetrofitFactory {
         return createRetrofitService().create(CinemaService::class.java)
     }
 
-    private const val BASE_URL = "http://ec2-18-205-194-39.compute-1.amazonaws.com/"
+    private const val BASE_URL = "http://54.85.247.40/"
 
     private fun getMoshi() = Moshi.Builder()
         .add(BooleanAdapter())

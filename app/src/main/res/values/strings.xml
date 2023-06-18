@@ -62,4 +62,10 @@
     <string name="movie_category">Category</string>
     <string name="movie_director">Director</string>
     <string name="movie_cast">Cast</string>
+    <string name="screening_empty_text">No screening time added</string>
+    <string name="select_screening_time">Select time</string>
+    <string name="cancel">Cancel</string>
+    <string name="next">Next</string>
+    <string name="dubbed">Dubbed</string>
+    <string name="subtitled">Subtitled</string>
 </resources>

@@ -80,6 +80,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="@string/owner_home_movies"
+        android:textColor="@color/black"
         android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/home_room_list"
@@ -108,6 +109,67 @@
         app:layout_constraintTop_toBottomOf="@id/home_movies_title"
         tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/list_item_movie" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/home_movie_screening_manager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="32dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/home_movies_list"
+        app:layout_constraintVertical_bias="0"
+        tools:visibility="visible">
+
+        <TextView
+            android:id="@+id/home_movie_screening_title"
+            style="@style/TextAppearance.AppCompat.Subhead"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Spiderman" />
+
+        <ImageButton
+            android:id="@+id/home_movie_screening_add"
+            style="@style/IconButton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/ic_plus"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/home_movie_screening_title" />
+
+        <TextView
+            android:id="@+id/home_movie_screening_empty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:text="@string/screening_empty_text"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@id/home_movie_screening_add"
+            app:layout_constraintStart_toEndOf="@id/home_movie_screening_add"
+            app:layout_constraintTop_toTopOf="@id/home_movie_screening_add"
+            tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/list_item_screening"
+            tools:visibility="gone" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/home_movie_screening_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/home_movie_screening_add"
+            app:layout_constraintTop_toBottomOf="@id/home_movie_screening_title"
+            tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/list_item_screening" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/home_cinema_empty"
