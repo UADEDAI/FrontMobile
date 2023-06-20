@@ -1,5 +1,6 @@
 package com.uade.daitp.owner.home.presentation
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -19,13 +20,23 @@ class OwnerHomeViewModel(
     val cinemas: LiveData<List<Cinema>> get() = _cinemas
 
     fun refresh() {
-        CoroutineScope(Dispatchers.IO).launch {
-            _cinemas.postValue(getCinemas())
+        try {
+            CoroutineScope(Dispatchers.IO).launch {
+                _cinemas.postValue(getCinemas())
+            }
+        } catch (e: Exception) {
+            Log.e("OwnerHomeViewModel", "refresh error", e)
         }
     }
 
     fun delete(cinema: Cinema) {
-        deleteCinema(cinemaId = cinema.id)
+        try {
+            CoroutineScope(Dispatchers.IO).launch {
+                deleteCinema(cinemaId = cinema.id)
+            }
+        } catch (e: Exception) {
+            Log.e("OwnerHomeViewModel", "delete error", e)
+        }
         refresh()
     }
 

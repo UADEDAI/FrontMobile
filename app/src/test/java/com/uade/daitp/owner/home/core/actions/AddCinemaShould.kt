@@ -3,6 +3,7 @@ package com.uade.daitp.owner.home.core.actions
 import com.uade.daitp.owner.home.core.models.CreateCinemaIntent
 import com.uade.daitp.owner.home.core.models.exceptions.InvalidCinemaNameException
 import com.uade.daitp.owner.home.core.repository.CinemaRepository
+import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
@@ -15,7 +16,7 @@ internal class AddCinemaShould {
     private var error: Exception? = null
 
     @Test
-    fun `add cinema should call repository`() {
+    fun `add cinema should call repository`() = runTest {
         givenAnAction()
 
         whenAddingACinema(cinemaIntent)
@@ -24,7 +25,7 @@ internal class AddCinemaShould {
     }
 
     @Test
-    fun `used cinema name throws exception`() {
+    fun `used cinema name throws exception`() = runTest {
         givenAnAction()
 
         whenAddingACinema(invalidCinemaIntent)
@@ -32,7 +33,7 @@ internal class AddCinemaShould {
         thenErrorIsThrown()
     }
 
-    private fun givenAnAction() {
+    private suspend fun givenAnAction() {
         repository = mock()
         whenever(repository.createCinema(invalidCinemaIntent)).thenThrow(
             InvalidCinemaNameException("Name already in use")
@@ -40,7 +41,7 @@ internal class AddCinemaShould {
         addCinema = AddCinema(repository)
     }
 
-    private fun whenAddingACinema(cinemaIntent: CreateCinemaIntent) {
+    private suspend fun whenAddingACinema(cinemaIntent: CreateCinemaIntent) {
         try {
             addCinema.invoke(cinemaIntent)
         } catch (e: Exception) {
@@ -48,7 +49,7 @@ internal class AddCinemaShould {
         }
     }
 
-    private fun thenRepositoryIsCalled() {
+    private suspend fun thenRepositoryIsCalled() {
         verify(repository).createCinema(cinemaIntent)
     }
 

@@ -2,6 +2,7 @@ package com.uade.daitp.owner.home.core.actions
 
 import com.uade.daitp.owner.home.core.models.exceptions.CinemaRoomNotFoundException
 import com.uade.daitp.owner.home.core.repository.CinemaRepository
+import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
@@ -13,7 +14,7 @@ internal class DeleteCinemaRoomShould {
     private var error: Exception? = null
 
     @Test
-    fun `delete cinema room should call delete to repository`() {
+    fun `delete cinema room should call delete to repository`() = runTest {
         givenAnAction()
 
         whenDeletingACinemaRoom(cinemaRoomId)
@@ -22,7 +23,7 @@ internal class DeleteCinemaRoomShould {
     }
 
     @Test
-    fun `non existent cinema room Id throws error`() {
+    fun `non existent cinema room Id throws error`() = runTest {
         givenAnAction()
 
         whenDeletingACinemaRoom(invalidCinemaRoomId)
@@ -30,7 +31,7 @@ internal class DeleteCinemaRoomShould {
         thenErrorIsThrown()
     }
 
-    private fun givenAnAction() {
+    private suspend fun givenAnAction() {
         repository = mock()
         whenever(repository.deleteCinemaRoom(invalidCinemaRoomId)).thenThrow(
             CinemaRoomNotFoundException("$invalidCinemaRoomId not found")
@@ -38,7 +39,7 @@ internal class DeleteCinemaRoomShould {
         deleteCinemaRoom = DeleteCinemaRoom(repository)
     }
 
-    private fun whenDeletingACinemaRoom(cinemaId: Int) {
+    private suspend fun whenDeletingACinemaRoom(cinemaId: Int) {
         try {
             deleteCinemaRoom.invoke(cinemaId)
         } catch (e: Exception) {
@@ -46,7 +47,7 @@ internal class DeleteCinemaRoomShould {
         }
     }
 
-    private fun thenRepositoryIsCalled() {
+    private suspend fun thenRepositoryIsCalled() {
         verify(repository).deleteCinemaRoom(cinemaRoomId)
     }
 

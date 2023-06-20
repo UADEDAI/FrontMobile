@@ -5,6 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.uade.daitp.owner.home.core.actions.*
 import com.uade.daitp.owner.home.core.models.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class OwnerMoviesViewModel(
     private val getCinemaRoom: GetCinemaRoom,
@@ -39,8 +42,10 @@ class OwnerMoviesViewModel(
     fun getRoom(roomId: Int) {
         this.roomId = roomId
         try {
-            val room = getCinemaRoom(roomId)
-            _cinemaRoom.value = room
+            CoroutineScope(Dispatchers.IO).launch {
+                val room = getCinemaRoom(roomId)
+                _cinemaRoom.postValue(room)
+            }
         } catch (e: Exception) {
             _error.value = e.message
         }

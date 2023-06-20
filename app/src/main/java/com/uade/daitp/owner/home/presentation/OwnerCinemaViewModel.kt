@@ -6,6 +6,9 @@ import androidx.lifecycle.ViewModel
 import com.uade.daitp.owner.home.core.actions.*
 import com.uade.daitp.owner.home.core.models.*
 import com.uade.daitp.owner.home.core.models.enums.ScreeningFormat
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class OwnerCinemaViewModel(
     private val getCinema: GetCinema,
@@ -36,8 +39,10 @@ class OwnerCinemaViewModel(
 
     fun getCinemaBy(cinemaId: Int) {
         try {
-            val cinema = getCinema(cinemaId)
-            _cinema.value = cinema
+            CoroutineScope(Dispatchers.IO).launch {
+                val cinema = getCinema(cinemaId)
+                _cinema.postValue(cinema)
+            }
         } catch (e: Exception) {
             _error.value = e.message
         }
@@ -45,8 +50,10 @@ class OwnerCinemaViewModel(
 
     fun getCinemaRoomsById(cinemaId: Int) {
         try {
-            val cinemaRooms = getCinemaRooms(cinemaId)
-            _cinemaRooms.value = cinemaRooms
+            CoroutineScope(Dispatchers.IO).launch {
+                val cinemaRooms = getCinemaRooms(cinemaId)
+                _cinemaRooms.postValue(cinemaRooms)
+            }
         } catch (e: Exception) {
             _error.value = e.message
         }

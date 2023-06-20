@@ -12,62 +12,57 @@ import com.uade.daitp.owner.home.core.repository.CinemaRepository
 import com.uade.daitp.owner.home.core.repository.service.CinemaService
 
 class RemoteCinemaRepository(private val cinemaService: CinemaService) : CinemaRepository {
-    private val cinemas: MutableList<Cinema> = mutableListOf()
-    private val cinemaRooms: MutableList<CinemaRoom> = mutableListOf(
-        CinemaRoom(0, 0, "Main Hall", 20, 20, true)
-    )
-
-    override fun createCinema(cinemaIntent: CreateCinemaIntent) {
+    override suspend fun createCinema(cinemaIntent: CreateCinemaIntent) {
         if (cinemaIntent.name == "invalid") throw InvalidCinemaNameException("Name already in use")
 
-        cinemas.add(cinemaIntent.toCinema(getNewId()))
+        cinemaService.createCinema(cinemaIntent)
     }
 
-    override fun deleteCinema(cinemaId: Int) {
-        val deleted = cinemas.removeIf { cinema -> cinema.id == cinemaId }
-
-        if (!deleted) throw CinemaNotFoundException("$cinemaId does not exist")
+    override suspend fun deleteCinema(cinemaId: Int) {
+        try {
+            cinemaService.deleteCinema(cinemaId)
+        } catch (e: Exception) {
+            throw CinemaNotFoundException("$cinemaId does not exist")
+        }
     }
 
     override suspend fun getCinemas(): List<Cinema> {
-        if(cinemas.isEmpty()) cinemas.addAll(cinemaService.getCinemas())
-        return cinemas
+        return cinemaService.getCinemas()
     }
 
-    override fun getCinema(cinemaId: Int): Cinema {
-        val cinema = cinemas.find { cinema: Cinema -> cinema.id == cinemaId }
-        cinema?.let { return cinema }
-            ?: throw CinemaNotFoundException("$cinemaId does not exist")
+    override suspend fun getCinema(cinemaId: Int): Cinema {
+        try {
+            return cinemaService.getCinema(cinemaId)
+        } catch (e: Exception) {
+            throw CinemaNotFoundException("$cinemaId does not exist")
+        }
     }
 
-    override fun createCinemaRoom(cinemaRoomIntent: CreateCinemaRoomIntent) {
-        if (cinemaRoomIntent.name == "invalid") throw InvalidCinemaRoomNameException("Name already in use")
-
-        cinemaRooms.add(cinemaRoomIntent.toCinemaRoom(getNewRoomId()))
+    override suspend fun createCinemaRoom(cinemaRoomIntent: CreateCinemaRoomIntent) {
+        try {
+            cinemaService.createCinemaRoom(cinemaRoomIntent)
+        } catch (e: Exception) {
+            throw InvalidCinemaRoomNameException("Name already in use")
+        }
     }
 
-    override fun deleteCinemaRoom(id: Int) {
-        val deleted = cinemaRooms.removeIf { cinemaRoom -> cinemaRoom.id == id }
-
-        if (!deleted) throw CinemaRoomNotFoundException("$id does not exist")
+    override suspend fun deleteCinemaRoom(id: Int) {
+        try {
+            cinemaService.deleteCinemaRoom(id)
+        } catch (e: Exception) {
+            throw CinemaRoomNotFoundException("$id does not exist")
+        }
     }
 
-    override fun getCinemaRooms(cinemaId: Int): List<CinemaRoom> {
-        return cinemaRooms.filter { cinemaRoom -> cinemaRoom.cinemaId == cinemaId }
+    override suspend fun getCinemaRooms(cinemaId: Int): List<CinemaRoom> {
+        return cinemaService.getCinemaRooms(cinemaId)
     }
 
-    override fun getCinemaRoom(cinemaRoomId: Int): CinemaRoom {
-        val cinemaRoom =
-            cinemaRooms.find { cinemaRoom: CinemaRoom -> cinemaRoom.id == cinemaRoomId }
-        cinemaRoom?.let { return cinemaRoom }
-            ?: throw CinemaRoomNotFoundException("$cinemaRoomId does not exist")
-    }
-
-    private fun getNewId(): Int {
-        return cinemas.size
-    }
-
-    private fun getNewRoomId(): Int {
-        return cinemaRooms.size
+    override suspend fun getCinemaRoom(cinemaRoomId: Int): CinemaRoom {
+        try {
+            return cinemaService.getCinemaRoom(cinemaRoomId)
+        } catch (e: Exception) {
+            throw CinemaRoomNotFoundException("$cinemaRoomId does not exist")
+        }
     }
 }

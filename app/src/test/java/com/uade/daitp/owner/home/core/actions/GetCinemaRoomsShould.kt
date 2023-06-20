@@ -31,7 +31,7 @@ internal class GetCinemaRoomsShould {
         thenGetsEmptyList()
     }
 
-    private fun givenAnAction() {
+    private suspend fun givenAnAction() {
         repository = mock()
         whenever(repository.getCinemaRooms(mockCinemaRoom.cinemaId)).thenReturn(
             listOf(
@@ -43,15 +43,15 @@ internal class GetCinemaRoomsShould {
 
     private suspend fun givenAnActionWithEmptyRepository() {
         repository = mock()
-        whenever(repository.getCinemas()).thenReturn(listOf())
+        whenever(repository.getCinemaRooms(mockCinemaRoom.cinemaId)).thenReturn(listOf())
         getCinemaRooms = GetCinemaRooms(repository)
     }
 
-    private fun whenGettingCinemas() {
+    private suspend fun whenGettingCinemas() {
         cinemaRooms = getCinemaRooms(mockCinemaRoom.cinemaId)
     }
 
-    private fun thenRepositoryIsCalled() {
+    private suspend fun thenRepositoryIsCalled() {
         verify(repository).getCinemaRooms(mockCinemaRoom.cinemaId)
     }
 

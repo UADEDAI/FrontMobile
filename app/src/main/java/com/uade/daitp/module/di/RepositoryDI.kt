@@ -15,7 +15,7 @@ object RepositoryDI {
 
     private val cinemaRepo by lazy {
         RemoteCinemaRepository(
-            RetrofitFactory.getCinemaService()
+            RetrofitFactory.cinemaService
         )
     }
 

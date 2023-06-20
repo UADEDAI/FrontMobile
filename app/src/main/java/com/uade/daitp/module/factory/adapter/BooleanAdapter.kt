@@ -8,9 +8,15 @@ import com.squareup.moshi.ToJson
 class BooleanAdapter {
     @FromJson
     fun fromJson(reader: JsonReader): Boolean {
-        return when (reader.nextInt()) {
-            0 -> false
-            1 -> true
+        return when {
+            reader.peek() == JsonReader.Token.BOOLEAN -> reader.nextBoolean()
+            reader.peek() == JsonReader.Token.NUMBER -> {
+                when (reader.nextInt()) {
+                    0 -> false
+                    1 -> true
+                    else -> throw IllegalArgumentException("Invalid boolean value")
+                }
+            }
             else -> throw IllegalArgumentException("Invalid boolean value")
         }
     }

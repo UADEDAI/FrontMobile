@@ -5,7 +5,7 @@ import com.uade.daitp.owner.home.core.repository.CinemaRepository
 
 class AddCinema(private val cinemaRepository: CinemaRepository) {
 
-    operator fun invoke(cinemaIntent: CreateCinemaIntent) {
+    suspend operator fun invoke(cinemaIntent: CreateCinemaIntent) {
         cinemaRepository.createCinema(cinemaIntent)
     }
 }

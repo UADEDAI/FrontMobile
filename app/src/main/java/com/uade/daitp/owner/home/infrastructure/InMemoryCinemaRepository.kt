@@ -32,13 +32,13 @@ class InMemoryCinemaRepository : CinemaRepository {
         CinemaRoom(0, 0, "Main Hall", 20, 20, true)
     )
 
-    override fun createCinema(cinemaIntent: CreateCinemaIntent) {
+    override suspend fun createCinema(cinemaIntent: CreateCinemaIntent) {
         if (cinemaIntent.name == "invalid") throw InvalidCinemaNameException("Name already in use")
 
         cinemas.add(cinemaIntent.toCinema(getNewId()))
     }
 
-    override fun deleteCinema(cinemaId: Int) {
+    override suspend fun deleteCinema(cinemaId: Int) {
         val deleted = cinemas.removeIf { cinema -> cinema.id == cinemaId }
 
         if (!deleted) throw CinemaNotFoundException("$cinemaId does not exist")
@@ -48,29 +48,29 @@ class InMemoryCinemaRepository : CinemaRepository {
         return cinemas
     }
 
-    override fun getCinema(cinemaId: Int): Cinema {
+    override suspend fun getCinema(cinemaId: Int): Cinema {
         val cinema = cinemas.find { cinema: Cinema -> cinema.id == cinemaId }
         cinema?.let { return cinema }
             ?: throw CinemaNotFoundException("$cinemaId does not exist")
     }
 
-    override fun createCinemaRoom(cinemaRoomIntent: CreateCinemaRoomIntent) {
+    override suspend fun createCinemaRoom(cinemaRoomIntent: CreateCinemaRoomIntent) {
         if (cinemaRoomIntent.name == "invalid") throw InvalidCinemaRoomNameException("Name already in use")
 
         cinemaRooms.add(cinemaRoomIntent.toCinemaRoom(getNewRoomId()))
     }
 
-    override fun deleteCinemaRoom(id: Int) {
+    override suspend fun deleteCinemaRoom(id: Int) {
         val deleted = cinemaRooms.removeIf { cinemaRoom -> cinemaRoom.id == id }
 
         if (!deleted) throw CinemaRoomNotFoundException("$id does not exist")
     }
 
-    override fun getCinemaRooms(cinemaId: Int): List<CinemaRoom> {
+    override suspend fun getCinemaRooms(cinemaId: Int): List<CinemaRoom> {
         return cinemaRooms.filter { cinemaRoom -> cinemaRoom.cinemaId == cinemaId }
     }
 
-    override fun getCinemaRoom(cinemaRoomId: Int): CinemaRoom {
+    override suspend fun getCinemaRoom(cinemaRoomId: Int): CinemaRoom {
         val cinemaRoom =
             cinemaRooms.find { cinemaRoom: CinemaRoom -> cinemaRoom.id == cinemaRoomId }
         cinemaRoom?.let { return cinemaRoom }

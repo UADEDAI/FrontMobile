@@ -134,7 +134,7 @@ class OwnerCinemaFragment : Fragment(R.layout.fragment_owner_cinema) {
                     if (selectedMovies.isEmpty()) {
                         binding.homeMovieScreeningManager.visibility = GONE
                     } else {
-                        if(viewModel.isSelectedAShowingMovie(selectedMovies[0])) {
+                        if (viewModel.isSelectedAShowingMovie(selectedMovies[0])) {
                             binding.homeMovieScreeningManager.visibility = VISIBLE
                             viewModel.getScreenings(selectedMovies[0])
                         } else {
@@ -196,21 +196,36 @@ class OwnerCinemaFragment : Fragment(R.layout.fragment_owner_cinema) {
                     0 -> ScreeningFormat.DUBBED
                     else -> ScreeningFormat.SUBTITLED
                 }
-                viewModel.addScreeningFrom(getMovieListAdapter().selectedMovies.value!![0], screening, language)
+                viewModel.addScreeningFrom(
+                    getMovieListAdapter().selectedMovies.value!![0],
+                    screening,
+                    language
+                )
                 dialog.dismiss()
             }
             .setSingleChoiceItems(singleItems, checkedItem) { _, _ -> }
             .show()
     }
 
+    private var returningFromPause = false
+
     override fun onResume() {
         super.onResume()
 
-        val cinemaId = arguments?.getInt(CINEMA_ID)
-        cinemaId?.let { id ->
-            viewModel.getCinemaBy(id)
-            viewModel.getCinemaRoomsById(id)
+        if (returningFromPause) {
+            val cinemaId = arguments?.getInt(CINEMA_ID)
+            cinemaId?.let { id ->
+                viewModel.getCinemaBy(id)
+                viewModel.getCinemaRoomsById(id)
+            }
+            returningFromPause = false
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+
+        returningFromPause = true
     }
 
     private fun getMovieListAdapter(): MoviesAdapter {

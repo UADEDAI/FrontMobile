@@ -5,7 +5,7 @@ import com.uade.daitp.owner.home.core.repository.CinemaRepository
 
 class GetCinemaRooms(private val cinemaRepository: CinemaRepository) {
 
-    operator fun invoke(cinemaId: Int): List<CinemaRoom> {
+    suspend operator fun invoke(cinemaId: Int): List<CinemaRoom> {
         return cinemaRepository.getCinemaRooms(cinemaId)
     }
 }

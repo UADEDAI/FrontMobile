@@ -8,6 +8,9 @@ import com.uade.daitp.owner.home.core.actions.DeleteCinemaRoom
 import com.uade.daitp.owner.home.core.actions.GetCinemaRoom
 import com.uade.daitp.owner.home.core.models.CinemaRoom
 import com.uade.daitp.owner.home.core.models.CreateCinemaRoomIntent
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class OwnerCinemaRoomFormViewModel(
     private val getCinemaRoom: GetCinemaRoom,
@@ -27,16 +30,26 @@ class OwnerCinemaRoomFormViewModel(
     fun processForm(createIntent: CreateCinemaRoomIntent) {
         try {
             _roomToEdit.value?.let {
-                deleteCinemaRoom(it.id)
+                CoroutineScope(Dispatchers.IO).launch {
+                    deleteCinemaRoom(it.id)
+                    addCinemaRoom(createIntent)
+                    _processSuccess.postValue(true)
+                }
             }
-            addCinemaRoom(createIntent)
-            _processSuccess.postValue(true)
         } catch (e: Exception) {
             _error.postValue(e.message)
         }
     }
 
     fun getRoom(roomId: Int) {
-        _roomToEdit.value = getCinemaRoom(roomId)
+        try {
+            _roomToEdit.value?.let {
+                CoroutineScope(Dispatchers.IO).launch {
+                    _roomToEdit.postValue(getCinemaRoom(roomId))
+                }
+            }
+        } catch (e: Exception) {
+            _error.postValue(e.message)
+        }
     }
 }

@@ -3,6 +3,7 @@ package com.uade.daitp.owner.home.core.actions
 import com.uade.daitp.owner.home.core.models.CreateCinemaRoomIntent
 import com.uade.daitp.owner.home.core.models.exceptions.InvalidCinemaRoomNameException
 import com.uade.daitp.owner.home.core.repository.CinemaRepository
+import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
@@ -14,7 +15,7 @@ internal class AddCinemaRoomShould {
     private var error: Exception? = null
 
     @Test
-    fun `add cinema room should call repository`() {
+    fun `add cinema room should call repository`() = runTest {
         givenAnAction()
 
         whenAddingACinema(cinemaRoomIntent)
@@ -23,7 +24,7 @@ internal class AddCinemaRoomShould {
     }
 
     @Test
-    fun `used cinema room name throws exception`() {
+    fun `used cinema room name throws exception`() = runTest {
         givenAnAction()
 
         whenAddingACinema(invalidCinemaRoomIntent)
@@ -31,7 +32,7 @@ internal class AddCinemaRoomShould {
         thenErrorIsThrown()
     }
 
-    private fun givenAnAction() {
+    private suspend fun givenAnAction() {
         repository = mock()
         whenever(repository.createCinemaRoom(invalidCinemaRoomIntent)).thenThrow(
             InvalidCinemaRoomNameException("Name already in use")
@@ -39,7 +40,7 @@ internal class AddCinemaRoomShould {
         addCinemaRoom = AddCinemaRoom(repository)
     }
 
-    private fun whenAddingACinema(cinemaRoomIntent: CreateCinemaRoomIntent) {
+    private suspend fun whenAddingACinema(cinemaRoomIntent: CreateCinemaRoomIntent) {
         try {
             addCinemaRoom.invoke(cinemaRoomIntent)
         } catch (e: Exception) {
@@ -47,7 +48,7 @@ internal class AddCinemaRoomShould {
         }
     }
 
-    private fun thenRepositoryIsCalled() {
+    private suspend fun thenRepositoryIsCalled() {
         verify(repository).createCinemaRoom(cinemaRoomIntent)
     }
 
@@ -63,7 +64,7 @@ internal class AddCinemaRoomShould {
             30,
             true
         )
-        val invalidCinemaRoomIntent =  CreateCinemaRoomIntent(
+        val invalidCinemaRoomIntent = CreateCinemaRoomIntent(
             7,
             "INVALID",
             20,

@@ -8,6 +8,9 @@ import com.uade.daitp.owner.home.core.actions.DeleteCinema
 import com.uade.daitp.owner.home.core.actions.GetCinema
 import com.uade.daitp.owner.home.core.models.Cinema
 import com.uade.daitp.owner.home.core.models.CreateCinemaIntent
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class OwnerCinemaFormViewModel(
     private val addCinema: AddCinema,
@@ -29,18 +32,28 @@ class OwnerCinemaFormViewModel(
     ) {
         try {
             _cinemaToEdit.value?.let {
-                deleteCinema(it.id)
+                CoroutineScope(Dispatchers.IO).launch {
+                    deleteCinema(it.id)
+                    addCinema(createCinemaIntent)
+                    _processSuccess.postValue(true)
+                }
             }
-            addCinema(createCinemaIntent)
-            _processSuccess.postValue(true)
         } catch (e: Exception) {
             _error.postValue(e.message)
         }
     }
 
     fun getCinemaToEdit(cinemaId: Int) {
-        val cinema = getCinema(cinemaId)
-        _cinemaToEdit.value = cinema
+        try {
+            _cinemaToEdit.value?.let {
+                CoroutineScope(Dispatchers.IO).launch {
+                    val cinema = getCinema(cinemaId)
+                    _cinemaToEdit.postValue(cinema)
+                }
+            }
+        } catch (e: Exception) {
+            _error.postValue(e.message)
+        }
     }
 
     fun getUserId(): Int {
