@@ -67,8 +67,8 @@ internal class AddCinemaShould {
             "Buenos Aires",
             "CABA",
             "Almagro",
-            "1234",
-            "1234",
+            100.0,
+            100.0,
             1000.0,
             true
         )
@@ -81,8 +81,8 @@ internal class AddCinemaShould {
             "Buenos Aires",
             "CABA",
             "Almagro",
-            "1234",
-            "1234",
+            100.0,
+            100.0,
             1000.0,
             true
         )

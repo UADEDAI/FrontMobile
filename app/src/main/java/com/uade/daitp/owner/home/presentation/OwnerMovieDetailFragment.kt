@@ -37,7 +37,7 @@ class OwnerMovieDetailFragment : Fragment(R.layout.fragment_owner_movie_detail) 
             binding.movieYear.text = getYear(it.releaseDate)
             binding.movieCategory.text = it.genre
             binding.movieDirector.text = it.director
-            binding.movieCast.text = it.cast.joinToString(separator = ", ")
+            binding.movieCast.text = it.cast
         }
 
         binding.movieBack.setOnClickListenerWithThrottle {

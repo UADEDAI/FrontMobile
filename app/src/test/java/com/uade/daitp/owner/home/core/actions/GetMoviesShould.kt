@@ -4,6 +4,7 @@ import com.uade.daitp.owner.home.core.models.Movie
 import com.uade.daitp.owner.home.core.models.MoviesList
 import com.uade.daitp.owner.home.core.models.Pagination
 import com.uade.daitp.owner.home.core.repository.MovieRepository
+import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import org.junit.jupiter.api.Assertions
 import org.mockito.kotlin.mock
@@ -18,7 +19,7 @@ internal class GetMoviesShould {
     private lateinit var moviesList: MoviesList
 
     @Test
-    fun `get movies should call repository`() {
+    fun `get movies should call repository`() = runTest {
         givenAnAction()
 
         whenGettingMovies()
@@ -27,7 +28,7 @@ internal class GetMoviesShould {
     }
 
     @Test
-    fun `get empty list if there are no movies`() {
+    fun `get empty list if there are no movies`() = runTest {
         givenAnActionWithEmptyRepository()
 
         whenGettingMovies()
@@ -39,23 +40,23 @@ internal class GetMoviesShould {
         Assertions.assertTrue { moviesList.comingSoon.isEmpty() && moviesList.showing.isEmpty() }
     }
 
-    private fun givenAnActionWithEmptyRepository() {
+    private suspend fun givenAnActionWithEmptyRepository() {
         repository = mock()
         whenever(repository.getMovies()).thenReturn(mockEmptyMoviesList)
         getMovies = GetMovies(repository)
     }
 
-    private fun givenAnAction() {
+    private suspend fun givenAnAction() {
         repository = mock()
         whenever(repository.getMovies()).thenReturn(mockMoviesList)
         getMovies = GetMovies(repository)
     }
 
-    private fun whenGettingMovies() {
+    private suspend fun whenGettingMovies() {
         moviesList = getMovies()
     }
 
-    private fun thenRepositoryIsCalled() {
+    private suspend fun thenRepositoryIsCalled() {
         verify(repository).getMovies()
     }
 

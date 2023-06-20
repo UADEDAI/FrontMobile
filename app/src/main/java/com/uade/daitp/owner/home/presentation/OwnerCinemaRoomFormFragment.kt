@@ -30,7 +30,7 @@ class OwnerCinemaRoomFormFragment : Fragment(R.layout.fragment_owner_cinema_room
             val createIntent = CreateCinemaRoomIntent(
                 cinemaId = cinemaId!!,
                 name = binding.cinemaFormRoomNameText.text.toString(),
-                rows = binding.cinemaRoomFormRowText.text.toInt(),
+                numRows = binding.cinemaRoomFormRowText.text.toInt(),
                 seats = binding.cinemaRoomFormSeatText.text.toInt(),
                 enabled = binding.cinemaRoomFormEnabled.isChecked,
             )
@@ -47,7 +47,7 @@ class OwnerCinemaRoomFormFragment : Fragment(R.layout.fragment_owner_cinema_room
 
         viewModel.roomToEdit.observe(viewLifecycleOwner) {
             binding.cinemaFormRoomNameText.setText(it.name)
-            binding.cinemaRoomFormRowText.setText(it.rows.toString())
+            binding.cinemaRoomFormRowText.setText(it.numRows.toString())
             binding.cinemaRoomFormSeatText.setText(it.seats.toString())
             binding.cinemaRoomFormEnabled.isChecked = it.enabled
 

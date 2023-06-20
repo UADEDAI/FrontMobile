@@ -17,12 +17,13 @@ class InMemoryMovieRepository : MovieRepository {
                 Calendar.getInstance().time,
                 "Action",
                 "Matt Reeves",
-                listOf("Robert Pattinson, Zoë Kravitz, Paul Dano, Jeffrey Wright, John Turturro, Peter Sarsgaard, Barry Keoghan, Jayme Lawson, Andy Serkis, Colin Farrell"),
+                "Robert Pattinson, Zoë Kravitz, Paul Dano, Jeffrey Wright, John Turturro, Peter Sarsgaard, Barry Keoghan, Jayme Lawson, Andy Serkis, Colin Farrell",
                 8.0,
                 "PG-13",
                 "https://m.media-amazon.com/images/M/MV5BMDdmMTBiNTYtMDIzNi00NGVlLWIzMDYtZTk3MTQ3NGQxZGEwXkEyXkFqcGdeQXVyMzMwOTU5MDk@._V1_.jpg",
                 Calendar.getInstance().time,
-                Calendar.getInstance().time
+                Calendar.getInstance().time,
+                "showing"
             ),
         ),
         mutableListOf(
@@ -33,12 +34,13 @@ class InMemoryMovieRepository : MovieRepository {
                 Calendar.getInstance().time,
                 "Action",
                 "Jon Watts",
-                listOf("Tom Holland, Samuel L. Jackson, Jake Gyllenhaal, Marisa Tomei, Jon Favreau, Zendaya, Jacob Batalon, Tony Revolori, Angourie Rice, Remy Hii, Martin Starr, J. B. Smoove, Cobie Smulders, Numan Acar, Jorge Lendeborg Jr., Hemky Madera, Toni Garrn"),
+                "Tom Holland, Samuel L. Jackson, Jake Gyllenhaal, Marisa Tomei, Jon Favreau, Zendaya, Jacob Batalon, Tony Revolori, Angourie Rice, Remy Hii, Martin Starr, J. B. Smoove, Cobie Smulders, Numan Acar, Jorge Lendeborg Jr., Hemky Madera, Toni Garrn",
                 -1.0,
                 "PG-13",
                 "https://static.wikia.nocookie.net/spiderman/images/f/fc/Spider_Man_Far_From_Home_-_P%C3%B3ster_EEUU.png/revision/latest?cb=20190522155952&path-prefix=es",
                 Calendar.getInstance().time,
-                Calendar.getInstance().time
+                Calendar.getInstance().time,
+                "coming_soon"
             ),
         ),
         Pagination(1, 100, 1, 1),
@@ -57,23 +59,23 @@ class InMemoryMovieRepository : MovieRepository {
         )
     )
 
-    override fun getMovies(): MoviesList {
+    override suspend fun getMovies(): MoviesList {
         return moviesList
     }
 
-    override fun getMovie(movieId: Int): Movie {
+    override suspend fun getMovie(movieId: Int): Movie {
         val list = mutableListOf<Movie>()
         list.addAll(moviesList.showing)
         list.addAll(moviesList.comingSoon)
         return list.first { movie: Movie -> movie.id == movieId }
     }
 
-    override fun getMoviesByRoom(roomId: Int): MoviesList {
+    override suspend fun getMoviesByRoom(roomId: Int): MoviesList {
         val movies = moviesByRoom[roomId]
         movies?.let { return it } ?: throw MovieNotFoundException("No movies in room")
     }
 
-    override fun addMovieToRoom(roomId: Int, movie: Movie) {
+    override suspend fun addMovieToRoom(roomId: Int, movie: Movie) {
         if (moviesByRoom[roomId] == null) {
             moviesByRoom[roomId] = MoviesList(
                 mutableListOf(),
@@ -92,32 +94,32 @@ class InMemoryMovieRepository : MovieRepository {
         }
     }
 
-    override fun deleteMovieFromRoom(roomId: Int, movieId: Int) {
+    override suspend fun deleteMovieFromRoom(roomId: Int, movieId: Int) {
         val moviesList = moviesByRoom[roomId]
         moviesList?.comingSoon?.removeIf { it.id == movieId }
         moviesList?.showing?.removeIf { it.id == movieId }
     }
 
-    override fun addScreening(intent: CreateScreeningIntent) {
+    override suspend fun addScreening(intent: CreateScreeningIntent) {
         screenings.add(intent.toScreening(getScreeningId()))
     }
 
-    override fun getScreenings(): List<Screening> {
+    override suspend fun getScreenings(): List<Screening> {
         return screenings
     }
 
-    override fun getScreeningsBy(movieId: Int, roomId: Int): List<Screening> {
+    override suspend fun getScreeningsBy(movieId: Int, roomId: Int): List<Screening> {
         return screenings.filter { screening -> screening.movieId == movieId && screening.roomId == roomId }
     }
 
-    override fun getScreening(screeningId: Int): Screening {
+    override suspend fun getScreening(screeningId: Int): Screening {
         val screening = screenings.find { screening -> screening.id == screeningId }
         screening?.let {
             return it
         } ?: throw ScreeningNotFoundException("Screening with id: $screeningId not found")
     }
 
-    override fun deleteScreening(screeningId: Int) {
+    override suspend fun deleteScreening(screeningId: Int) {
         val deleted = screenings.removeIf { screening -> screening.id == screeningId }
 
         if (!deleted) throw ScreeningNotFoundException("$screeningId does not exist")

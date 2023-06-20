@@ -1,5 +1,6 @@
 package com.uade.daitp.owner.home.presentation
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -32,32 +33,38 @@ class OwnerMoviesViewModel(
     private var roomId = -1
 
     init {
-        try {
-            _moviesList.value = getMovies()
-        } catch (e: Exception) {
-            _error.value = e.message
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val movies = getMovies()
+                _moviesList.postValue(movies)
+            } catch (e: Exception) {
+                Log.e("OwnerMoviesViewModel", "get movies error", e)
+                _error.postValue(e.message)
+            }
         }
     }
 
     fun getRoom(roomId: Int) {
         this.roomId = roomId
-        try {
-            CoroutineScope(Dispatchers.IO).launch {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
                 val room = getCinemaRoom(roomId)
                 _cinemaRoom.postValue(room)
+            } catch (e: Exception) {
+                _error.postValue(e.message)
             }
-        } catch (e: Exception) {
-            _error.value = e.message
         }
     }
 
     fun getMoviesInRoom(roomId: Int) {
         this.roomId = roomId
-        try {
-            val movies = getMoviesByRoom(roomId)
-            _ownerMovies.postValue(movies)
-        } catch (e: Exception) {
-            _ownerMovies.postValue(emptyMovieList())
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val movies = getMoviesByRoom(roomId)
+                _ownerMovies.postValue(movies)
+            } catch (e: Exception) {
+                _ownerMovies.postValue(emptyMovieList())
+            }
         }
     }
 
@@ -65,12 +72,16 @@ class OwnerMoviesViewModel(
         if (movie.isShowing()) {
             if (!_ownerMovies.value!!.showing.contains(movie)) {
                 _ownerMovies.value!!.showing.add(movie)
-                addMoviesToRoom(roomId, movie)
+                CoroutineScope(Dispatchers.IO).launch {
+                    addMoviesToRoom(roomId, movie)
+                }
             }
         } else {
             if (!_ownerMovies.value!!.comingSoon.contains(movie)) {
                 _ownerMovies.value!!.comingSoon.add(movie)
-                addMoviesToRoom(roomId, movie)
+                CoroutineScope(Dispatchers.IO).launch {
+                    addMoviesToRoom(roomId, movie)
+                }
             }
         }
         _ownerMovies.postValue(_ownerMovies.value)
@@ -80,12 +91,16 @@ class OwnerMoviesViewModel(
         if (movie.isShowing()) {
             if (_ownerMovies.value!!.showing.contains(movie)) {
                 _ownerMovies.value!!.showing.remove(movie)
-                deleteMoviesFromRoom(roomId, movie.id)
+                CoroutineScope(Dispatchers.IO).launch {
+                    deleteMoviesFromRoom(roomId, movie.id)
+                }
             }
         } else {
             if (_ownerMovies.value!!.comingSoon.contains(movie)) {
                 _ownerMovies.value!!.comingSoon.remove(movie)
-                deleteMoviesFromRoom(roomId, movie.id)
+                CoroutineScope(Dispatchers.IO).launch {
+                    deleteMoviesFromRoom(roomId, movie.id)
+                }
             }
         }
         _ownerMovies.postValue(_ownerMovies.value)

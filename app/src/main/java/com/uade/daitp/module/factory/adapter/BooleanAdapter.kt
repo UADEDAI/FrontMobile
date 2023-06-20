@@ -23,6 +23,6 @@ class BooleanAdapter {
 
     @ToJson
     fun toJson(writer: JsonWriter, value: Boolean) {
-        writer.value(if (value) 1 else 0)
+        writer.value(value)
     }
 }

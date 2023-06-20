@@ -5,7 +5,7 @@ import com.uade.daitp.owner.home.core.repository.MovieRepository
 
 class AddMovieToRoom(private val movieRepository: MovieRepository) {
 
-    operator fun invoke(roomId: Int, movie: Movie) {
+    suspend operator fun invoke(roomId: Int, movie: Movie) {
         movieRepository.addMovieToRoom(roomId, movie)
     }
 }

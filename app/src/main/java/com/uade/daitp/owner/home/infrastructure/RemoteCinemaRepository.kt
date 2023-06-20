@@ -13,9 +13,11 @@ import com.uade.daitp.owner.home.core.repository.service.CinemaService
 
 class RemoteCinemaRepository(private val cinemaService: CinemaService) : CinemaRepository {
     override suspend fun createCinema(cinemaIntent: CreateCinemaIntent) {
-        if (cinemaIntent.name == "invalid") throw InvalidCinemaNameException("Name already in use")
-
-        cinemaService.createCinema(cinemaIntent)
+        try {
+            cinemaService.createCinema(cinemaIntent)
+        } catch (e: Exception) {
+            throw InvalidCinemaNameException("Name already in use")
+        }
     }
 
     override suspend fun deleteCinema(cinemaId: Int) {

@@ -5,6 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.uade.daitp.owner.home.core.actions.GetMovie
 import com.uade.daitp.owner.home.core.models.Movie
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class OwnerMovieDetailViewModel(
     private val getMovie: GetMovie
@@ -17,11 +20,13 @@ class OwnerMovieDetailViewModel(
     val movie: LiveData<Movie> get() = _movie
 
     fun getMovieBy(movieId: Int) {
-        try {
-            val movie = getMovie(movieId)
-            _movie.value = movie
-        } catch (e: Exception) {
-            _error.value = e.message
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val movie = getMovie(movieId)
+                _movie.postValue(movie)
+            } catch (e: Exception) {
+                _error.postValue(e.message)
+            }
         }
     }
 }

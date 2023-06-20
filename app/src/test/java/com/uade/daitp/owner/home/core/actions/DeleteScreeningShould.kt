@@ -2,6 +2,7 @@ package com.uade.daitp.owner.home.core.actions
 
 import com.uade.daitp.owner.home.core.models.exceptions.ScreeningNotFoundException
 import com.uade.daitp.owner.home.core.repository.MovieRepository
+import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
@@ -14,7 +15,7 @@ internal class DeleteScreeningShould {
     private var error: Exception? = null
 
     @Test
-    fun `delete screening should call delete to repository`() {
+    fun `delete screening should call delete to repository`() = runTest {
         givenAnAction()
 
         whenDeletingAScreening(screeningId)
@@ -23,7 +24,7 @@ internal class DeleteScreeningShould {
     }
 
     @Test
-    fun `non existent cinema Id throws error`() {
+    fun `non existent cinema Id throws error`() = runTest {
         givenAnAction()
 
         whenDeletingAScreening(invalidScreeningId)
@@ -31,7 +32,7 @@ internal class DeleteScreeningShould {
         thenErrorIsThrown()
     }
 
-    private fun givenAnAction() {
+    private suspend fun givenAnAction() {
         repository = mock()
         whenever(repository.deleteScreening(invalidScreeningId)).thenThrow(
             ScreeningNotFoundException("$invalidScreeningId not found")
@@ -39,7 +40,7 @@ internal class DeleteScreeningShould {
         deleteScreening = DeleteScreening(repository)
     }
 
-    private fun whenDeletingAScreening(screeningId: Int) {
+    private suspend fun whenDeletingAScreening(screeningId: Int) {
         try {
             deleteScreening.invoke(screeningId)
         } catch (e: Exception) {
@@ -47,7 +48,7 @@ internal class DeleteScreeningShould {
         }
     }
 
-    private fun thenRepositoryIsCalled() {
+    private suspend fun thenRepositoryIsCalled() {
         verify(repository).deleteScreening(screeningId)
     }
 

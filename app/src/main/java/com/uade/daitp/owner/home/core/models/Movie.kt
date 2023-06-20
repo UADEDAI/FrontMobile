@@ -10,12 +10,13 @@ data class Movie(
     val releaseDate: Date,
     val genre: String,
     val director: String,
-    val cast: List<String>,
+    val cast: String,
     val score: Double?,
     val certificate: String,
     val imageUrl: String,
     val createdAt: Date,
     val updatedAt: Date,
+    val status: String
 ) {
     fun isShowing(): Boolean {
         return score != null && score >= 0

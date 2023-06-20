@@ -68,4 +68,6 @@
     <string name="next">Next</string>
     <string name="dubbed">Dubbed</string>
     <string name="subtitled">Subtitled</string>
+    <string name="cinema_movies_amount">%d movies</string>
+    <string name="cinema_rooms_amount">%d rooms</string>
 </resources>

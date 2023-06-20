@@ -5,7 +5,7 @@ import com.uade.daitp.owner.home.core.repository.MovieRepository
 
 class GetScreenings(private val movieRepository: MovieRepository) {
 
-    operator fun invoke(): List<Screening> {
+    suspend operator fun invoke(): List<Screening> {
         return movieRepository.getScreenings()
     }
 }

@@ -13,5 +13,11 @@ data class Cinema(
     val latitude: String,
     val longitude: String,
     val price: Double,
-    val enabled: Boolean
-)
+    val enabled: Boolean,
+    val roomsAmount: Int,
+    val moviesAmount: Int
+) {
+    fun getAddress(): String {
+        return "$street $streetNum, $neighbourhood, $city, $state, $country"
+    }
+}

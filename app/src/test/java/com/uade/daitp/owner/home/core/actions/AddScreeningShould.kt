@@ -4,6 +4,7 @@ import com.uade.daitp.owner.home.core.models.CreateScreeningIntent
 import com.uade.daitp.owner.home.core.models.enums.ScreeningFormat
 import com.uade.daitp.owner.home.core.models.exceptions.InvalidScreeningTimeException
 import com.uade.daitp.owner.home.core.repository.MovieRepository
+import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
@@ -17,7 +18,7 @@ internal class AddScreeningShould {
     private var error: Exception? = null
 
     @Test
-    fun `add screening should call repository`() {
+    fun `add screening should call repository`() = runTest {
         givenAnAction()
 
         whenAddingAScreening(screeningIntent)
@@ -26,7 +27,7 @@ internal class AddScreeningShould {
     }
 
     @Test
-    fun `invalid screening time throws exception`() {
+    fun `invalid screening time throws exception`() = runTest {
         givenAnAction()
 
         whenAddingAScreening(invalidScreeningIntent)
@@ -34,7 +35,7 @@ internal class AddScreeningShould {
         thenErrorIsThrown()
     }
 
-    private fun givenAnAction() {
+    private suspend fun givenAnAction() {
         repository = mock()
         whenever(repository.addScreening(invalidScreeningIntent)).thenThrow(
             InvalidScreeningTimeException("Invalid screening time")
@@ -42,7 +43,7 @@ internal class AddScreeningShould {
         addScreening = AddScreening(repository)
     }
 
-    private fun whenAddingAScreening(screeningIntent: CreateScreeningIntent) {
+    private suspend fun whenAddingAScreening(screeningIntent: CreateScreeningIntent) {
         try {
             addScreening(screeningIntent)
         } catch (e: Exception) {
@@ -50,7 +51,7 @@ internal class AddScreeningShould {
         }
     }
 
-    private fun thenRepositoryIsCalled() {
+    private suspend fun thenRepositoryIsCalled() {
         verify(repository).addScreening(screeningIntent)
     }
 

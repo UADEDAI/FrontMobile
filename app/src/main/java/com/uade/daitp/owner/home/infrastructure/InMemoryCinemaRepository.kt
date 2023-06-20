@@ -25,7 +25,9 @@ class InMemoryCinemaRepository : CinemaRepository {
             "1234",
             "1234",
             1000.0,
-            true
+            true,
+            0,
+            0
         )
     )
     private val cinemaRooms: MutableList<CinemaRoom> = mutableListOf(

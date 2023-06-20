@@ -3,6 +3,7 @@ package com.uade.daitp.owner.home.core.actions
 import com.uade.daitp.owner.home.core.models.Screening
 import com.uade.daitp.owner.home.core.models.enums.ScreeningFormat
 import com.uade.daitp.owner.home.core.repository.MovieRepository
+import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import org.junit.jupiter.api.Assertions
 import org.mockito.kotlin.mock
@@ -17,7 +18,7 @@ internal class GetScreeningsShould {
     private lateinit var screeningsList: List<Screening>
 
     @Test
-    fun `get screenings should call repository`() {
+    fun `get screenings should call repository`() = runTest {
         givenAnAction()
 
         whenGettingScreenings()
@@ -26,7 +27,7 @@ internal class GetScreeningsShould {
     }
 
     @Test
-    fun `get empty list if there are no screenings`() {
+    fun `get empty list if there are no screenings`() = runTest {
         givenAnActionWithEmptyRepository()
 
         whenGettingScreenings()
@@ -34,23 +35,23 @@ internal class GetScreeningsShould {
         thenGetsEmptyList()
     }
 
-    private fun givenAnActionWithEmptyRepository() {
+    private suspend fun givenAnActionWithEmptyRepository() {
         repository = mock()
         whenever(repository.getScreenings()).thenReturn(emptyScreeningList)
         getScreenings = GetScreenings(repository)
     }
 
-    private fun givenAnAction() {
+    private suspend fun givenAnAction() {
         repository = mock()
         whenever(repository.getScreenings()).thenReturn(screeningList)
         getScreenings = GetScreenings(repository)
     }
 
-    private fun whenGettingScreenings() {
+    private suspend fun whenGettingScreenings() {
         screeningsList = getScreenings()
     }
 
-    private fun thenRepositoryIsCalled() {
+    private suspend fun thenRepositoryIsCalled() {
         verify(repository).getScreenings()
     }
 

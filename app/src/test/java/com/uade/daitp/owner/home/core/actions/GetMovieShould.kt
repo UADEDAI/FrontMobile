@@ -3,6 +3,7 @@ package com.uade.daitp.owner.home.core.actions
 import com.uade.daitp.owner.home.core.models.Movie
 import com.uade.daitp.owner.home.core.models.exceptions.MovieNotFoundException
 import com.uade.daitp.owner.home.core.repository.MovieRepository
+import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.mockito.kotlin.mock
@@ -17,7 +18,7 @@ internal class GetMovieShould {
     private lateinit var error: Exception
 
     @Test
-    fun `get movie should call repository`() {
+    fun `get movie should call repository`() = runTest {
         givenAnAction()
 
         whenGettingMovies()
@@ -26,7 +27,7 @@ internal class GetMovieShould {
     }
 
     @Test
-    fun `get empty list if there are no movies`() {
+    fun `get empty list if there are no movies`() = runTest {
         givenAnActionWithEmptyRepository()
 
         whenGettingMovies()
@@ -38,19 +39,19 @@ internal class GetMovieShould {
         assertTrue { error is MovieNotFoundException }
     }
 
-    private fun givenAnActionWithEmptyRepository() {
+    private suspend fun givenAnActionWithEmptyRepository() {
         repository = mock()
         whenever(repository.getMovie(movieId)).thenThrow(MovieNotFoundException("invalid movie id"))
         getMovie = GetMovie(repository)
     }
 
-    private fun givenAnAction() {
+    private suspend fun givenAnAction() {
         repository = mock()
         whenever(repository.getMovie(movieId)).thenReturn(mockMovie)
         getMovie = GetMovie(repository)
     }
 
-    private fun whenGettingMovies() {
+    private suspend fun whenGettingMovies() {
         try {
             movie = getMovie(movieId)
         } catch (e: Exception) {
@@ -58,7 +59,7 @@ internal class GetMovieShould {
         }
     }
 
-    private fun thenRepositoryIsCalled() {
+    private suspend fun thenRepositoryIsCalled() {
         verify(repository).getMovie(movieId)
     }
 

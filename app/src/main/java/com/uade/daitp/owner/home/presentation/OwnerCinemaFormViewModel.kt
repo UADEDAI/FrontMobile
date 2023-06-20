@@ -30,29 +30,37 @@ class OwnerCinemaFormViewModel(
     fun processForm(
         createCinemaIntent: CreateCinemaIntent
     ) {
-        try {
-            _cinemaToEdit.value?.let {
-                CoroutineScope(Dispatchers.IO).launch {
+
+        _cinemaToEdit.value?.let {
+            CoroutineScope(Dispatchers.IO).launch {
+                try {
                     deleteCinema(it.id)
                     addCinema(createCinemaIntent)
                     _processSuccess.postValue(true)
+                } catch (e: Exception) {
+                    _error.postValue(e.message)
                 }
             }
-        } catch (e: Exception) {
-            _error.postValue(e.message)
+        } ?: run {
+            CoroutineScope(Dispatchers.IO).launch {
+                try {
+                    addCinema(createCinemaIntent)
+                    _processSuccess.postValue(true)
+                } catch (e: Exception) {
+                    _error.postValue(e.message)
+                }
+            }
         }
     }
 
     fun getCinemaToEdit(cinemaId: Int) {
-        try {
-            _cinemaToEdit.value?.let {
-                CoroutineScope(Dispatchers.IO).launch {
-                    val cinema = getCinema(cinemaId)
-                    _cinemaToEdit.postValue(cinema)
-                }
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val cinema = getCinema(cinemaId)
+                _cinemaToEdit.postValue(cinema)
+            } catch (e: Exception) {
+                _error.postValue(e.message)
             }
-        } catch (e: Exception) {
-            _error.postValue(e.message)
         }
     }
 

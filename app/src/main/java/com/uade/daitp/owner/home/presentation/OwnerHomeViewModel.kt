@@ -20,24 +20,24 @@ class OwnerHomeViewModel(
     val cinemas: LiveData<List<Cinema>> get() = _cinemas
 
     fun refresh() {
-        try {
-            CoroutineScope(Dispatchers.IO).launch {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
                 _cinemas.postValue(getCinemas())
+            } catch (e: Exception) {
+                Log.e("OwnerHomeViewModel", "refresh error", e)
             }
-        } catch (e: Exception) {
-            Log.e("OwnerHomeViewModel", "refresh error", e)
         }
     }
 
     fun delete(cinema: Cinema) {
-        try {
-            CoroutineScope(Dispatchers.IO).launch {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
                 deleteCinema(cinemaId = cinema.id)
+            } catch (e: Exception) {
+                Log.e("OwnerHomeViewModel", "delete error", e)
             }
-        } catch (e: Exception) {
-            Log.e("OwnerHomeViewModel", "delete error", e)
+            refresh()
         }
-        refresh()
     }
 
 }

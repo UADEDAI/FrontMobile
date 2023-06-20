@@ -38,59 +38,65 @@ class OwnerCinemaViewModel(
     val selectedMovieScreenings: LiveData<List<Screening>> get() = _selectedMovieScreenings
 
     fun getCinemaBy(cinemaId: Int) {
-        try {
-            CoroutineScope(Dispatchers.IO).launch {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
                 val cinema = getCinema(cinemaId)
                 _cinema.postValue(cinema)
+            } catch (e: Exception) {
+                _error.value = e.message
             }
-        } catch (e: Exception) {
-            _error.value = e.message
         }
     }
 
     fun getCinemaRoomsById(cinemaId: Int) {
-        try {
-            CoroutineScope(Dispatchers.IO).launch {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
                 val cinemaRooms = getCinemaRooms(cinemaId)
                 _cinemaRooms.postValue(cinemaRooms)
+            } catch (e: Exception) {
+                _error.value = e.message
             }
-        } catch (e: Exception) {
-            _error.value = e.message
         }
     }
 
     fun onCinemaRoomSelected(cinemaRoom: CinemaRoom) {
-        _selectedCinemaRoom.value = cinemaRoom
+        _selectedCinemaRoom.postValue(cinemaRoom)
     }
 
     fun getRoomMoviesBy(roomId: Int) {
-        try {
-            val movies = getMoviesByRoom(roomId)
-            _selectedRoomMovies.postValue(movies)
-        } catch (e: Exception) {
-            _selectedRoomMovies.postValue(emptyMovieList())
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val movies = getMoviesByRoom(roomId)
+                _selectedRoomMovies.postValue(movies)
+            } catch (e: Exception) {
+                _selectedRoomMovies.postValue(emptyMovieList())
+            }
         }
     }
 
     fun getScreenings(movie: Movie) {
-        try {
-            val screenings = getScreeningsBy(movie.id, _selectedCinemaRoom.value!!.id)
-            _selectedMovieScreenings.postValue(screenings)
-        } catch (e: Exception) {
-            _selectedMovieScreenings.postValue(emptyList())
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val screenings = getScreeningsBy(movie.id, _selectedCinemaRoom.value!!.id)
+                _selectedMovieScreenings.postValue(screenings)
+            } catch (e: Exception) {
+                _selectedMovieScreenings.postValue(emptyList())
+            }
         }
     }
 
     fun addScreeningFrom(movie: Movie, screening: Screening, format: ScreeningFormat) {
-        addScreening(
-            CreateScreeningIntent(
-                _selectedCinemaRoom.value!!.id,
-                movie.id,
-                format,
-                screening.startAt,
-                screening.endAt
+        CoroutineScope(Dispatchers.IO).launch {
+            addScreening(
+                CreateScreeningIntent(
+                    _selectedCinemaRoom.value!!.id,
+                    movie.id,
+                    format,
+                    screening.startAt,
+                    screening.endAt
+                )
             )
-        )
+        }
     }
 
     fun isSelectedAShowingMovie(movie: Movie): Boolean {

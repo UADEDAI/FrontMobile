@@ -28,28 +28,37 @@ class OwnerCinemaRoomFormViewModel(
     val roomToEdit: LiveData<CinemaRoom> get() = _roomToEdit
 
     fun processForm(createIntent: CreateCinemaRoomIntent) {
-        try {
-            _roomToEdit.value?.let {
-                CoroutineScope(Dispatchers.IO).launch {
+        _roomToEdit.value?.let {
+            CoroutineScope(Dispatchers.IO).launch {
+                try {
                     deleteCinemaRoom(it.id)
                     addCinemaRoom(createIntent)
                     _processSuccess.postValue(true)
+                } catch (e: Exception) {
+                    _error.postValue(e.message)
                 }
             }
-        } catch (e: Exception) {
-            _error.postValue(e.message)
+        } ?: run {
+            CoroutineScope(Dispatchers.IO).launch {
+                try {
+                    addCinemaRoom(createIntent)
+                    _processSuccess.postValue(true)
+                } catch (e: Exception) {
+                    _error.postValue(e.message)
+                }
+            }
         }
     }
 
     fun getRoom(roomId: Int) {
-        try {
-            _roomToEdit.value?.let {
-                CoroutineScope(Dispatchers.IO).launch {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                _roomToEdit.value?.let {
                     _roomToEdit.postValue(getCinemaRoom(roomId))
                 }
+            } catch (e: Exception) {
+                _error.postValue(e.message)
             }
-        } catch (e: Exception) {
-            _error.postValue(e.message)
         }
     }
 }

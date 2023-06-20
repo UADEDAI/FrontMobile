@@ -3,7 +3,7 @@ package com.uade.daitp.owner.home.core.models
 data class CreateCinemaRoomIntent(
     val cinemaId: Int,
     val name: String,
-    val rows: Int,
+    val numRows: Int,
     val seats: Int,
     val enabled: Boolean
 ) {
@@ -12,7 +12,7 @@ data class CreateCinemaRoomIntent(
             id,
             cinemaId,
             name,
-            rows,
+            numRows,
             seats,
             enabled
         )

@@ -25,9 +25,11 @@ class CinemaAdapter(private val cinemas: List<Cinema>, private val viewModel: Ow
         RecyclerView.ViewHolder(binding.root) {
         fun bind(cinema: Cinema) {
             binding.itemCinemaTitle.text = cinema.name
-            binding.itemCinemaMovies.text = "5 Movies"
-            binding.itemCinemaRoom.text = "5 Rooms"
-            //TODO
+            binding.itemCinemaLocation.text = cinema.getAddress()
+            binding.itemCinemaMovies.text =
+                itemView.resources.getString(R.string.cinema_movies_amount, cinema.moviesAmount)
+            binding.itemCinemaRoom.text =
+                itemView.resources.getString(R.string.cinema_rooms_amount, cinema.roomsAmount)
 
             binding.itemCinemaDeleteButton.setOnClickListenerWithThrottle {
                 MaterialAlertDialogBuilder(itemView.context)

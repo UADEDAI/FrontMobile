@@ -5,7 +5,7 @@ import com.uade.daitp.owner.home.core.repository.MovieRepository
 
 class GetMovies(private val movieRepository: MovieRepository) {
 
-    operator fun invoke(): MoviesList {
+    suspend operator fun invoke(): MoviesList {
         return movieRepository.getMovies()
     }
 }
