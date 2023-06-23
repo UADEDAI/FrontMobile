@@ -24,6 +24,14 @@ class RemoteCinemaRepository(
         }
     }
 
+    override suspend fun updateCinema(id: Int, cinemaIntent: CreateCinemaIntent) {
+        try {
+            cinemaService.updateCinema(id, cinemaIntent)
+        } catch (e: Exception) {
+            throw CinemaNotFoundException("cinema: $id does not exist")
+        }
+    }
+
     override suspend fun deleteCinema(cinemaId: Int) {
         try {
             cinemaService.deleteCinema(cinemaId)
@@ -49,6 +57,14 @@ class RemoteCinemaRepository(
             cinemaService.createCinemaRoom(cinemaRoomIntent)
         } catch (e: Exception) {
             throw InvalidCinemaRoomNameException("Name already in use")
+        }
+    }
+
+    override suspend fun updateCinemaRoom(id: Int, cinemaRoomIntent: CreateCinemaRoomIntent) {
+        try {
+            cinemaService.updateCinemaRoom(id, cinemaRoomIntent)
+        } catch (e: Exception) {
+            throw CinemaRoomNotFoundException("$id does not exist")
         }
     }
 

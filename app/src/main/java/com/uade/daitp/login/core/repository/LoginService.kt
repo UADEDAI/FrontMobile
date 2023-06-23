@@ -26,7 +26,7 @@ interface LoginService {
     suspend fun refreshToken(
         @Body refreshIntent: RefreshIntent,
         @Header("Authorization") bearer: String
-    ): String
+    ): LoginResponse
 
     @GET("/users/{id}")
     suspend fun getUser(

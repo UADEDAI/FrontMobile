@@ -16,9 +16,21 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 
 object RetrofitFactory {
 
-    val cinemaService: CinemaService by lazy { createRetrofitService(getHttpClient()).create(CinemaService::class.java) }
-    val movieService: MovieService by lazy { createRetrofitService(getAuthorizedHttpClient()).create(MovieService::class.java) }
-    val loginService: LoginService by lazy { createRetrofitService(getAuthorizedHttpClient()).create(LoginService::class.java) }
+    val cinemaService: CinemaService by lazy {
+        createRetrofitService(getHttpClient()).create(
+            CinemaService::class.java
+        )
+    }
+    val movieService: MovieService by lazy {
+        createRetrofitService(getAuthorizedHttpClient()).create(
+            MovieService::class.java
+        )
+    }
+    val loginService: LoginService by lazy {
+        createRetrofitService(getAuthorizedHttpClient()).create(
+            LoginService::class.java
+        )
+    }
 
     private const val BASE_URL = "http://54.85.247.40/"
     private val userRepository: UserRepository = SharedPrefUserRepository()
@@ -33,6 +45,13 @@ object RetrofitFactory {
         logging.setLevel(HttpLoggingInterceptor.Level.BODY)
 
         return OkHttpClient.Builder()
+            .addInterceptor {
+                val request = it.request().newBuilder()
+                    .addHeader("Authorization", userRepository.getBearerToken())
+                    .addHeader("Content-Type", "application/json")
+                    .build()
+                return@addInterceptor it.proceed(request)
+            }
             .addInterceptor(logging)
             .build()
     }
@@ -42,13 +61,13 @@ object RetrofitFactory {
         logging.setLevel(HttpLoggingInterceptor.Level.BODY)
 
         return OkHttpClient.Builder()
-            .addInterceptor(logging)
             .addInterceptor {
                 val request = it.request().newBuilder()
-                    .addHeader("Authorization", userRepository.getBearerToken())
+                    .addHeader("Content-Type", "application/json")
                     .build()
                 return@addInterceptor it.proceed(request)
             }
+            .addInterceptor(logging)
             .build()
     }
 

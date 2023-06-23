@@ -75,9 +75,9 @@ class RemoteLoginRepository(
                 while (true) {
                     val refreshIntent = RefreshIntent(userRepository.getUser().email)
                     val newToken = loginService.refreshToken(refreshIntent, userRepository.getBearerToken())
-                    userRepository.saveToken(newToken)
-                    Log.d("RemoteLoginRepository", "NEW TOKEN $newToken")
-                    emit(newToken)
+                    userRepository.saveToken(newToken.access_token)
+                    Log.d("RemoteLoginRepository", "NEW TOKEN ${newToken.access_token}")
+                    emit(newToken.access_token)
                     delay(refreshInterval)
                 }
             } catch (e: Exception) {

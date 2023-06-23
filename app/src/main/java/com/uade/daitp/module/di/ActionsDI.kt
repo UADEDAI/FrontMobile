@@ -23,6 +23,8 @@ object ActionsDI {
 
     fun getAddCinema() = AddCinema(RepositoryDI.getCinemaRepository())
 
+    fun getUpdateCinema() = UpdateCinema(RepositoryDI.getCinemaRepository())
+
     fun getDeleteCinema() = DeleteCinema(RepositoryDI.getCinemaRepository())
 
     fun getGetCinemasOwner() = GetCinemas(RepositoryDI.getCinemaRepository())
@@ -52,4 +54,6 @@ object ActionsDI {
     fun addScreening() = AddScreening(RepositoryDI.getMovieRepository())
 
     fun deleteScreening() = DeleteScreening(RepositoryDI.getMovieRepository())
+
+    fun getUpdateCinemaRoom() = UpdateCinemaRoom(RepositoryDI.getCinemaRepository())
 }
