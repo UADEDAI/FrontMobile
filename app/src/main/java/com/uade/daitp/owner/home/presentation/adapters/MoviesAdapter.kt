@@ -17,7 +17,8 @@ import java.util.concurrent.TimeUnit
 @SuppressLint("NotifyDataSetChanged")
 class MoviesAdapter(
     private var movies: MoviesList,
-    private val multipleSelectionEnabled: Boolean
+    private val multipleSelectionEnabled: Boolean,
+    private val showAllMovies: Boolean
 ) :
     RecyclerView.Adapter<MoviesAdapter.ViewHolder>() {
 
@@ -31,6 +32,7 @@ class MoviesAdapter(
     init {
         _selectedMovies.postValue(mutableListOf())
         visibleMovies.addAll(movies.showing)
+        if (showAllMovies) visibleMovies.addAll(movies.comingSoon)
         notifyDataSetChanged()
     }
 
@@ -104,8 +106,12 @@ class MoviesAdapter(
 
         if (showingMovies) {
             visibleMovies.addAll(movies.showing)
+            if (showAllMovies)
+                visibleMovies.addAll(movies.comingSoon)
         } else {
             visibleMovies.addAll(movies.comingSoon)
+            if (showAllMovies)
+                visibleMovies.addAll(movies.showing)
         }
 
         notifyDataSetChanged()

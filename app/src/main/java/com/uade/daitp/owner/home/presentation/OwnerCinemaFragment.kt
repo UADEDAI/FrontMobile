@@ -112,7 +112,8 @@ class OwnerCinemaFragment : Fragment(R.layout.fragment_owner_cinema) {
         val moviesView = binding.homeMoviesList
         moviesView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        moviesView.adapter = MoviesAdapter(emptyMovieList(), false)
+        moviesView.adapter =
+            MoviesAdapter(emptyMovieList(), multipleSelectionEnabled = false, showAllMovies = true)
 
         val screeningsView = binding.homeMovieScreeningList
         screeningsView.layoutManager =
@@ -120,7 +121,7 @@ class OwnerCinemaFragment : Fragment(R.layout.fragment_owner_cinema) {
         screeningsView.adapter = ScreeningAdapter(emptyList())
 
         viewModel.selectedRoomMovies.observe(viewLifecycleOwner) {
-            if (it.showing.isEmpty()) {
+            if (it.showing.isEmpty() && it.comingSoon.isEmpty()) {
                 binding.homeMoviesList.visibility = GONE
                 binding.homeCinemaEmpty.visibility = VISIBLE
                 binding.homeCinemaEmptyText.setText(R.string.cinema_home_empty_movies)

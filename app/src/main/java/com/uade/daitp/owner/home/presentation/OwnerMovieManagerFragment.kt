@@ -40,7 +40,8 @@ class OwnerMovieManagerFragment : Fragment(R.layout.fragment_owner_movie_manager
         val ownListView = binding.moviesOwnList
         ownListView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        ownListView.adapter = MoviesAdapter(emptyMovieList(), false)
+        ownListView.adapter =
+            MoviesAdapter(emptyMovieList(), multipleSelectionEnabled = false, showAllMovies = false)
 
         viewModel.ownerMovies.observe(viewLifecycleOwner) {
             getOwnerListAdapter().updateData(it)
@@ -77,7 +78,8 @@ class OwnerMovieManagerFragment : Fragment(R.layout.fragment_owner_movie_manager
         val moviesView = binding.moviesAvailableList
         moviesView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        moviesView.adapter = MoviesAdapter(emptyMovieList(), false)
+        moviesView.adapter =
+            MoviesAdapter(emptyMovieList(), multipleSelectionEnabled = false, showAllMovies = false)
 
         viewModel.moviesList.observe(viewLifecycleOwner) {
             getAvailableListAdapter().updateData(it)

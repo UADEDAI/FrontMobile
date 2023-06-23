@@ -19,6 +19,6 @@ data class Movie(
     val status: String
 ) {
     fun isShowing(): Boolean {
-        return score != null && score >= 0
+        return status != "coming_soon"
     }
 }
