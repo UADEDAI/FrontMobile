@@ -36,7 +36,7 @@ class OwnerRegisterFragment : Fragment(R.layout.fragment_owner_register) {
         viewModel.registerSuccess.observe(viewLifecycleOwner) {
             if (it)
                 view.findNavController()
-                    .navigate(R.id.action_ownerRegisterFragment_to_ownerHomeFragment)
+                    .navigate(R.id.action_ownerRegisterFragment_to_ownerValidateFragment)
         }
     }
 

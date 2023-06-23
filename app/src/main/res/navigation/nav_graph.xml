@@ -50,11 +50,8 @@
         android:label="OwnerRegisterFragment"
         tools:layout="@layout/fragment_owner_register">
         <action
-            android:id="@+id/action_ownerRegisterFragment_to_ownerHomeFragment"
-            app:destination="@id/ownerHomeFragment"
-            app:launchSingleTop="true"
-            app:popUpTo="@id/loginChoiceFragment"
-            app:popUpToInclusive="true" />
+            android:id="@+id/action_ownerRegisterFragment_to_ownerValidateFragment"
+            app:destination="@id/ownerValidateFragment" />
     </fragment>
     <fragment
         android:id="@+id/ownerRecoverEmailFragment"
@@ -71,10 +68,10 @@
         android:label="OwnerRecoverNewPasswordFragment"
         tools:layout="@layout/fragment_owner_forgot_new_password">
         <action
-            android:id="@+id/action_ownerRecoverNewPasswordFragment_to_ownerHomeFragment"
-            app:destination="@id/ownerHomeFragment"
+            android:id="@+id/action_ownerRecoverNewPasswordFragment_to_loginEmailFragment"
+            app:destination="@id/loginEmailFragment"
             app:launchSingleTop="true"
-            app:popUpTo="@id/loginChoiceFragment"
+            app:popUpTo="@id/loginEmailFragment"
             app:popUpToInclusive="true" />
     </fragment>
     <fragment
@@ -113,4 +110,16 @@
         android:name="com.uade.daitp.owner.home.presentation.OwnerMovieDetailFragment"
         android:label="OwnerMovieDetailFragment"
         tools:layout="@layout/fragment_owner_movie_detail" />
+    <fragment
+        android:id="@+id/ownerValidateFragment"
+        android:name="com.uade.daitp.owner.register.presentation.OwnerValidateFragment"
+        android:label="OwnerValidateFragment"
+        tools:layout="@layout/fragment_owner_validate" >
+        <action
+            android:id="@+id/action_ownerValidateFragment_to_ownerHomeFragment"
+            app:destination="@id/ownerHomeFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/loginChoiceFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

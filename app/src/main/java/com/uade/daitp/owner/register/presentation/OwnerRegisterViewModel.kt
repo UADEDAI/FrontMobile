@@ -4,6 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.uade.daitp.owner.register.core.actions.RegisterOwner
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class OwnerRegisterViewModel(private val registerOwner: RegisterOwner) : ViewModel() {
 
@@ -14,12 +17,14 @@ class OwnerRegisterViewModel(private val registerOwner: RegisterOwner) : ViewMod
     val error: LiveData<String> get() = _error
 
     fun register(email: String, password: String, username: String, company: String) {
-        try {
-            registerOwner(email, password, username, company)
-            _registerSuccess.value = true
-        } catch (e: Exception) {
-            _registerSuccess.value = false
-            _error.value = e.message
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                registerOwner(email, password, username, company)
+                _registerSuccess.postValue(true)
+            } catch (e: Exception) {
+                _registerSuccess.postValue(false)
+                _error.postValue(e.message)
+            }
         }
     }
 }

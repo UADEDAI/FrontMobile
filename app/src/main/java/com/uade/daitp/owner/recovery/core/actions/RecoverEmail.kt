@@ -1,10 +1,10 @@
 package com.uade.daitp.owner.recovery.core.actions
 
-import com.uade.daitp.owner.register.core.repository.OwnerRepository
+import com.uade.daitp.login.core.repository.LoginRepository
 
-class RecoverEmail(private val ownerRepository: OwnerRepository) {
+class RecoverEmail(private val loginRepository: LoginRepository) {
 
-    operator fun invoke(email: String) {
-        ownerRepository.recoverEmail(email)
+    suspend operator fun invoke(email: String) {
+        loginRepository.resetPassword(email)
     }
 }

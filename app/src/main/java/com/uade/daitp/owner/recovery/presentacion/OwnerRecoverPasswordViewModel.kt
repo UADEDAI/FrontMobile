@@ -4,6 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.uade.daitp.owner.recovery.core.actions.RecoverPassword
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class OwnerRecoverPasswordViewModel(private val recoverPassword: RecoverPassword) : ViewModel() {
 
@@ -14,12 +17,14 @@ class OwnerRecoverPasswordViewModel(private val recoverPassword: RecoverPassword
     val error: LiveData<String> get() = _error
 
     fun recover(code: String, password: String) {
-        try {
-            recoverPassword(code, password)
-            _recoverSuccess.value = true
-        } catch (e: Exception) {
-            _recoverSuccess.value = false
-            _error.value = e.message
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                recoverPassword(code, password)
+                _recoverSuccess.postValue(true)
+            } catch (e: Exception) {
+                _recoverSuccess.postValue(false)
+                _error.postValue(e.message)
+            }
         }
     }
 }

@@ -70,4 +70,9 @@
     <string name="subtitled">Subtitled</string>
     <string name="cinema_movies_amount">%d movies</string>
     <string name="cinema_rooms_amount">%d rooms</string>
+    <string name="otp_hint">Code</string>
+    <string name="validate_title">ENTER THE CODE SENT TO YOU EMAIL</string>
+    <string name="validate_description">Keep in mind that the duration of the code sent to the email is 10 minutes, if this time elapses you must register the account again</string>
+    <string name="validate_dialog_success">Account created</string>
+    <string name="dialog_error">An error has occurred</string>
 </resources>

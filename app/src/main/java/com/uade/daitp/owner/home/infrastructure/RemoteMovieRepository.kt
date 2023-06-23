@@ -5,7 +5,6 @@ import com.uade.daitp.owner.home.core.models.exceptions.MovieNotFoundException
 import com.uade.daitp.owner.home.core.models.exceptions.ScreeningNotFoundException
 import com.uade.daitp.owner.home.core.repository.MovieRepository
 import com.uade.daitp.owner.home.core.repository.service.MovieService
-import retrofit2.await
 
 class RemoteMovieRepository(private val movieService: MovieService) : MovieRepository {
     override suspend fun getMovies(): MoviesList {

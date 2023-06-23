@@ -5,9 +5,12 @@ import com.uade.daitp.owner.home.presentation.*
 import com.uade.daitp.owner.recovery.presentacion.OwnerRecoverEmailViewModel
 import com.uade.daitp.owner.recovery.presentacion.OwnerRecoverPasswordViewModel
 import com.uade.daitp.owner.register.presentation.OwnerRegisterViewModel
+import com.uade.daitp.owner.register.presentation.OwnerValidateViewModel
 
 object ViewModelDI {
     fun getLoginViewModel() = LoginOwnerViewModel(ActionsDI.getLoginOwner())
+
+    fun getOwnerValidateViewModel() = OwnerValidateViewModel(ActionsDI.getValidateOwner())
 
     fun getOwnerRegisterViewModel() = OwnerRegisterViewModel(ActionsDI.getRegisterOwner())
 

@@ -4,6 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.uade.daitp.login.core.actions.LoginOwner
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class LoginOwnerViewModel(private val loginOwner: LoginOwner) : ViewModel() {
 
@@ -14,13 +17,15 @@ class LoginOwnerViewModel(private val loginOwner: LoginOwner) : ViewModel() {
     val error: LiveData<String> get() = _error
 
     fun login(username: String, password: String) {
-        try {
-            loginOwner(username, password)
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                loginOwner(username, password)
 
-            _userLoggedIn.value = true
-        } catch (e: Exception) {
-            _userLoggedIn.value = false
-            _error.value = e.message
+                _userLoggedIn.postValue(true)
+            } catch (e: Exception) {
+                _userLoggedIn.postValue(false)
+                _error.postValue(e.message)
+            }
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.uade.daitp.module.factory
 
 import com.squareup.moshi.Moshi
+import com.uade.daitp.login.core.repository.LoginService
 import com.uade.daitp.module.factory.adapter.BooleanAdapter
 import com.uade.daitp.module.factory.adapter.DateAdapter
 import com.uade.daitp.owner.home.core.repository.service.CinemaService
@@ -10,11 +11,11 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-
 object RetrofitFactory {
 
     val cinemaService: CinemaService by lazy { createRetrofitService().create(CinemaService::class.java) }
     val movieService: MovieService by lazy { createRetrofitService().create(MovieService::class.java) }
+    val loginService: LoginService by lazy { createRetrofitService().create(LoginService::class.java) }
 
     private const val BASE_URL = "http://54.85.247.40/"
 

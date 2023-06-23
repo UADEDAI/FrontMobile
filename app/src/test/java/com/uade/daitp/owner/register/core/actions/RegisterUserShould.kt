@@ -7,7 +7,7 @@ import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 
-internal class RegisterOwnerShould {
+internal class RegisterUserShould {
     private lateinit var ownerRepository: OwnerRepository
     private lateinit var registerOwner: RegisterOwner
     private var error: Exception? = null

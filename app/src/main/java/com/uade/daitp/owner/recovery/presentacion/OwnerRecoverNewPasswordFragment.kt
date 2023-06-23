@@ -41,7 +41,7 @@ class OwnerRecoverNewPasswordFragment : Fragment(R.layout.fragment_owner_forgot_
         viewModel.recoverSuccess.observe(viewLifecycleOwner) {
             if (it)
                 view.findNavController()
-                    .navigate(R.id.action_ownerRecoverNewPasswordFragment_to_ownerHomeFragment)
+                    .navigate(R.id.action_ownerRecoverNewPasswordFragment_to_loginEmailFragment)
         }
     }
 

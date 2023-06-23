@@ -5,15 +5,18 @@ import com.uade.daitp.owner.home.core.actions.*
 import com.uade.daitp.owner.recovery.core.actions.RecoverEmail
 import com.uade.daitp.owner.recovery.core.actions.RecoverPassword
 import com.uade.daitp.owner.register.core.actions.RegisterOwner
+import com.uade.daitp.owner.register.core.actions.ValidateOwner
 
 object ActionsDI {
     fun getLoginOwner() = LoginOwner(RepositoryDI.getLoginRepository())
 
-    fun getRegisterOwner() = RegisterOwner(RepositoryDI.getOwnerRepository())
+    fun getValidateOwner() = ValidateOwner(RepositoryDI.getLoginRepository())
 
-    fun getRecoverEmailOwner() = RecoverEmail(RepositoryDI.getOwnerRepository())
+    fun getRegisterOwner() = RegisterOwner(RepositoryDI.getLoginRepository())
 
-    fun getRecoverPasswordOwner() = RecoverPassword(RepositoryDI.getOwnerRepository())
+    fun getRecoverEmailOwner() = RecoverEmail(RepositoryDI.getLoginRepository())
+
+    fun getRecoverPasswordOwner() = RecoverPassword(RepositoryDI.getLoginRepository())
 
     fun getAddCinema() = AddCinema(RepositoryDI.getCinemaRepository())
 
