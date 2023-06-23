@@ -27,7 +27,8 @@ object ViewModelDI {
     fun getOwnerCinemaFormViewModel() = OwnerCinemaFormViewModel(
         ActionsDI.getAddCinema(),
         ActionsDI.getDeleteCinema(),
-        ActionsDI.getCinema()
+        ActionsDI.getCinema(),
+        ActionsDI.getUser()
     )
 
     fun getOwnerCinemaRoomFormViewModel() = OwnerCinemaRoomFormViewModel(

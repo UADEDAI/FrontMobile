@@ -1,12 +1,16 @@
 package com.uade.daitp.owner.home.infrastructure
 
+import com.uade.daitp.login.infrastructure.repository.UserRepository
 import com.uade.daitp.owner.home.core.models.*
 import com.uade.daitp.owner.home.core.models.exceptions.MovieNotFoundException
 import com.uade.daitp.owner.home.core.models.exceptions.ScreeningNotFoundException
 import com.uade.daitp.owner.home.core.repository.MovieRepository
 import com.uade.daitp.owner.home.core.repository.service.MovieService
 
-class RemoteMovieRepository(private val movieService: MovieService) : MovieRepository {
+class RemoteMovieRepository(
+    private val movieService: MovieService,
+    private val userRepository: UserRepository
+) : MovieRepository {
     override suspend fun getMovies(): MoviesList {
         return movieService.getMovies()
     }

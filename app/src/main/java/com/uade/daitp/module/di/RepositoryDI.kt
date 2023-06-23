@@ -9,12 +9,30 @@ import com.uade.daitp.owner.home.infrastructure.RemoteCinemaRepository
 import com.uade.daitp.owner.home.infrastructure.RemoteMovieRepository
 
 object RepositoryDI {
-    private val loginRepo by lazy { RemoteLoginRepository(loginService, SharedPrefUserRepository()) }
+    private val loginRepo by lazy {
+        RemoteLoginRepository(
+            loginService,
+            SharedPrefUserRepository()
+        )
+    }
+
     fun getLoginRepository() = loginRepo
 
-    private val cinemaRepo by lazy { RemoteCinemaRepository(cinemaService) }
+    private val cinemaRepo by lazy {
+        RemoteCinemaRepository(
+            cinemaService,
+            SharedPrefUserRepository()
+        )
+    }
+
     fun getCinemaRepository() = cinemaRepo
 
-    private val movieRepo by lazy { RemoteMovieRepository(movieService) }
+    private val movieRepo by lazy {
+        RemoteMovieRepository(
+            movieService,
+            SharedPrefUserRepository()
+        )
+    }
+
     fun getMovieRepository() = movieRepo
 }

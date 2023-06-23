@@ -1,5 +1,6 @@
 package com.uade.daitp.owner.home.infrastructure
 
+import com.uade.daitp.login.infrastructure.repository.UserRepository
 import com.uade.daitp.owner.home.core.models.Cinema
 import com.uade.daitp.owner.home.core.models.CinemaRoom
 import com.uade.daitp.owner.home.core.models.CreateCinemaIntent
@@ -11,7 +12,10 @@ import com.uade.daitp.owner.home.core.models.exceptions.InvalidCinemaRoomNameExc
 import com.uade.daitp.owner.home.core.repository.CinemaRepository
 import com.uade.daitp.owner.home.core.repository.service.CinemaService
 
-class RemoteCinemaRepository(private val cinemaService: CinemaService) : CinemaRepository {
+class RemoteCinemaRepository(
+    private val cinemaService: CinemaService,
+    private val userRepository: UserRepository
+) : CinemaRepository {
     override suspend fun createCinema(cinemaIntent: CreateCinemaIntent) {
         try {
             cinemaService.createCinema(cinemaIntent)
@@ -29,7 +33,7 @@ class RemoteCinemaRepository(private val cinemaService: CinemaService) : CinemaR
     }
 
     override suspend fun getCinemas(): List<Cinema> {
-        return cinemaService.getCinemas()
+        return cinemaService.getCinemas(userRepository.getUser().id)
     }
 
     override suspend fun getCinema(cinemaId: Int): Cinema {

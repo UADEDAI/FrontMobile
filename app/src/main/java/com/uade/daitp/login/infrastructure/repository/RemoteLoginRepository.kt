@@ -1,16 +1,23 @@
 package com.uade.daitp.login.infrastructure.repository
 
+import android.util.Log
 import com.auth0.android.jwt.JWT
 import com.uade.daitp.login.core.model.LoginIntent
 import com.uade.daitp.login.core.model.User
 import com.uade.daitp.login.core.repository.LoginRepository
 import com.uade.daitp.login.core.repository.LoginService
 import com.uade.daitp.owner.register.core.model.exceptions.*
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOf
 
 class RemoteLoginRepository(
     private val loginService: LoginService,
     private val userRepository: UserRepository
 ) : LoginRepository {
+
+    private var flow = flowOf("")
 
     override fun getLoggedInOwner(): User {
         return userRepository.getUser()
@@ -25,6 +32,8 @@ class RemoteLoginRepository(
         val userId = jwt.getClaim("id").asInt()!!
         val user = loginService.getUser(userId, createToken(loginResponse.access_token))
         userRepository.saveUser(user)
+
+        refreshToken()
     }
 
     override suspend fun registerOwner(
@@ -45,6 +54,8 @@ class RemoteLoginRepository(
 
         val token = loginService.validateOTP(validateIntent)
         userRepository.saveToken(token.access_token)
+
+        refreshToken()
     }
 
     override suspend fun resetPassword(email: String) {
@@ -59,9 +70,22 @@ class RemoteLoginRepository(
     }
 
     override suspend fun refreshToken() {
-        val refreshIntent = RefreshIntent(userRepository.getUser().email)
-        val newToken = loginService.refreshToken(refreshIntent, userRepository.getBearerToken())
-        userRepository.saveToken(newToken)
+        flow = flow {
+            try {
+                while (true) {
+                    val refreshIntent = RefreshIntent(userRepository.getUser().email)
+                    val newToken = loginService.refreshToken(refreshIntent, userRepository.getBearerToken())
+                    userRepository.saveToken(newToken)
+                    Log.d("RemoteLoginRepository", "NEW TOKEN $newToken")
+                    emit(newToken)
+                    delay(refreshInterval)
+                }
+            } catch (e: Exception) {
+                Log.d("RemoteLoginRepository", "Refresh ended")
+            }
+        }
+
+        flow.collect()
     }
 
     private fun createToken(token: String): String {
@@ -70,5 +94,6 @@ class RemoteLoginRepository(
 
     private companion object {
         const val owner = "owner"
+        const val refreshInterval = 3000L
     }
 }

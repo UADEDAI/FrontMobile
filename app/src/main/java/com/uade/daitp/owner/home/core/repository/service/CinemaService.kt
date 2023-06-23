@@ -17,8 +17,8 @@ interface CinemaService {
     @DELETE("/cinemas/{id}")
     suspend fun deleteCinema(@Path("id") cinemaId: Int)
 
-    @GET("/cinemas")
-    suspend fun getCinemas(): List<Cinema>
+    @GET("/users/{id}/cinemas")
+    suspend fun getCinemas(@Path("id") userId: Int): List<Cinema>
 
     @GET("/cinemas/{id}")
     suspend fun getCinema(@Path("id") cinemaId: Int): Cinema

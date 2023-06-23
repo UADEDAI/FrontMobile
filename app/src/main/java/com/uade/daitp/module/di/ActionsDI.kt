@@ -1,5 +1,6 @@
 package com.uade.daitp.module.di
 
+import com.uade.daitp.login.core.actions.GetUser
 import com.uade.daitp.login.core.actions.LoginOwner
 import com.uade.daitp.owner.home.core.actions.*
 import com.uade.daitp.owner.recovery.core.actions.RecoverEmail
@@ -8,6 +9,8 @@ import com.uade.daitp.owner.register.core.actions.RegisterOwner
 import com.uade.daitp.owner.register.core.actions.ValidateOwner
 
 object ActionsDI {
+    fun getUser() = GetUser(RepositoryDI.getLoginRepository())
+
     fun getLoginOwner() = LoginOwner(RepositoryDI.getLoginRepository())
 
     fun getValidateOwner() = ValidateOwner(RepositoryDI.getLoginRepository())

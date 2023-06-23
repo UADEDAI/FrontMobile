@@ -3,6 +3,7 @@ package com.uade.daitp.owner.home.presentation
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.uade.daitp.login.core.actions.GetUser
 import com.uade.daitp.owner.home.core.actions.AddCinema
 import com.uade.daitp.owner.home.core.actions.DeleteCinema
 import com.uade.daitp.owner.home.core.actions.GetCinema
@@ -15,7 +16,8 @@ import kotlinx.coroutines.launch
 class OwnerCinemaFormViewModel(
     private val addCinema: AddCinema,
     private val deleteCinema: DeleteCinema,
-    private val getCinema: GetCinema
+    private val getCinema: GetCinema,
+    private val getUser: GetUser
 ) : ViewModel() {
 
     private val _error: MutableLiveData<String> by lazy { MutableLiveData<String>() }
@@ -65,8 +67,6 @@ class OwnerCinemaFormViewModel(
     }
 
     fun getUserId(): Int {
-        return 0
-
-        //TODO get saved User Id
+        return getUser().id
     }
 }
