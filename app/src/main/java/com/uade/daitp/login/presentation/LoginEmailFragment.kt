@@ -12,8 +12,9 @@ import com.uade.daitp.presentation.util.setOnClickListenerWithThrottle
 
 class LoginEmailFragment : Fragment(R.layout.fragment_login_email) {
 
-    private val viewModel = ViewModelDI.getLoginViewModel()
+    private val viewModel: LoginOwnerViewModel = ViewModelDI.getLoginViewModel()
     private lateinit var binding: FragmentLoginEmailBinding
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 

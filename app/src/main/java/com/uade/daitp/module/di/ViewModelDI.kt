@@ -8,7 +8,7 @@ import com.uade.daitp.owner.register.presentation.OwnerRegisterViewModel
 import com.uade.daitp.owner.register.presentation.OwnerValidateViewModel
 
 object ViewModelDI {
-    fun getLoginViewModel() = LoginOwnerViewModel(ActionsDI.getLoginOwner())
+    fun getLoginViewModel() = LoginOwnerViewModel(ActionsDI.getLoginOwner(), ActionsDI.getUser())
 
     fun getOwnerValidateViewModel() = OwnerValidateViewModel(ActionsDI.getValidateOwner())
 

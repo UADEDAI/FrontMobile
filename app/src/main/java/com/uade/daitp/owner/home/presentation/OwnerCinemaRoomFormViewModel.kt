@@ -50,9 +50,7 @@ class OwnerCinemaRoomFormViewModel(
     fun getRoom(roomId: Int) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                _roomToEdit.value?.let {
-                    _roomToEdit.postValue(getCinemaRoom(roomId))
-                }
+                _roomToEdit.postValue(getCinemaRoom(roomId))
             } catch (e: Exception) {
                 _error.postValue(e.message)
             }

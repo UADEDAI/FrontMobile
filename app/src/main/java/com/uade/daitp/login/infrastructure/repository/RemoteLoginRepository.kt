@@ -6,11 +6,16 @@ import com.uade.daitp.login.core.model.LoginIntent
 import com.uade.daitp.login.core.model.User
 import com.uade.daitp.login.core.repository.LoginRepository
 import com.uade.daitp.login.core.repository.LoginService
+import com.uade.daitp.owner.home.core.models.exceptions.SessionExpiredException
 import com.uade.daitp.owner.register.core.model.exceptions.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.launch
+import java.util.Calendar
 
 class RemoteLoginRepository(
     private val loginService: LoginService,
@@ -21,6 +26,18 @@ class RemoteLoginRepository(
 
     override fun getLoggedInOwner(): User {
         return userRepository.getUser()
+    }
+
+    override suspend fun loginRemember() {
+        val savedToken = userRepository.getToken()
+        val jwt = JWT(savedToken)
+        if (jwt.isExpired(0)) throw SessionExpiredException("Access token expired, need to re login")
+
+        val userId = jwt.getClaim("id").asInt()!!
+        val user = loginService.getUser(userId, createToken(savedToken))
+        userRepository.saveUser(user)
+
+        refreshToken()
     }
 
     override suspend fun loginOwner(userName: String, password: String) {
@@ -69,23 +86,44 @@ class RemoteLoginRepository(
         userRepository.saveUser(user)
     }
 
-    override suspend fun refreshToken() {
-        flow = flow {
-            try {
-                while (true) {
-                    val refreshIntent = RefreshIntent(userRepository.getUser().email)
-                    val newToken = loginService.refreshToken(refreshIntent, userRepository.getBearerToken())
-                    userRepository.saveToken(newToken.access_token)
-                    Log.d("RemoteLoginRepository", "NEW TOKEN ${newToken.access_token}")
-                    emit(newToken.access_token)
-                    delay(refreshInterval)
+    private fun refreshToken() {
+        CoroutineScope(Dispatchers.Default).launch {
+            flow = flow {
+                try {
+                    while (true) {
+                        if (isAboutToExpire(userRepository.getToken())) {
+                            val accessToken = requestNewAccessToken()
+                            emit(accessToken)
+                        } else {
+                            emit("")
+                        }
+                        delay(refreshInterval)
+                    }
+                } catch (e: Exception) {
+                    Log.d("RemoteLoginRepository", "Refresh ended")
                 }
-            } catch (e: Exception) {
-                Log.d("RemoteLoginRepository", "Refresh ended")
             }
-        }
 
-        flow.collect()
+            flow.collect()
+        }
+    }
+
+    private fun isAboutToExpire(token: String): Boolean {
+        val jwt = JWT(token)
+        val expirationTime = Calendar.getInstance()
+        expirationTime.time = jwt.expiresAt!!
+
+        val fiveMinAfter = Calendar.getInstance()
+        fiveMinAfter.add(Calendar.MINUTE, 5)
+        return fiveMinAfter.time.after(expirationTime.time)
+    }
+
+    private suspend fun requestNewAccessToken(): String {
+        val refreshIntent = RefreshIntent(userRepository.getUser().email)
+        val newToken = loginService.refreshToken(refreshIntent, userRepository.getBearerToken())
+        userRepository.saveToken(newToken.access_token)
+        Log.d("RemoteLoginRepository", "NEW TOKEN ${newToken.access_token}")
+        return newToken.access_token
     }
 
     private fun createToken(token: String): String {
@@ -94,6 +132,6 @@ class RemoteLoginRepository(
 
     private companion object {
         const val owner = "owner"
-        const val refreshInterval = 3000L
+        const val refreshInterval = 60 * 1000L
     }
 }
