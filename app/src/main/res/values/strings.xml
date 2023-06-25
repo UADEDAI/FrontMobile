@@ -93,4 +93,5 @@
     <string name="session_closed">Logged out successfully</string>
     <string name="unsubscribed">Account closed</string>
     <string name="unsubscribe_confirm">Are you sure you want to close your account?</string>
+    <string name="invalid_email_password">Incorrect email, password combination</string>
 </resources>

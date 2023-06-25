@@ -8,6 +8,7 @@ import androidx.navigation.findNavController
 import com.uade.daitp.R
 import com.uade.daitp.databinding.FragmentOwnerForgotNewPasswordBinding
 import com.uade.daitp.module.di.ViewModelDI
+import com.uade.daitp.presentation.util.errorDialog
 import com.uade.daitp.presentation.util.setOnClickListenerWithThrottle
 
 class OwnerRecoverNewPasswordFragment : Fragment(R.layout.fragment_owner_forgot_new_password) {
@@ -35,7 +36,7 @@ class OwnerRecoverNewPasswordFragment : Fragment(R.layout.fragment_owner_forgot_
         }
 
         viewModel.error.observe(viewLifecycleOwner) {
-            Toast.makeText(requireContext(), "Invalid recovery code", Toast.LENGTH_LONG).show()
+            errorDialog()
         }
 
         viewModel.recoverSuccess.observe(viewLifecycleOwner) {

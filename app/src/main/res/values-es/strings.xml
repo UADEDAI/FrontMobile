@@ -93,4 +93,5 @@
     <string name="session_closed">Sesión cerrada</string>
     <string name="unsubscribed">Cuenta dada de baja</string>
     <string name="unsubscribe_confirm">¿Está seguro que quiere darse de baja?</string>
+    <string name="invalid_email_password">Combinación de email, password incorrecta</string>
 </resources>

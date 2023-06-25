@@ -8,6 +8,7 @@ import androidx.navigation.findNavController
 import com.uade.daitp.R
 import com.uade.daitp.databinding.FragmentOwnerForgotEmailBinding
 import com.uade.daitp.module.di.ViewModelDI
+import com.uade.daitp.presentation.util.errorDialog
 import com.uade.daitp.presentation.util.setOnClickListenerWithThrottle
 
 class OwnerRecoverEmailFragment : Fragment(R.layout.fragment_owner_forgot_email) {
@@ -29,7 +30,7 @@ class OwnerRecoverEmailFragment : Fragment(R.layout.fragment_owner_forgot_email)
         }
 
         viewModel.error.observe(viewLifecycleOwner) {
-            Toast.makeText(requireContext(), "Email not registered", Toast.LENGTH_LONG).show()
+            errorDialog()
         }
 
         viewModel.recoverSuccess.observe(viewLifecycleOwner) {

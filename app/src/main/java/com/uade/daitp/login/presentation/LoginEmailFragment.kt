@@ -8,6 +8,7 @@ import androidx.navigation.findNavController
 import com.uade.daitp.R
 import com.uade.daitp.databinding.FragmentLoginEmailBinding
 import com.uade.daitp.module.di.ViewModelDI
+import com.uade.daitp.presentation.util.errorDialog
 import com.uade.daitp.presentation.util.setOnClickListenerWithThrottle
 
 class LoginEmailFragment : Fragment(R.layout.fragment_login_email) {
@@ -38,7 +39,7 @@ class LoginEmailFragment : Fragment(R.layout.fragment_login_email) {
         }
 
         viewModel.error.observe(viewLifecycleOwner) {
-            Toast.makeText(requireContext(), "Invalid User", Toast.LENGTH_LONG).show()
+            errorDialog(getString(R.string.invalid_email_password))
         }
 
         viewModel.userLoggedIn.observe(viewLifecycleOwner) {

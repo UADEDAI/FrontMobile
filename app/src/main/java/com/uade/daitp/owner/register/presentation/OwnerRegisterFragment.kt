@@ -8,6 +8,7 @@ import androidx.navigation.findNavController
 import com.uade.daitp.R
 import com.uade.daitp.databinding.FragmentOwnerRegisterBinding
 import com.uade.daitp.module.di.ViewModelDI
+import com.uade.daitp.presentation.util.errorDialog
 import com.uade.daitp.presentation.util.setOnClickListenerWithThrottle
 
 class OwnerRegisterFragment : Fragment(R.layout.fragment_owner_register) {
@@ -30,7 +31,7 @@ class OwnerRegisterFragment : Fragment(R.layout.fragment_owner_register) {
         }
 
         viewModel.error.observe(viewLifecycleOwner) {
-            Toast.makeText(requireContext(), "Invalid registry data", Toast.LENGTH_LONG).show()
+            errorDialog()
         }
 
         viewModel.registerSuccess.observe(viewLifecycleOwner) {

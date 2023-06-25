@@ -11,6 +11,7 @@ import com.uade.daitp.databinding.FragmentOwnerMovieManagerBinding
 import com.uade.daitp.module.di.ViewModelDI
 import com.uade.daitp.owner.home.core.models.emptyMovieList
 import com.uade.daitp.owner.home.presentation.adapters.MoviesAdapter
+import com.uade.daitp.presentation.util.errorDialog
 import com.uade.daitp.presentation.util.setOnClickListenerWithThrottle
 
 class OwnerMovieManagerFragment : Fragment(R.layout.fragment_owner_movie_manager) {
@@ -30,7 +31,7 @@ class OwnerMovieManagerFragment : Fragment(R.layout.fragment_owner_movie_manager
         }
 
         viewModel.error.observe(viewLifecycleOwner) {
-            Toast.makeText(requireContext(), "Invalid Data", Toast.LENGTH_LONG).show()
+            errorDialog()
         }
 
         viewModel.cinemaRoom.observe(viewLifecycleOwner) {

@@ -10,6 +10,7 @@ import com.uade.daitp.R
 import com.uade.daitp.databinding.FragmentOwnerCinemaRoomFormBinding
 import com.uade.daitp.module.di.ViewModelDI
 import com.uade.daitp.owner.home.core.models.CreateCinemaRoomIntent
+import com.uade.daitp.presentation.util.errorDialog
 import com.uade.daitp.presentation.util.setOnClickListenerWithThrottle
 
 class OwnerCinemaRoomFormFragment : Fragment(R.layout.fragment_owner_cinema_room_form) {
@@ -38,7 +39,7 @@ class OwnerCinemaRoomFormFragment : Fragment(R.layout.fragment_owner_cinema_room
         }
 
         viewModel.error.observe(viewLifecycleOwner) {
-            Toast.makeText(requireContext(), "Invalid Data", Toast.LENGTH_LONG).show()
+            errorDialog()
         }
 
         viewModel.processSuccess.observe(viewLifecycleOwner) {

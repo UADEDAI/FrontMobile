@@ -18,6 +18,7 @@ import com.uade.daitp.owner.home.core.models.enums.ScreeningFormat
 import com.uade.daitp.owner.home.presentation.adapters.CinemaRoomAdapter
 import com.uade.daitp.owner.home.presentation.adapters.MoviesAdapter
 import com.uade.daitp.owner.home.presentation.adapters.ScreeningAdapter
+import com.uade.daitp.presentation.util.errorDialog
 import com.uade.daitp.presentation.util.setOnClickListenerWithThrottle
 
 class OwnerCinemaFragment : Fragment(R.layout.fragment_owner_cinema) {
@@ -96,7 +97,7 @@ class OwnerCinemaFragment : Fragment(R.layout.fragment_owner_cinema) {
         }
 
         viewModel.error.observe(viewLifecycleOwner) {
-            Toast.makeText(context, "Cinema not found, try again later", Toast.LENGTH_LONG).show()
+            errorDialog()
         }
 
         viewModel.selectedCinemaRoom.observe(viewLifecycleOwner) {
