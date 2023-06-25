@@ -6,5 +6,6 @@ data class CinemaRoom(
     val name: String,
     val numRows: Int,
     val seats: Int,
-    val enabled: Boolean
+    val enabled: Boolean,
+    val movies: List<Movie>?
 )

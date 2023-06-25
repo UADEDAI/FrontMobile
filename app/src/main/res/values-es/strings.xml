@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">CINEMAPP</string>
+
+    <string name="login_email">INICIAR SESIÓN CON CORREO ELECTRÓNICO</string>
+    <string name="login_google">INICIA SESIÓN CON GOOGLE</string>
+
+    <string name="username_hint">Nombre de usuario</string>
+    <string name="password_hint">Contraseña</string>
+    <string name="login_owner_button">INGRESAR</string>
+
+    <string name="login_register_button">REGISTRAR</string>
+    <string name="owner_register">¿No tienes una cuenta\? Registrese aquí</string>
+    <string name="email_hint">Correo electrónico</string>
+    <string name="company_hint">Compañía</string>
+    <string name="confirm_button">CONFIRMAR</string>
+    <string name="confirm_password_hint">Confirmar Contraseña</string>
+    <string name="recovery_hint">Código de recuperación</string>
+    <string name="back_to_login">A INICIO DE SESIÓN</string>
+    <string name="owner_recover">¿OLVIDASTE TU CONTRASEÑA\?</string>
+    <string name="recover_code_hint">Código de recuperación</string>
+    <string name="recover_password_hint">Nueva contraseña</string>
+    <string name="recover_new_password_hint">Confirmar Contraseña</string>
+    <string name="owner_home_cinemas">Mis Cines</string>
+    <string name="create_cinema_title">Crear Cine</string>
+    <string name="edit_cinema_title">Editar cine</string>
+    <string name="cinema_form_name_hint">Nombre del cine</string>
+    <string name="cinema_form_address_hint">Dirección</string>
+    <string name="cinema_form_address_number_hint">Número de calle</string>
+    <string name="cinema_form_country_hint">País</string>
+    <string name="cinema_form_province_hint">Provincia</string>
+    <string name="cinema_form_locality_hint">Localidad</string>
+    <string name="cinema_form_neighbourhood_hint">Barrio</string>
+    <string name="cinema_form_latitude_hint">Latitud</string>
+    <string name="cinema_form_longitude_hint">Longitud</string>
+    <string name="cinema_form_price_hint">Precio</string>
+    <string name="cinema_form_enabled_hint">Cine habilitado</string>
+    <string name="cinema_dialog_text">Eliminar cine</string>
+    <string name="accept">Aceptar</string>
+    <string name="decline">Rechazar</string>
+    <string name="home_empty_text">No tienes cines creados</string>
+    <string name="home_cinema_empty_button">Crear cine</string>
+
+    <string name="owner_home_rooms">Mis salas de cine</string>
+    <string name="home_room_empty_button">Crea ahora</string>
+    <string name="home_room_empty_text">No tienes ninguna sala creada.</string>
+    <string name="owner_home_movies">Películas</string>
+    <string name="create_room_title">Crear Sala</string>
+    <string name="cinema_room_form_name_hint">Nombre de la sala</string>
+    <string name="cinema_room_form_row_hint">Fila</string>
+    <string name="cinema_room_form_seat_hint">Asientos en fila</string>
+    <string name="cinema_room_form_enabled_hint">Sala habilitada</string>
+    <string name="edit_cinema_room_title">Editar Sala</string>
+    <string name="cinema_home_empty_movies">No tienes ninguna película añadida.</string>
+    <string name="cinema_home_empty_movies_button">Añadir ahora</string>
+    <string name="movies_own_title">Mis peliculas</string>
+    <string name="movies_available_soon">Próximamente</string>
+    <string name="movies_available_showing">Estrenos</string>
+    <string name="discard_button_text">Descartar</string>
+    <string name="lorem_ipsum">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla sodales a mi eu consequat. Praesent ante enim, maximus vel purus vel, consequat auctor eros. Pellentesque sodales, sem sodales fringilla sodales, nisl nulla feugiat magna, sed tincidunt erat nunc faucibus magna. Nunc in orci mattis, molestie orci ut, vehicula est. Mauris mollis pulvinar diam eu lobortis. Phasellus consequat tempor nibh, sed ornare mauris pulvinar non. Praesent nec placerat diam, at egestas elit.</string>
+    <string name="movie_duration">Duración</string>
+    <string name="movie_year">Año</string>
+    <string name="movie_category">Categoría</string>
+    <string name="movie_director">Director</string>
+    <string name="movie_cast">Elenco</string>
+    <string name="screening_empty_text">No se agregó ningún tiempo de proyección</string>
+    <string name="select_screening_time">Seleccionar tiempo</string>
+    <string name="cancel">Cancelar</string>
+    <string name="next">Siguiente</string>
+    <string name="dubbed">Doblado</string>
+    <string name="subtitled">Subtitulado</string>
+    <string name="cinema_movies_amount">%d películas</string>
+    <string name="cinema_rooms_amount">%d salas</string>
+    <string name="otp_hint">Código</string>
+    <string name="validate_title">INGRESE EL CÓDIGO ENVIADO A SU CORREO ELECTRÓNICO</string>
+    <string name="validate_description">Tenga en cuenta que la duración del código enviado al correo electrónico es de 10 minutos, si transcurre este tiempo debe registrar la cuenta nuevamente</string>
+    <string name="validate_dialog_success">Cuenta creada</string>
+    <string name="dialog_error">Se ha producido un error</string>
+    <string name="select_screening_format">Seleccionar formato</string>
+    <string name="room_movie_quantity">%d películas</string>
+</resources>

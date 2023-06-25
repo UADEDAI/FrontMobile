@@ -6,15 +6,4 @@ data class CreateCinemaRoomIntent(
     val numRows: Int,
     val seats: Int,
     val enabled: Boolean
-) {
-    fun toCinemaRoom(id: Int): CinemaRoom {
-        return CinemaRoom(
-            id,
-            cinemaId,
-            name,
-            numRows,
-            seats,
-            enabled
-        )
-    }
-}
+)

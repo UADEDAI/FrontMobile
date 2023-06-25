@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.uade.daitp.R
 import com.uade.daitp.databinding.ListItemRoomBinding
 import com.uade.daitp.owner.home.core.models.CinemaRoom
 import com.uade.daitp.owner.home.presentation.OwnerCinemaViewModel
@@ -24,8 +25,13 @@ class CinemaRoomAdapter(
         RecyclerView.ViewHolder(binding.root) {
         fun bind(cinemaRoom: CinemaRoom) {
             binding.itemRoomTitle.text = cinemaRoom.name
-            binding.itemRoomCapacity.text = "15 Movies"
-            //TODO
+            cinemaRoom.movies?.let {
+                binding.itemRoomCapacity.text =
+                    itemView.resources.getString(R.string.room_movie_quantity, it.size)
+            } ?: run {
+                binding.itemRoomCapacity.text =
+                    itemView.resources.getString(R.string.room_movie_quantity, 0)
+            }
 
             binding.root.setOnClickListenerWithThrottle {
                 viewModel.onCinemaRoomSelected(cinemaRoom)
