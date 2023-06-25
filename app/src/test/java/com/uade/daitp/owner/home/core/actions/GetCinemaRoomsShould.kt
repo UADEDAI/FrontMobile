@@ -66,7 +66,8 @@ internal class GetCinemaRoomsShould {
             "Sala 1",
             30,
             20,
-            true
+            true,
+            emptyList()
         )
     }
 }

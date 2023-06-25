@@ -64,16 +64,16 @@ internal class AddScreeningShould {
             0,
             0,
             ScreeningFormat.SUBTITLED,
-            Calendar.getInstance().time,
-            Calendar.getInstance().time
+            "",
+            ""
         )
 
         val invalidScreeningIntent = CreateScreeningIntent(
             0,
             0,
             ScreeningFormat.SUBTITLED,
-            Calendar.getInstance().time,
-            Calendar.getInstance().time
+            "",
+            ""
         )
     }
 }
