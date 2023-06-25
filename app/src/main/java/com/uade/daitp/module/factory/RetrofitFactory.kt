@@ -3,8 +3,8 @@ package com.uade.daitp.module.factory
 import com.squareup.moshi.Moshi
 import com.uade.daitp.login.core.repository.LoginService
 import com.uade.daitp.login.core.repository.UserService
-import com.uade.daitp.login.infrastructure.repository.SharedPrefPersistenceUserRepository
 import com.uade.daitp.login.infrastructure.repository.PersistenceUserRepository
+import com.uade.daitp.login.infrastructure.repository.SharedPrefPersistenceUserRepository
 import com.uade.daitp.module.factory.adapter.BooleanAdapter
 import com.uade.daitp.module.factory.adapter.DateAdapter
 import com.uade.daitp.owner.home.core.repository.service.CinemaService

@@ -2,7 +2,6 @@ package com.uade.daitp.owner.recovery.presentacion
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.uade.daitp.R
@@ -24,10 +23,11 @@ class OwnerRecoverNewPasswordFragment : Fragment(R.layout.fragment_owner_forgot_
         binding.recoverButton.setOnClickListenerWithThrottle {
             val password = binding.recoverPasswordText.text.toString()
             val passwordConfirm = binding.recoverNewPasswordText.text.toString()
-            if (password != passwordConfirm)
-                Toast.makeText(requireContext(), "Password does not match", Toast.LENGTH_LONG)
-                    .show()
-            viewModel.recover(binding.recoverCodeText.text.toString(), password)
+            if (password != passwordConfirm){
+                errorDialog(getString(R.string.password_not_match))
+            } else{
+                viewModel.recover(binding.recoverCodeText.text.toString(), password)
+            }
         }
 
         binding.recoverBack.setOnClickListenerWithThrottle {

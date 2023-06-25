@@ -7,13 +7,12 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.uade.daitp.R
 import com.uade.daitp.databinding.FragmentOwnerCinemaListBinding
-import com.uade.daitp.module.di.ViewModelDI
 import com.uade.daitp.owner.home.presentation.adapters.CinemaAdapter
 import com.uade.daitp.presentation.util.setOnClickListenerWithThrottle
 
-class OwnerCinemaListFragment : Fragment(R.layout.fragment_owner_cinema_list) {
+class OwnerCinemaListFragment(private val viewModel: OwnerCinemasListViewModel) :
+    Fragment(R.layout.fragment_owner_cinema_list) {
 
-    private val viewModel = ViewModelDI.getOwnerCinemasListViewModel()
     private lateinit var binding: FragmentOwnerCinemaListBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

@@ -94,4 +94,6 @@
     <string name="unsubscribed">Cuenta dada de baja</string>
     <string name="unsubscribe_confirm">¿Está seguro que quiere darse de baja?</string>
     <string name="invalid_email_password">Combinación de email, password incorrecta</string>
+    <string name="password_not_match">Las contraseñas no coinciden</string>
+    <string name="save_button">Guardar</string>
 </resources>

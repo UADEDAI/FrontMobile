@@ -19,7 +19,7 @@ class OwnerProfileFragment : Fragment(R.layout.fragment_owner_profile) {
         binding = FragmentOwnerProfileBinding.bind(view)
 
         viewModel.user.observe(viewLifecycleOwner) {
-            binding.profileName.setText(it.name)
+            binding.profileName.setText(it.username)
             binding.profileEmail.setText(it.email)
             binding.profileCompany.setText(it.company)
         }

@@ -22,7 +22,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
         android:hint="@string/user_name_hint"
-        app:endIconMode="clear_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/profile_title">
@@ -42,7 +41,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:hint="@string/user_email_hint"
-        app:endIconMode="clear_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/profile_name_input">
@@ -51,6 +49,9 @@
             android:id="@+id/profile_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusable="false"
             android:inputType="none" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -62,7 +63,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:hint="@string/user_company_hint"
-        app:endIconMode="clear_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/profile_email_input">
@@ -80,7 +80,7 @@
         style="@style/Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/confirm_button"
+        android:text="@string/save_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

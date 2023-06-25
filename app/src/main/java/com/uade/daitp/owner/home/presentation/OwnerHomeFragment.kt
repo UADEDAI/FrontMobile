@@ -8,10 +8,12 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.uade.daitp.R
 import com.uade.daitp.databinding.FragmentOwnerHomeBinding
+import com.uade.daitp.module.di.ViewModelDI
 import com.uade.daitp.owner.home.presentation.animations.ZoomOutPageTransformer
 
 class OwnerHomeFragment : Fragment(R.layout.fragment_owner_home) {
 
+    private val viewModel = ViewModelDI.getOwnerCinemasListViewModel()
     private lateinit var binding: FragmentOwnerHomeBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -57,11 +59,19 @@ class OwnerHomeFragment : Fragment(R.layout.fragment_owner_home) {
 
         override fun createFragment(position: Int): Fragment = when (position) {
             0 ->
-                OwnerCinemaListFragment()
+                OwnerCinemaListFragment(viewModel)
             1 ->
                 OwnerProfileFragment()
             else ->
                 OwnerConfigurationFragment()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        if (binding.homePager.currentItem == 0) {
+            viewModel.refresh()
         }
     }
 

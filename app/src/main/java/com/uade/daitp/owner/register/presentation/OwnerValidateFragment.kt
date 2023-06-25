@@ -9,6 +9,7 @@ import com.uade.daitp.R
 import com.uade.daitp.databinding.FragmentOwnerValidateBinding
 import com.uade.daitp.module.di.ViewModelDI
 import com.uade.daitp.presentation.util.setOnClickListenerWithThrottle
+import com.uade.daitp.presentation.util.successDialog
 
 class OwnerValidateFragment : Fragment(R.layout.fragment_owner_validate) {
 
@@ -37,14 +38,10 @@ class OwnerValidateFragment : Fragment(R.layout.fragment_owner_validate) {
 
         viewModel.validateSuccess.observe(viewLifecycleOwner) {
             if (it)
-                MaterialAlertDialogBuilder(requireContext())
-                    .setMessage(getString(R.string.validate_dialog_success))
-                    .setPositiveButton(getString(R.string.accept)) { dialog, _ ->
-                        dialog.dismiss()
-                        view.findNavController()
-                            .navigate(R.id.action_ownerValidateFragment_to_ownerHomeFragment)
-                    }
-                    .show()
+                successDialog(getString(R.string.validate_dialog_success)) {
+                    view.findNavController()
+                        .navigate(R.id.action_ownerValidateFragment_to_ownerHomeFragment)
+                }
         }
     }
 
