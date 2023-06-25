@@ -43,6 +43,7 @@ object ViewModelDI {
             ActionsDI.getCinemaRooms(),
             ActionsDI.getMoviesByRoom(),
             ActionsDI.getScreeningsBy(),
+            ActionsDI.getAvailableScreeningsBy(),
             ActionsDI.addScreening(),
             ActionsDI.deleteScreening()
         )

@@ -6,6 +6,7 @@ import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface MovieService {
     @GET("/movies")
@@ -30,8 +31,17 @@ interface MovieService {
     @GET("/screenings")
     suspend fun getScreenings(): List<Screening>
 
-    @GET("/rooms/1/screenings/time-available")
-    suspend fun getScreeningsBy(@Path("roomId") roomId: Int): List<String>
+    @GET("/rooms/{roomId}/movie-screenings/{movieId}")
+    suspend fun getScreeningsBy(
+        @Path("roomId") roomId: Int,
+        @Path("movieId") movieId: Int,
+    ): List<Screening>
+
+    @GET("/rooms/{id}/screenings/time-available")
+    suspend fun getAvailableScreeningsBy(
+        @Path("id") roomId: Int,
+        @Query("duration") duration: Int
+    ): List<String>
 
     @GET("/screenings/{id}")
     suspend fun getScreening(@Path("id") screeningId: Int): Screening

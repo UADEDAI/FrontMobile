@@ -8,13 +8,18 @@ import com.uade.daitp.owner.home.core.models.*
 import com.uade.daitp.owner.home.core.models.enums.ScreeningFormat
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import java.sql.Time
+import java.text.SimpleDateFormat
+import java.util.*
 
 class OwnerCinemaViewModel(
     private val getCinema: GetCinema,
     private val getCinemaRooms: GetCinemaRooms,
     private val getMoviesByRoom: GetMoviesByRoom,
     private val getScreeningsBy: GetScreeningsBy,
+    private val getAvailableScreeningsBy: GetAvailableScreeningsBy,
     private val addScreening: AddScreening,
     private val deleteScreening: DeleteScreening
 ) : ViewModel() {
@@ -36,6 +41,11 @@ class OwnerCinemaViewModel(
 
     private val _selectedMovieScreenings: MutableLiveData<List<Screening>> by lazy { MutableLiveData<List<Screening>>() }
     val selectedMovieScreenings: LiveData<List<Screening>> get() = _selectedMovieScreenings
+
+    private val _selectedRoomAvailableScreenings: MutableLiveData<List<String>> by lazy { MutableLiveData<List<String>>() }
+    val selectedRoomAvailableScreenings: LiveData<List<String>> get() = _selectedRoomAvailableScreenings
+
+    private lateinit var selectedMovie: Movie
 
     fun getCinemaBy(cinemaId: Int) {
         CoroutineScope(Dispatchers.IO).launch {
@@ -75,7 +85,15 @@ class OwnerCinemaViewModel(
     }
 
     fun getScreenings(movie: Movie) {
+        selectedMovie = movie
         CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val availableScreenings =
+                    getAvailableScreeningsBy(movie.id, _selectedCinemaRoom.value!!.id)
+                _selectedRoomAvailableScreenings.postValue(availableScreenings)
+            } catch (e: Exception) {
+                _selectedRoomAvailableScreenings.postValue(emptyList())
+            }
             try {
                 val screenings = getScreeningsBy(movie.id, _selectedCinemaRoom.value!!.id)
                 _selectedMovieScreenings.postValue(screenings)
@@ -85,21 +103,59 @@ class OwnerCinemaViewModel(
         }
     }
 
-    fun addScreeningFrom(movie: Movie, screening: Screening, format: ScreeningFormat) {
+    fun addScreeningFrom(movie: Movie, startingTime: String, format: ScreeningFormat) {
         CoroutineScope(Dispatchers.IO).launch {
-            addScreening(
-                CreateScreeningIntent(
-                    _selectedCinemaRoom.value!!.id,
-                    movie.id,
-                    format,
-                    screening.startAt,
-                    screening.endAt
+            try {
+                addScreening(
+                    CreateScreeningIntent(
+                        _selectedCinemaRoom.value!!.id,
+                        movie.id,
+                        format,
+                        toDate(startingTime, 0),
+                        toDate(startingTime, movie.duration)
+                    )
                 )
-            )
+
+                refreshScreenings()
+            } catch (e: Exception) {
+                _error.value = e.message
+            }
         }
     }
 
     fun isSelectedAShowingMovie(movie: Movie): Boolean {
         return movie.isShowing()
+    }
+
+    fun deleteScreeningFromMovie(screening: Screening) {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                deleteScreening(screening.id)
+
+                refreshScreenings()
+            } catch (e: Exception) {
+                _error.value = e.message
+            }
+        }
+    }
+
+    private val timeFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+
+    private fun toDate(time: String, additionalMinutes: Int): String {
+        val hourAndMinute = time.split(":")
+        val calendar = Calendar.getInstance()
+        calendar.set(Calendar.HOUR_OF_DAY, hourAndMinute[0].toInt())
+        calendar.set(Calendar.MINUTE, hourAndMinute[1].toInt())
+
+        calendar.add(Calendar.MINUTE, additionalMinutes)
+        return timeFormat.format(calendar.time)
+    }
+
+    private fun refreshScreenings() {
+        CoroutineScope(Dispatchers.Default).launch {
+            delay(300)
+
+            getScreenings(selectedMovie)
+        }
     }
 }

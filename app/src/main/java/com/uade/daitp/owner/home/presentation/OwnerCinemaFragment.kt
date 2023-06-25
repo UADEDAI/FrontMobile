@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
@@ -119,7 +120,7 @@ class OwnerCinemaFragment : Fragment(R.layout.fragment_owner_cinema) {
         val screeningsView = binding.homeMovieScreeningList
         screeningsView.layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        screeningsView.adapter = ScreeningAdapter(emptyList())
+        screeningsView.adapter = ScreeningAdapter(emptyList(), viewModel)
 
         viewModel.selectedRoomMovies.observe(viewLifecycleOwner) {
             if (it.showing.isEmpty() && it.comingSoon.isEmpty()) {
@@ -162,50 +163,66 @@ class OwnerCinemaFragment : Fragment(R.layout.fragment_owner_cinema) {
         }
 
         binding.homeMovieScreeningAdd.setOnClickListenerWithThrottle {
-            if (viewModel.selectedMovieScreenings.isInitialized && viewModel.selectedMovieScreenings.value!!.isEmpty()) {
+            if (viewModel.selectedRoomAvailableScreenings.isInitialized && viewModel.selectedRoomAvailableScreenings.value!!.isEmpty()) {
                 return@setOnClickListenerWithThrottle
             }
-            val singleItems = viewModel.selectedMovieScreenings.value!!.map {
-                getScreeningTime(it)
-            }.toTypedArray()
-            val checkedItem = 0
+            val singleItems = viewModel.selectedRoomAvailableScreenings.value!!.toTypedArray()
+            val adapter = ArrayAdapter(
+                requireContext(),
+                android.R.layout.simple_list_item_single_choice,
+                singleItems
+            )
+            var selectedItem = ""
 
             MaterialAlertDialogBuilder(requireContext())
                 .setTitle(resources.getString(R.string.select_screening_time))
-                .setNeutralButton(resources.getString(R.string.cancel)) { dialog, _ ->
+                .setSingleChoiceItems(adapter, -1) { _, which ->
+                    selectedItem = singleItems[which]
+                }
+                .setNegativeButton(resources.getString(R.string.cancel)) { dialog, _ ->
                     dialog.cancel()
                 }
-                .setPositiveButton(resources.getString(R.string.next)) { dialog, which ->
-                    showLanguageDialog(viewModel.selectedMovieScreenings.value!![which])
-                    dialog.dismiss()
+                .setPositiveButton(resources.getString(R.string.next)) { dialog, _ ->
+                    if (selectedItem.isNotEmpty()) {
+                        showLanguageDialog(selectedItem)
+                        dialog.dismiss()
+                    }
                 }
-                .setSingleChoiceItems(singleItems, checkedItem) { _, _ -> }
                 .show()
         }
     }
 
-    private fun showLanguageDialog(screening: Screening) {
+    private fun showLanguageDialog(time: String) {
         val singleItems = arrayOf(getString(R.string.dubbed), getString(R.string.subtitled))
-        val checkedItem = 0
+        val adapter = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_list_item_single_choice,
+            singleItems
+        )
+        var selectedItem = -1
 
         MaterialAlertDialogBuilder(requireContext())
-            .setTitle(resources.getString(R.string.select_screening_time))
-            .setNeutralButton(resources.getString(R.string.cancel)) { dialog, _ ->
+            .setTitle(resources.getString(R.string.select_screening_format))
+            .setSingleChoiceItems(adapter, -1) { _, which ->
+                selectedItem = which
+            }
+            .setNegativeButton(resources.getString(R.string.cancel)) { dialog, _ ->
                 dialog.cancel()
             }
-            .setPositiveButton(resources.getString(R.string.next)) { dialog, which ->
-                val language = when (which) {
-                    0 -> ScreeningFormat.DUBBED
-                    else -> ScreeningFormat.SUBTITLED
+            .setPositiveButton(resources.getString(R.string.next)) { dialog, _ ->
+                if (selectedItem > -1) {
+                    val language = when (selectedItem) {
+                        0 -> ScreeningFormat.DUBBED
+                        else -> ScreeningFormat.SUBTITLED
+                    }
+                    viewModel.addScreeningFrom(
+                        getMovieListAdapter().selectedMovies.value!![0],
+                        time,
+                        language
+                    )
+                    dialog.dismiss()
                 }
-                viewModel.addScreeningFrom(
-                    getMovieListAdapter().selectedMovies.value!![0],
-                    screening,
-                    language
-                )
-                dialog.dismiss()
             }
-            .setSingleChoiceItems(singleItems, checkedItem) { _, _ -> }
             .show()
     }
 
@@ -236,15 +253,6 @@ class OwnerCinemaFragment : Fragment(R.layout.fragment_owner_cinema) {
 
     private fun getScreeningListAdapter(): ScreeningAdapter {
         return (binding.homeMovieScreeningList.adapter as ScreeningAdapter)
-    }
-
-    private fun to24HourFormat(date: Date): String {
-        val dateFormat = SimpleDateFormat("HH:mm", Locale.getDefault())
-        return dateFormat.format(date)
-    }
-
-    private fun getScreeningTime(screening: Screening): String {
-        return "${to24HourFormat(screening.startAt)} ${to24HourFormat(screening.endAt)}"
     }
 
     companion object {

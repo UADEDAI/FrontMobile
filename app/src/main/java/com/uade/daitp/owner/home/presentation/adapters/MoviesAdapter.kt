@@ -96,7 +96,6 @@ class MoviesAdapter(
 
     fun resetSelection() {
         views.forEach { it.isActivated = false }
-        _selectedMovies.postValue(mutableListOf())
     }
 
     fun toggleMoviesType() {

@@ -13,11 +13,13 @@
         android:id="@+id/item_screening_icon"
         android:layout_width="15dp"
         android:layout_height="15dp"
+        android:tint="@color/white"
         android:src="@drawable/ic_clock"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/white" />
+        app:tint="@color/white"
+        tools:ignore="UseAppTint" />
 
     <TextView
         android:id="@+id/item_screening_time"
@@ -38,9 +40,11 @@
         android:padding="8dp"
         android:layout_marginStart="10dp"
         android:src="@drawable/ic_close"
+        android:tint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@id/item_screening_time"
         app:layout_constraintTop_toTopOf="parent"
-        app:tint="@color/white" />
+        app:tint="@color/white"
+        tools:ignore="UseAppTint" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

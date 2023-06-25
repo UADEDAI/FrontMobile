@@ -32,14 +32,16 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         app:layout_constraintStart_toEndOf="@id/item_cinema_location_icon"
+        app:layout_constraintEnd_toStartOf="@id/item_cinema_delete_button"
+        app:layout_constrainedWidth="true"
         app:layout_constraintTop_toBottomOf="@id/item_cinema_title"
-        tools:text="Maipu 3298, Olivos, Buenos Aires" />
+        tools:text="Maipu 3298, Olivos, Buenos Aires, CABA, Argentina" />
 
     <ImageView
         android:id="@+id/item_cinema_room_icon"
         android:layout_width="@dimen/item_cinema_icon"
         android:layout_height="@dimen/item_cinema_icon"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:src="@mipmap/ic_cinema_room"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/item_cinema_location_icon" />
@@ -48,7 +50,8 @@
         android:id="@+id/item_cinema_room"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginHorizontal="8dp"
         app:layout_constraintStart_toEndOf="@id/item_cinema_room_icon"
         app:layout_constraintTop_toBottomOf="@id/item_cinema_location_icon"
         tools:text="5 Rooms" />
@@ -57,7 +60,7 @@
         android:id="@+id/item_cinema_projector_icon"
         android:layout_width="@dimen/item_cinema_icon"
         android:layout_height="@dimen/item_cinema_icon"
-        android:layout_margin="8dp"
+        android:layout_margin="16dp"
         android:src="@mipmap/ic_projector"
         app:layout_constraintStart_toEndOf="@id/item_cinema_room"
         app:layout_constraintTop_toBottomOf="@id/item_cinema_location_icon" />
@@ -66,7 +69,8 @@
         android:id="@+id/item_cinema_movies"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginHorizontal="8dp"
         app:layout_constraintStart_toEndOf="@id/item_cinema_projector_icon"
         app:layout_constraintTop_toBottomOf="@id/item_cinema_location_icon"
         tools:text="10 movies" />

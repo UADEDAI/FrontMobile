@@ -51,6 +51,8 @@ object ActionsDI {
 
     fun getScreeningsBy() = GetScreeningsBy(RepositoryDI.getMovieRepository())
 
+    fun getAvailableScreeningsBy() = GetAvailableScreeningsBy(RepositoryDI.getMovieRepository())
+
     fun addScreening() = AddScreening(RepositoryDI.getMovieRepository())
 
     fun deleteScreening() = DeleteScreening(RepositoryDI.getMovieRepository())

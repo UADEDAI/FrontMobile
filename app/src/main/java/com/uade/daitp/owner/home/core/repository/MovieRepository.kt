@@ -15,6 +15,7 @@ interface MovieRepository {
     suspend fun addScreening(intent: CreateScreeningIntent)
     suspend fun getScreenings(): List<Screening>
     suspend fun getScreeningsBy(movieId: Int, roomId: Int): List<Screening>
+    suspend fun getAvailableScreeningsBy(movieId: Int, roomId: Int): List<String>
     suspend fun getScreening(screeningId: Int): Screening
     suspend fun deleteScreening(screeningId: Int)
 }

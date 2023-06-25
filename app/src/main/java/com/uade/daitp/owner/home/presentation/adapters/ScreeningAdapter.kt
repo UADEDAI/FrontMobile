@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.uade.daitp.databinding.ListItemScreeningBinding
 import com.uade.daitp.owner.home.core.models.Screening
+import com.uade.daitp.owner.home.presentation.OwnerCinemaViewModel
 import com.uade.daitp.presentation.util.setOnClickListenerWithThrottle
 import java.text.SimpleDateFormat
 import java.util.*
@@ -13,20 +14,20 @@ import java.util.*
 @SuppressLint("NotifyDataSetChanged")
 class ScreeningAdapter(
     private var screenings: List<Screening>,
-//    private val viewModel: OwnerHomeViewModel
+    private val viewModel: OwnerCinemaViewModel
 ) :
     RecyclerView.Adapter<ScreeningAdapter.ViewHolder>() {
 
     class ViewHolder(
         private val binding: ListItemScreeningBinding,
-//        private val viewModel: OwnerHomeViewModel
+        private val viewModel: OwnerCinemaViewModel
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(screening: Screening) {
             binding.itemScreeningTime.text = getScreeningTime(screening)
 
             binding.itemScreeningClose.setOnClickListenerWithThrottle {
-                //TODO delete viewModel.deleteScreening(screening)
+                viewModel.deleteScreeningFromMovie(screening)
             }
         }
 
@@ -43,7 +44,7 @@ class ScreeningAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
             ListItemScreeningBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding)
+        return ViewHolder(binding, viewModel)
     }
 
     override fun getItemCount() = screenings.size
