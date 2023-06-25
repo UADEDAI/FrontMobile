@@ -1,6 +1,6 @@
 package com.uade.daitp.owner.home.infrastructure
 
-import com.uade.daitp.login.infrastructure.repository.UserRepository
+import com.uade.daitp.login.infrastructure.repository.PersistenceUserRepository
 import com.uade.daitp.owner.home.core.models.Cinema
 import com.uade.daitp.owner.home.core.models.CinemaRoom
 import com.uade.daitp.owner.home.core.models.CreateCinemaIntent
@@ -14,7 +14,7 @@ import com.uade.daitp.owner.home.core.repository.service.CinemaService
 
 class RemoteCinemaRepository(
     private val cinemaService: CinemaService,
-    private val userRepository: UserRepository
+    private val persistenceUserRepository: PersistenceUserRepository
 ) : CinemaRepository {
     override suspend fun createCinema(cinemaIntent: CreateCinemaIntent) {
         try {
@@ -41,7 +41,7 @@ class RemoteCinemaRepository(
     }
 
     override suspend fun getCinemas(): List<Cinema> {
-        return cinemaService.getCinemas(userRepository.getUser().id)
+        return cinemaService.getCinemas(persistenceUserRepository.getUser().id)
     }
 
     override suspend fun getCinema(cinemaId: Int): Cinema {

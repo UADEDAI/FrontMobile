@@ -43,6 +43,12 @@
         <action
             android:id="@+id/action_ownerHomeFragment_to_ownerCinemaFragment"
             app:destination="@id/ownerCinemaFragment" />
+        <action
+            android:id="@+id/action_ownerHomeFragment_to_loginChoiceFragment"
+            app:destination="@id/loginChoiceFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/ownerHomeFragment"
+            app:popUpToInclusive="true"/>
     </fragment>
     <fragment
         android:id="@+id/ownerRegisterFragment"

@@ -7,7 +7,7 @@ import com.google.gson.Gson
 import com.uade.daitp.Cinemapp
 import com.uade.daitp.login.core.model.User
 
-class SharedPrefUserRepository: UserRepository {
+class SharedPrefPersistenceUserRepository : PersistenceUserRepository {
 
     private val sharedPreferences: SharedPreferences
     private var gson = Gson()
@@ -43,6 +43,13 @@ class SharedPrefUserRepository: UserRepository {
 
     override fun getBearerToken(): String {
         return "Bearer ${getToken()}"
+    }
+
+    override fun removeUser() {
+        sharedPreferences.edit()
+            .remove(userKey)
+            .remove(userToken)
+            .apply()
     }
 
     private companion object {

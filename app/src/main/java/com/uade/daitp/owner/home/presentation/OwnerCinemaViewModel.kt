@@ -10,7 +10,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import java.sql.Time
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -53,7 +52,7 @@ class OwnerCinemaViewModel(
                 val cinema = getCinema(cinemaId)
                 _cinema.postValue(cinema)
             } catch (e: Exception) {
-                _error.value = e.message
+                _error.postValue(e.message)
             }
         }
     }
@@ -64,7 +63,7 @@ class OwnerCinemaViewModel(
                 val cinemaRooms = getCinemaRooms(cinemaId)
                 _cinemaRooms.postValue(cinemaRooms)
             } catch (e: Exception) {
-                _error.value = e.message
+                _error.postValue(e.message)
             }
         }
     }
@@ -118,7 +117,7 @@ class OwnerCinemaViewModel(
 
                 refreshScreenings()
             } catch (e: Exception) {
-                _error.value = e.message
+                _error.postValue(e.message)
             }
         }
     }
@@ -134,7 +133,7 @@ class OwnerCinemaViewModel(
 
                 refreshScreenings()
             } catch (e: Exception) {
-                _error.value = e.message
+                _error.postValue(e.message)
             }
         }
     }

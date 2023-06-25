@@ -5,7 +5,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.uade.daitp.owner.home.core.actions.*
-import com.uade.daitp.owner.home.core.models.*
+import com.uade.daitp.owner.home.core.models.CinemaRoom
+import com.uade.daitp.owner.home.core.models.Movie
+import com.uade.daitp.owner.home.core.models.MoviesList
+import com.uade.daitp.owner.home.core.models.emptyMovieList
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

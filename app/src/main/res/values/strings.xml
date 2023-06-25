@@ -78,4 +78,19 @@
     <string name="dialog_error">An error has occurred</string>
     <string name="select_screening_format">Select format</string>
     <string name="room_movie_quantity">%d movies</string>
+    <string name="movies">Movies</string>
+    <string name="profile">Profile</string>
+    <string name="config">Config</string>
+    <string name="personal_data">Personal Data</string>
+    <string name="user_name_hint">Name</string>
+    <string name="user_email_hint">Email</string>
+    <string name="user_company_hint">Company</string>
+    <string name="config_title">By unsubscribing your account, all reservations and created theaters will be permanently lost.</string>
+    <string name="logout">Logout</string>
+    <string name="unsubscribe">Unsubscribe</string>
+    <string name="success">Success</string>
+    <string name="error">An Error has occurred</string>
+    <string name="session_closed">Logged out successfully</string>
+    <string name="unsubscribed">Account closed</string>
+    <string name="unsubscribe_confirm">Are you sure you want to close your account?</string>
 </resources>

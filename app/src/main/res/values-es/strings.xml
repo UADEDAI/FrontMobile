@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">CINEMAPP</string>
 
-    <string name="login_email">INICIAR SESIÓN CON CORREO ELECTRÓNICO</string>
+    <string name="login_email">INICIAR SESIÓN CON EMAIL</string>
     <string name="login_google">INICIA SESIÓN CON GOOGLE</string>
 
     <string name="username_hint">Nombre de usuario</string>
@@ -78,4 +78,19 @@
     <string name="dialog_error">Se ha producido un error</string>
     <string name="select_screening_format">Seleccionar formato</string>
     <string name="room_movie_quantity">%d películas</string>
+    <string name="movies">Cines</string>
+    <string name="profile">Perfil</string>
+    <string name="config">Config</string>
+    <string name="personal_data">Datos Personales</string>
+    <string name="user_name_hint">Nombre</string>
+    <string name="user_email_hint">Email</string>
+    <string name="user_company_hint">Empresa</string>
+    <string name="config_title">Al dar de baja tu cuenta todas las reservas y salas creadas se perderan permanentemente</string>
+    <string name="logout">Cerrar Sesión</string>
+    <string name="unsubscribe">Dar de Baja</string>
+    <string name="success">Operación exitosa</string>
+    <string name="error">Ha ocurrido un Error</string>
+    <string name="session_closed">Sesión cerrada</string>
+    <string name="unsubscribed">Cuenta dada de baja</string>
+    <string name="unsubscribe_confirm">¿Está seguro que quiere darse de baja?</string>
 </resources>

@@ -15,27 +15,27 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
-import java.util.Calendar
+import java.util.*
 
 class RemoteLoginRepository(
     private val loginService: LoginService,
-    private val userRepository: UserRepository
+    private val persistenceUserRepository: PersistenceUserRepository
 ) : LoginRepository {
 
     private var flow = flowOf("")
 
     override fun getLoggedInOwner(): User {
-        return userRepository.getUser()
+        return persistenceUserRepository.getUser()
     }
 
     override suspend fun loginRemember() {
-        val savedToken = userRepository.getToken()
+        val savedToken = persistenceUserRepository.getToken()
         val jwt = JWT(savedToken)
         if (jwt.isExpired(0)) throw SessionExpiredException("Access token expired, need to re login")
 
         val userId = jwt.getClaim("id").asInt()!!
         val user = loginService.getUser(userId, createToken(savedToken))
-        userRepository.saveUser(user)
+        persistenceUserRepository.saveUser(user)
 
         refreshToken()
     }
@@ -43,12 +43,12 @@ class RemoteLoginRepository(
     override suspend fun loginOwner(userName: String, password: String) {
         val loginIntent = LoginIntent(userName, password)
         val loginResponse = loginService.loginOwner(loginIntent)
-        userRepository.saveToken(loginResponse.access_token)
+        persistenceUserRepository.saveToken(loginResponse.access_token)
 
         val jwt = JWT(loginResponse.access_token)
         val userId = jwt.getClaim("id").asInt()!!
         val user = loginService.getUser(userId, createToken(loginResponse.access_token))
-        userRepository.saveUser(user)
+        persistenceUserRepository.saveUser(user)
 
         refreshToken()
     }
@@ -62,7 +62,7 @@ class RemoteLoginRepository(
         val registerIntent = RegisterIntent(username, email, password, company, owner)
         val user = loginService.registerOwner(registerIntent)
 
-        userRepository.saveUser(user)
+        persistenceUserRepository.saveUser(user)
     }
 
     override suspend fun validateOTP(code: String) {
@@ -70,7 +70,7 @@ class RemoteLoginRepository(
         val validateIntent = ValidateIntent(user.id, code)
 
         val token = loginService.validateOTP(validateIntent)
-        userRepository.saveToken(token.access_token)
+        persistenceUserRepository.saveToken(token.access_token)
 
         refreshToken()
     }
@@ -83,7 +83,7 @@ class RemoteLoginRepository(
     override suspend fun recoverPassword(code: String, password: String) {
         val recoverIntent = RecoverIntent(password, code)
         val user = loginService.recoverPassword(recoverIntent)
-        userRepository.saveUser(user)
+        persistenceUserRepository.saveUser(user)
     }
 
     private fun refreshToken() {
@@ -91,7 +91,7 @@ class RemoteLoginRepository(
             flow = flow {
                 try {
                     while (true) {
-                        if (isAboutToExpire(userRepository.getToken())) {
+                        if (isAboutToExpire(persistenceUserRepository.getToken())) {
                             val accessToken = requestNewAccessToken()
                             emit(accessToken)
                         } else {
@@ -119,9 +119,9 @@ class RemoteLoginRepository(
     }
 
     private suspend fun requestNewAccessToken(): String {
-        val refreshIntent = RefreshIntent(userRepository.getUser().email)
-        val newToken = loginService.refreshToken(refreshIntent, userRepository.getBearerToken())
-        userRepository.saveToken(newToken.access_token)
+        val refreshIntent = RefreshIntent(persistenceUserRepository.getUser().email)
+        val newToken = loginService.refreshToken(refreshIntent, persistenceUserRepository.getBearerToken())
+        persistenceUserRepository.saveToken(newToken.access_token)
         Log.d("RemoteLoginRepository", "NEW TOKEN ${newToken.access_token}")
         return newToken.access_token
     }

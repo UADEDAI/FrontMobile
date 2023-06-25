@@ -2,14 +2,14 @@ package com.uade.daitp.module.factory
 
 import com.squareup.moshi.Moshi
 import com.uade.daitp.login.core.repository.LoginService
-import com.uade.daitp.login.infrastructure.repository.SharedPrefUserRepository
-import com.uade.daitp.login.infrastructure.repository.UserRepository
+import com.uade.daitp.login.core.repository.UserService
+import com.uade.daitp.login.infrastructure.repository.SharedPrefPersistenceUserRepository
+import com.uade.daitp.login.infrastructure.repository.PersistenceUserRepository
 import com.uade.daitp.module.factory.adapter.BooleanAdapter
 import com.uade.daitp.module.factory.adapter.DateAdapter
 import com.uade.daitp.owner.home.core.repository.service.CinemaService
 import com.uade.daitp.owner.home.core.repository.service.MovieService
 import okhttp3.OkHttpClient
-import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -32,8 +32,14 @@ object RetrofitFactory {
         )
     }
 
+    val userService: UserService by lazy {
+        createRetrofitService(getAuthorizedHttpClient()).create(
+            UserService::class.java
+        )
+    }
+
     private const val BASE_URL = "http://54.85.247.40/"
-    private val userRepository: UserRepository = SharedPrefUserRepository()
+    private val persistenceUserRepository: PersistenceUserRepository = SharedPrefPersistenceUserRepository()
 
     private fun getMoshi() = Moshi.Builder()
         .add(BooleanAdapter())
@@ -47,7 +53,7 @@ object RetrofitFactory {
         return OkHttpClient.Builder()
             .addInterceptor {
                 val request = it.request().newBuilder()
-                    .addHeader("Authorization", userRepository.getBearerToken())
+                    .addHeader("Authorization", persistenceUserRepository.getBearerToken())
                     .addHeader("Content-Type", "application/json")
                     .build()
                 return@addInterceptor it.proceed(request)

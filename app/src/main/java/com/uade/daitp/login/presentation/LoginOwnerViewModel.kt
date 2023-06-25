@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.uade.daitp.login.core.actions.GetUser
 import com.uade.daitp.login.core.actions.LoginOwner
-import com.uade.daitp.login.core.model.User
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

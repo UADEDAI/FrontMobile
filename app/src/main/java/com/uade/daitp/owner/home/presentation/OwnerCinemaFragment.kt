@@ -13,15 +13,12 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.uade.daitp.R
 import com.uade.daitp.databinding.FragmentOwnerCinemaBinding
 import com.uade.daitp.module.di.ViewModelDI
-import com.uade.daitp.owner.home.core.models.Screening
 import com.uade.daitp.owner.home.core.models.emptyMovieList
 import com.uade.daitp.owner.home.core.models.enums.ScreeningFormat
 import com.uade.daitp.owner.home.presentation.adapters.CinemaRoomAdapter
 import com.uade.daitp.owner.home.presentation.adapters.MoviesAdapter
 import com.uade.daitp.owner.home.presentation.adapters.ScreeningAdapter
 import com.uade.daitp.presentation.util.setOnClickListenerWithThrottle
-import java.text.SimpleDateFormat
-import java.util.*
 
 class OwnerCinemaFragment : Fragment(R.layout.fragment_owner_cinema) {
 

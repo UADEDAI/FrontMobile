@@ -1,7 +1,6 @@
 package com.uade.daitp.module.di
 
-import com.uade.daitp.login.core.actions.GetUser
-import com.uade.daitp.login.core.actions.LoginOwner
+import com.uade.daitp.login.core.actions.*
 import com.uade.daitp.owner.home.core.actions.*
 import com.uade.daitp.owner.recovery.core.actions.RecoverEmail
 import com.uade.daitp.owner.recovery.core.actions.RecoverPassword
@@ -58,4 +57,10 @@ object ActionsDI {
     fun deleteScreening() = DeleteScreening(RepositoryDI.getMovieRepository())
 
     fun getUpdateCinemaRoom() = UpdateCinemaRoom(RepositoryDI.getCinemaRepository())
+
+    fun getUpdateUser() = UpdateUser(RepositoryDI.getUserRepository())
+
+    fun getDeleteUser() = DeleteUser(RepositoryDI.getUserRepository())
+
+    fun getLogoutUser() = LogoutUser(RepositoryDI.getUserRepository())
 }

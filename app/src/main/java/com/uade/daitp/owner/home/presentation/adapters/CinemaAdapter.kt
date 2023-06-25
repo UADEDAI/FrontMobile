@@ -11,16 +11,16 @@ import com.uade.daitp.databinding.ListItemCinemaBinding
 import com.uade.daitp.owner.home.core.models.Cinema
 import com.uade.daitp.owner.home.presentation.OwnerCinemaFormFragment
 import com.uade.daitp.owner.home.presentation.OwnerCinemaFragment
-import com.uade.daitp.owner.home.presentation.OwnerHomeViewModel
+import com.uade.daitp.owner.home.presentation.OwnerCinemasListViewModel
 import com.uade.daitp.presentation.util.setOnClickListenerWithThrottle
 
 
-class CinemaAdapter(private val cinemas: List<Cinema>, private val viewModel: OwnerHomeViewModel) :
+class CinemaAdapter(private val cinemas: List<Cinema>, private val viewModel: OwnerCinemasListViewModel) :
     RecyclerView.Adapter<CinemaAdapter.ViewHolder>() {
 
     class ViewHolder(
         private val binding: ListItemCinemaBinding,
-        private val viewModel: OwnerHomeViewModel
+        private val viewModel: OwnerCinemasListViewModel
     ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(cinema: Cinema) {

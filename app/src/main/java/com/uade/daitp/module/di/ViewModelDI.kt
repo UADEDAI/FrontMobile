@@ -19,7 +19,7 @@ object ViewModelDI {
     fun getRecoverPasswordViewModel() =
         OwnerRecoverPasswordViewModel(ActionsDI.getRecoverPasswordOwner())
 
-    fun getOwnerHomeViewModel() = OwnerHomeViewModel(
+    fun getOwnerCinemasListViewModel() = OwnerCinemasListViewModel(
         ActionsDI.getGetCinemasOwner(),
         ActionsDI.getDeleteCinema()
     )
@@ -58,5 +58,15 @@ object ViewModelDI {
 
     fun getOwnerMovieDetailViewModel() = OwnerMovieDetailViewModel(
         ActionsDI.getMovie()
+    )
+
+    fun getOwnerProfileViewModel() = OwnerProfileViewModel(
+        ActionsDI.getUser(),
+        ActionsDI.getUpdateUser()
+    )
+
+    fun getOwnerConfigurationViewModel() = OwnerConfigurationViewModel(
+        ActionsDI.getDeleteUser(),
+        ActionsDI.getLogoutUser()
     )
 }

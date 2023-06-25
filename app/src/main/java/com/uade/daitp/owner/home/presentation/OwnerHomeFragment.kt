@@ -3,17 +3,15 @@ package com.uade.daitp.owner.home.presentation
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.fragment.app.FragmentActivity
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
 import com.uade.daitp.R
 import com.uade.daitp.databinding.FragmentOwnerHomeBinding
-import com.uade.daitp.module.di.ViewModelDI
-import com.uade.daitp.owner.home.presentation.adapters.CinemaAdapter
-import com.uade.daitp.presentation.util.setOnClickListenerWithThrottle
+import com.uade.daitp.owner.home.presentation.animations.ZoomOutPageTransformer
 
 class OwnerHomeFragment : Fragment(R.layout.fragment_owner_home) {
 
-    private val viewModel = ViewModelDI.getOwnerHomeViewModel()
     private lateinit var binding: FragmentOwnerHomeBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -21,30 +19,53 @@ class OwnerHomeFragment : Fragment(R.layout.fragment_owner_home) {
 
         binding = FragmentOwnerHomeBinding.bind(view)
 
-        binding.homeCinemaAdd.setOnClickListenerWithThrottle {
-            view.findNavController()
-                .navigate(R.id.action_ownerHomeFragment_to_ownerCinemaFormFragment)
-        }
+        val pagerAdapter = ScreenSlidePagerAdapter(requireActivity())
+        binding.homePager.adapter = pagerAdapter
+        binding.homePager.setPageTransformer(ZoomOutPageTransformer())
 
-        binding.homeCinemaEmptyButton.setOnClickListenerWithThrottle {
-            view.findNavController()
-                .navigate(R.id.action_ownerHomeFragment_to_ownerCinemaFormFragment)
-        }
+        binding.homePager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                when (position) {
+                    0 -> binding.homeNavigation.selectedItemId = R.id.home
+                    1 -> binding.homeNavigation.selectedItemId = R.id.profile
+                    2 -> binding.homeNavigation.selectedItemId = R.id.config
+                }
+            }
 
-        val recyclerView = binding.homeCinemaList
-        recyclerView.layoutManager = LinearLayoutManager(context)
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
+            }
 
-        viewModel.cinemas.observe(viewLifecycleOwner) {
-            recyclerView.adapter = CinemaAdapter(it, viewModel)
+            override fun onPageScrollStateChanged(state: Int) {}
+        })
 
-            binding.homeCinemaEmpty.visibility = if (it.isEmpty()) View.VISIBLE else View.GONE
+        binding.homeNavigation.setOnItemSelectedListener {
+            when (it.itemId) {
+                R.id.home -> binding.homePager.currentItem = 0
+                R.id.profile -> binding.homePager.currentItem = 1
+                R.id.config -> binding.homePager.currentItem = 2
+            }
+            return@setOnItemSelectedListener true
         }
     }
 
-    override fun onResume() {
-        super.onResume()
+    private inner class ScreenSlidePagerAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
+        override fun getItemCount(): Int = NUM_PAGES
 
-        viewModel.refresh()
+        override fun createFragment(position: Int): Fragment = when (position) {
+            0 ->
+                OwnerCinemaListFragment()
+            1 ->
+                OwnerProfileFragment()
+            else ->
+                OwnerConfigurationFragment()
+        }
     }
 
+    private companion object {
+        const val NUM_PAGES = 3
+    }
 }

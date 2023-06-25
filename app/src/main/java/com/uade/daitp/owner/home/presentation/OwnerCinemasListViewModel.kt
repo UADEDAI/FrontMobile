@@ -11,7 +11,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class OwnerHomeViewModel(
+class OwnerCinemasListViewModel(
     private val getCinemas: GetCinemas,
     private val deleteCinema: DeleteCinema
 ) : ViewModel() {
