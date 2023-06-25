@@ -1,7 +1,8 @@
 package com.uade.daitp.owner.recovery.core.actions
 
+import com.uade.daitp.login.core.repository.LoginRepository
 import com.uade.daitp.owner.recovery.core.models.exceptions.InvalidRecoveryPasswordException
-import com.uade.daitp.owner.register.core.repository.OwnerRepository
+import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
@@ -9,12 +10,12 @@ import org.mockito.kotlin.whenever
 
 internal class RecoverPasswordShould {
 
-    private lateinit var ownerRepository: OwnerRepository
+    private lateinit var ownerRepository: LoginRepository
     private lateinit var recoverPassword: RecoverPassword
     private var error: Exception? = null
 
     @Test
-    fun `Recover password calls repository`() {
+    fun `Recover password calls repository`() = runTest {
         givenAnAction()
 
         whenRecoveringPassword(validCode, validPassword)
@@ -23,7 +24,7 @@ internal class RecoverPasswordShould {
     }
 
     @Test
-    fun `Invalid code throws error`() {
+    fun `Invalid code throws error`() = runTest {
         givenAnAction()
 
         whenRecoveringPassword(invalidCode, validPassword)
@@ -31,7 +32,7 @@ internal class RecoverPasswordShould {
         thenErrorIsThrown()
     }
 
-    private fun givenAnAction() {
+    private suspend fun givenAnAction() {
         ownerRepository = mock()
         whenever(ownerRepository.recoverPassword(invalidCode, validPassword)).thenThrow(
             InvalidRecoveryPasswordException("Invalid code")
@@ -39,7 +40,7 @@ internal class RecoverPasswordShould {
         recoverPassword = RecoverPassword(ownerRepository)
     }
 
-    private fun whenRecoveringPassword(code: String, password: String) {
+    private suspend fun whenRecoveringPassword(code: String, password: String) {
         try {
             recoverPassword(code, password)
         } catch (e: Exception) {
@@ -47,7 +48,7 @@ internal class RecoverPasswordShould {
         }
     }
 
-    private fun thenPasswordIsRecovered() {
+    private suspend fun thenPasswordIsRecovered() {
         verify(ownerRepository).recoverPassword(validCode, validPassword)
     }
 

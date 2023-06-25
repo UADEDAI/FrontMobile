@@ -76,12 +76,13 @@ internal class GetMoviesShould {
                     Calendar.getInstance().time,
                     "Action",
                     "Matt Reeves",
-                    listOf("Robert Pattinson, Zoë Kravitz, Paul Dano, Jeffrey Wright, John Turturro, Peter Sarsgaard, Barry Keoghan, Jayme Lawson, Andy Serkis, Colin Farrell"),
+                    "Robert Pattinson, Zoë Kravitz, Paul Dano, Jeffrey Wright, John Turturro, Peter Sarsgaard, Barry Keoghan, Jayme Lawson, Andy Serkis, Colin Farrell",
                     8.0,
                     "PG-13",
                     "unsplash.com/example",
                     Calendar.getInstance().time,
-                    Calendar.getInstance().time
+                    Calendar.getInstance().time,
+                    "showing"
                 ),
             ),
             mutableListOf(
@@ -92,12 +93,13 @@ internal class GetMoviesShould {
                     Calendar.getInstance().time,
                     "Action",
                     "Jon Watts",
-                    listOf("Tom Holland, Samuel L. Jackson, Jake Gyllenhaal, Marisa Tomei, Jon Favreau, Zendaya, Jacob Batalon, Tony Revolori, Angourie Rice, Remy Hii, Martin Starr, J. B. Smoove, Cobie Smulders, Numan Acar, Jorge Lendeborg Jr., Hemky Madera, Toni Garrn"),
+                    "Tom Holland, Samuel L. Jackson, Jake Gyllenhaal, Marisa Tomei, Jon Favreau, Zendaya, Jacob Batalon, Tony Revolori, Angourie Rice, Remy Hii, Martin Starr, J. B. Smoove, Cobie Smulders, Numan Acar, Jorge Lendeborg Jr., Hemky Madera, Toni Garrn",
                     -1.0,
                     "PG-13",
                     "unsplash.com/example",
                     Calendar.getInstance().time,
-                    Calendar.getInstance().time
+                    Calendar.getInstance().time,
+                    "coming_soon"
                 ),
             ),
             Pagination(1, 100, 1, 1),

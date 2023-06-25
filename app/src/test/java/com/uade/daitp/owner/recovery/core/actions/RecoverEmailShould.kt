@@ -1,7 +1,8 @@
 package com.uade.daitp.owner.recovery.core.actions
 
+import com.uade.daitp.login.core.repository.LoginRepository
 import com.uade.daitp.owner.recovery.core.models.exceptions.InvalidRecoveryEmailException
-import com.uade.daitp.owner.register.core.repository.OwnerRepository
+import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
@@ -9,12 +10,12 @@ import org.mockito.kotlin.whenever
 
 internal class RecoverEmailShould {
 
-    private lateinit var recoverRepository: OwnerRepository
+    private lateinit var recoverRepository: LoginRepository
     private lateinit var recoverEmail: RecoverEmail
     private var error: Exception? = null
 
     @Test
-    fun `recover email should call service`() {
+    fun `recover email should call service`() = runTest {
         givenAnAction()
 
         whenRecoveringEmail(testEmail)
@@ -23,7 +24,7 @@ internal class RecoverEmailShould {
     }
 
     @Test
-    fun `recover email throw error if invalid email`() {
+    fun `recover email throw error if invalid email`() = runTest {
         givenAnAction()
 
         whenRecoveringEmail(invalidEmail)
@@ -31,15 +32,15 @@ internal class RecoverEmailShould {
         thenErrorIsThrown()
     }
 
-    private fun givenAnAction() {
+    private suspend fun givenAnAction() {
         recoverRepository = mock()
-        whenever(recoverRepository.recoverEmail(invalidEmail)).thenThrow(
+        whenever(recoverRepository.resetPassword(invalidEmail)).thenThrow(
             InvalidRecoveryEmailException("Invalid email")
         )
         recoverEmail = RecoverEmail(recoverRepository)
     }
 
-    private fun whenRecoveringEmail(email: String) {
+    private suspend fun whenRecoveringEmail(email: String) {
         try {
             recoverEmail(email)
         } catch (e: Exception) {
@@ -47,8 +48,8 @@ internal class RecoverEmailShould {
         }
     }
 
-    private fun thenRecoveryServiceIsCalled() {
-        verify(recoverRepository).recoverEmail(testEmail)
+    private suspend fun thenRecoveryServiceIsCalled() {
+        verify(recoverRepository).resetPassword(testEmail)
     }
 
     private fun thenErrorIsThrown() {

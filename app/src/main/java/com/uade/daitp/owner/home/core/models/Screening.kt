@@ -10,7 +10,5 @@ data class Screening(
     val format: ScreeningFormat,
     val startAt: Date,
     val endAt: Date,
-    val availableSeats: List<String>,
-    val createdAt: Date,
-    val updatedAt: Date
+//    val availableSeats: List<String>
 )

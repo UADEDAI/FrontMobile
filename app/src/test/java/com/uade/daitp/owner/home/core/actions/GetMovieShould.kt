@@ -72,12 +72,13 @@ internal class GetMovieShould {
             Calendar.getInstance().time,
             "Action",
             "Matt Reeves",
-            listOf("Robert Pattinson, Zoë Kravitz, Paul Dano, Jeffrey Wright, John Turturro, Peter Sarsgaard, Barry Keoghan, Jayme Lawson, Andy Serkis, Colin Farrell"),
+            "Robert Pattinson, Zoë Kravitz, Paul Dano, Jeffrey Wright, John Turturro, Peter Sarsgaard, Barry Keoghan, Jayme Lawson, Andy Serkis, Colin Farrell",
             8.0,
             "PG-13",
             "unsplash.com/example",
             Calendar.getInstance().time,
-            Calendar.getInstance().time
+            Calendar.getInstance().time,
+            "showing"
         )
     }
 }

@@ -1,19 +1,20 @@
 package com.uade.daitp.owner.register.core.actions
 
+import com.uade.daitp.login.core.repository.LoginRepository
 import com.uade.daitp.owner.register.core.model.exceptions.InvalidRegisterDataError
-import com.uade.daitp.owner.register.core.repository.OwnerRepository
+import kotlinx.coroutines.test.runTest
 import org.junit.Test
 import org.mockito.kotlin.mock
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 
 internal class RegisterUserShould {
-    private lateinit var ownerRepository: OwnerRepository
+    private lateinit var ownerRepository: LoginRepository
     private lateinit var registerOwner: RegisterOwner
     private var error: Exception? = null
 
     @Test
-    fun `register should register an owner`() {
+    fun `register should register an owner`() = runTest {
         givenARepository()
         givenARegisterAction()
 
@@ -23,7 +24,7 @@ internal class RegisterUserShould {
     }
 
     @Test
-    fun `used email should throw error`() {
+    fun `used email should throw error`() = runTest {
         givenARepository()
         givenARegisterAction()
 
@@ -32,7 +33,7 @@ internal class RegisterUserShould {
         thenErrorIsThrown()
     }
 
-    private fun givenARepository() {
+    private suspend fun givenARepository() {
         ownerRepository = mock()
         whenever(
             ownerRepository.registerOwner(
@@ -58,7 +59,7 @@ internal class RegisterUserShould {
         registerOwner = RegisterOwner(ownerRepository)
     }
 
-    private fun whenRegisteringAnOwner(
+    private suspend fun whenRegisteringAnOwner(
         email: String, password: String, username: String, company: String
     ) {
         try {
@@ -68,7 +69,7 @@ internal class RegisterUserShould {
         }
     }
 
-    private fun thenUserIsRegistered() {
+    private suspend fun thenUserIsRegistered() {
         verify(ownerRepository).registerOwner(
             validEmail, validPassword, validUsername, validCompany
         )

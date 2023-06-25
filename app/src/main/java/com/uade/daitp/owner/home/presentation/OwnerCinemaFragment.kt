@@ -105,6 +105,7 @@ class OwnerCinemaFragment : Fragment(R.layout.fragment_owner_cinema) {
             binding.homeRoomEdit.visibility = VISIBLE
             binding.homeMoviesTitle.visibility = VISIBLE
             binding.homeMovieAdd.visibility = VISIBLE
+            binding.homeMovieScreeningManager.visibility = GONE
 
             viewModel.getRoomMoviesBy(it.id)
         }

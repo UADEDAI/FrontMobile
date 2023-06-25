@@ -70,9 +70,7 @@ internal class GetScreeningsShould {
                 ScreeningFormat.SUBTITLED,
                 Calendar.getInstance().time,
                 Calendar.getInstance().time,
-                listOf(),
-                Calendar.getInstance().time,
-                Calendar.getInstance().time
+//                listOf(),
             )
         )
     }

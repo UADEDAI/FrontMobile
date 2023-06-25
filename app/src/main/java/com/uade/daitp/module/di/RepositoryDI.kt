@@ -29,8 +29,7 @@ object RepositoryDI {
 
     private val movieRepo by lazy {
         RemoteMovieRepository(
-            movieService,
-            SharedPrefUserRepository()
+            movieService
         )
     }
 

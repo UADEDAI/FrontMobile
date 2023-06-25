@@ -30,8 +30,8 @@ interface MovieService {
     @GET("/screenings")
     suspend fun getScreenings(): List<Screening>
 
-    @GET("/screenings/TODO")
-    suspend fun getScreeningsBy(@Path("movieId") movieId: Int, @Path("roomId") roomId: Int): List<Screening>
+    @GET("/rooms/1/screenings/time-available")
+    suspend fun getScreeningsBy(@Path("roomId") roomId: Int): List<String>
 
     @GET("/screenings/{id}")
     suspend fun getScreening(@Path("id") screeningId: Int): Screening

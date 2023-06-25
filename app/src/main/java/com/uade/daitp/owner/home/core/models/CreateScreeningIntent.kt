@@ -18,9 +18,7 @@ data class CreateScreeningIntent(
             format,
             startAt,
             endAt,
-            emptyList(),
-            Calendar.getInstance().time,
-            Calendar.getInstance().time
+//            emptyList(),
         )
     }
 }

@@ -2,14 +2,15 @@ package com.uade.daitp.owner.home.infrastructure
 
 import com.uade.daitp.login.infrastructure.repository.UserRepository
 import com.uade.daitp.owner.home.core.models.*
+import com.uade.daitp.owner.home.core.models.enums.ScreeningFormat
 import com.uade.daitp.owner.home.core.models.exceptions.MovieNotFoundException
 import com.uade.daitp.owner.home.core.models.exceptions.ScreeningNotFoundException
 import com.uade.daitp.owner.home.core.repository.MovieRepository
 import com.uade.daitp.owner.home.core.repository.service.MovieService
+import java.util.*
 
 class RemoteMovieRepository(
-    private val movieService: MovieService,
-    private val userRepository: UserRepository
+    private val movieService: MovieService
 ) : MovieRepository {
     override suspend fun getMovies(): MoviesList {
         return movieService.getMovies()
@@ -49,10 +50,28 @@ class RemoteMovieRepository(
 
     override suspend fun getScreeningsBy(movieId: Int, roomId: Int): List<Screening> {
         try {
-            return movieService.getScreeningsBy(movieId, roomId)
+            return movieService.getScreeningsBy(roomId)
+                .map { time ->
+                    Screening(
+                        -1,
+                        roomId,
+                        movieId,
+                        ScreeningFormat.ORIGINAL,
+                        getScreeningDate(time),
+                        getScreeningDate(time)
+                    )
+                }
         } catch (e: Exception) {
             throw ScreeningNotFoundException("Screenings for movie: $movieId in room: $roomId not found")
         }
+    }
+
+    private fun getScreeningDate(time: String): Date {
+        val hourAndMinute = time.split(":")
+        val calendar = Calendar.getInstance()
+        calendar.set(Calendar.HOUR_OF_DAY, hourAndMinute[0].toInt())
+        calendar.set(Calendar.MINUTE, hourAndMinute[1].toInt())
+        return calendar.time
     }
 
     override suspend fun getScreening(screeningId: Int): Screening {

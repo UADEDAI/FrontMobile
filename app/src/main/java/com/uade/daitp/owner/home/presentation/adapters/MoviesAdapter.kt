@@ -51,10 +51,14 @@ class MoviesAdapter(
 
             binding.root.setOnClickListenerWithThrottle(periodInMillis = 500L) {
                 val isActivated = it.isActivated
-                if (!multipleSelectionEnabled) resetSelection()
+                val selected = selectedMovies.value!!
+
+                if (!multipleSelectionEnabled) {
+                    resetSelection()
+                    selectedMovies.value!!.clear()
+                }
                 it.isActivated = !isActivated
 
-                val selected = selectedMovies.value!!
                 if (it.isActivated) {
                     selected.add(movie)
                 } else {
