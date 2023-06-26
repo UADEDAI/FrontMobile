@@ -6,7 +6,9 @@ import androidx.fragment.app.Fragment
 import com.uade.daitp.R
 import com.uade.daitp.databinding.FragmentOwnerProfileBinding
 import com.uade.daitp.module.di.ViewModelDI
+import com.uade.daitp.presentation.util.errorDialog
 import com.uade.daitp.presentation.util.setOnClickListenerWithThrottle
+import com.uade.daitp.presentation.util.successDialog
 
 class OwnerProfileFragment : Fragment(R.layout.fragment_owner_profile) {
 
@@ -29,6 +31,15 @@ class OwnerProfileFragment : Fragment(R.layout.fragment_owner_profile) {
                 binding.profileName.text.toString(),
                 binding.profileCompany.text.toString()
             )
+        }
+
+        viewModel.profileUpdated.observe(viewLifecycleOwner) {
+            if (it)
+                successDialog()
+        }
+
+        viewModel.error.observe(viewLifecycleOwner) {
+            errorDialog()
         }
     }
 }

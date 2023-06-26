@@ -18,6 +18,8 @@ class OwnerMovieManagerFragment : Fragment(R.layout.fragment_owner_movie_manager
     private val viewModel = ViewModelDI.getOwnerMoviesViewModel()
     private lateinit var binding: FragmentOwnerMovieManagerBinding
 
+    private var movieTypeShowing = true
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -112,8 +114,15 @@ class OwnerMovieManagerFragment : Fragment(R.layout.fragment_owner_movie_manager
         }
 
         binding.movieSwitch.setOnClickListenerWithThrottle {
+            movieTypeShowing = !movieTypeShowing
             getOwnerListAdapter().toggleMoviesType()
             getAvailableListAdapter().toggleMoviesType()
+
+            if (movieTypeShowing) {
+                binding.moviesAvailableListTitle.text = getString(R.string.movies_available_showing)
+            } else {
+                binding.moviesAvailableListTitle.text = getString(R.string.movies_available_soon)
+            }
         }
 
         binding.moviesConfirmButton.setOnClickListenerWithThrottle {

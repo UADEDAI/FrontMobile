@@ -17,7 +17,7 @@
     <string name="confirm_password_hint">Confirm password</string>
     <string name="recovery_hint">Recovery code</string>
     <string name="back_to_login">BACK TO LOGIN</string>
-    <string name="owner_recover">FORGOT YOU PASSWORD?</string>
+    <string name="owner_recover">FORGOT YOUR PASSWORD?</string>
     <string name="recover_code_hint">Recovery code</string>
     <string name="recover_password_hint">New password</string>
     <string name="recover_new_password_hint">Confirm password</string>

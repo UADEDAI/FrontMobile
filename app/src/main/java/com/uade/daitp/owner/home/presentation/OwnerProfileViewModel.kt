@@ -20,6 +20,12 @@ class OwnerProfileViewModel(
     private val _user: MutableLiveData<User> by lazy { MutableLiveData<User>() }
     val user: LiveData<User> get() = _user
 
+    private val _profileUpdated: MutableLiveData<Boolean> by lazy { MutableLiveData<Boolean>() }
+    val profileUpdated: LiveData<Boolean> get() = _profileUpdated
+
+    private val _error: MutableLiveData<String> by lazy { MutableLiveData<String>() }
+    val error: LiveData<String> get() = _error
+
     init {
         refreshUser()
     }
@@ -29,9 +35,10 @@ class OwnerProfileViewModel(
             try {
                 val user = _user.value!!
                 updateUser(user.id, UserIntent(name, company))
+                _profileUpdated.postValue(true)
                 refreshUser()
             } catch (e: Exception) {
-                Log.d("OwnerProfileViewModel", "no saved user or expired token")
+                _error.postValue(e.message)
             }
         }
     }

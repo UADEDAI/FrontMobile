@@ -7,6 +7,7 @@ import android.view.View.VISIBLE
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.uade.daitp.R
@@ -133,12 +134,27 @@ class OwnerCinemaFragment : Fragment(R.layout.fragment_owner_cinema) {
                 getMovieListAdapter().selectedMovies.observe(viewLifecycleOwner) { selectedMovies ->
                     if (selectedMovies.isEmpty()) {
                         binding.homeMovieScreeningManager.visibility = GONE
+                        binding.homeMovieDetailsManager.visibility = GONE
                     } else {
                         if (viewModel.isSelectedAShowingMovie(selectedMovies[0])) {
                             binding.homeMovieScreeningManager.visibility = VISIBLE
                             viewModel.getScreenings(selectedMovies[0])
+                            binding.homeMovieScreeningStatus.visibility = GONE
                         } else {
                             binding.homeMovieScreeningManager.visibility = GONE
+                            binding.homeMovieScreeningStatus.visibility = VISIBLE
+                        }
+                        binding.homeMovieDetailsManager.visibility = VISIBLE
+                        binding.homeMovieScreeningTitle.text = selectedMovies[0].title
+
+                        binding.homeMovieDetailButton.setOnClickListenerWithThrottle {
+                            val bundle = Bundle()
+                            bundle.putInt(OwnerMovieManagerFragment.MOVIE_ID, selectedMovies[0].id)
+                            findNavController()
+                                .navigate(
+                                    R.id.action_ownerCinemaFragment_to_ownerMovieDetailFragment,
+                                    bundle
+                                )
                         }
                     }
                 }

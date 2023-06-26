@@ -10,9 +10,9 @@ class NavigationActivity : FragmentActivity() {
     private lateinit var binding: ActivityNavigationBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
+        super.onCreate(savedInstanceState)
 
         binding = ActivityNavigationBinding.inflate(layoutInflater)
         setContentView(binding.root)
