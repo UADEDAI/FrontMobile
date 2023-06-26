@@ -17,7 +17,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 object RetrofitFactory {
 
     val cinemaService: CinemaService by lazy {
-        createRetrofitService(getHttpClient()).create(
+        createRetrofitService(getAuthorizedHttpClient()).create(
             CinemaService::class.java
         )
     }
@@ -27,7 +27,7 @@ object RetrofitFactory {
         )
     }
     val loginService: LoginService by lazy {
-        createRetrofitService(getAuthorizedHttpClient()).create(
+        createRetrofitService(getHttpClient()).create(
             LoginService::class.java
         )
     }
@@ -46,7 +46,7 @@ object RetrofitFactory {
         .add(DateAdapter())
         .build()
 
-    private fun getHttpClient(): OkHttpClient {
+    private fun getAuthorizedHttpClient(): OkHttpClient {
         val logging = HttpLoggingInterceptor()
         logging.setLevel(HttpLoggingInterceptor.Level.BODY)
 
@@ -62,7 +62,7 @@ object RetrofitFactory {
             .build()
     }
 
-    private fun getAuthorizedHttpClient(): OkHttpClient {
+    private fun getHttpClient(): OkHttpClient {
         val logging = HttpLoggingInterceptor()
         logging.setLevel(HttpLoggingInterceptor.Level.BODY)
 
