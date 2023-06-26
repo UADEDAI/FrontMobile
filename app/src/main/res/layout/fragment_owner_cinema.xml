@@ -202,7 +202,7 @@
             app:layout_constrainedWidth="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/home_movie_screening_add"
-            app:layout_constraintTop_toBottomOf="@id/home_movie_screening_title"
+            app:layout_constraintTop_toTopOf="parent"
             tools:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/list_item_screening" />
 
