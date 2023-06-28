@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "842660303576",
+    "project_id": "cinemapp-5272f",
+    "storage_bucket": "cinemapp-5272f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:842660303576:android:732afa5000d52575717dad",
+        "android_client_info": {
+          "package_name": "com.uade.daitp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "842660303576-qheke2g9qjuubk77sombfhcuovkq1jql.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.uade.daitp",
+            "certificate_hash": "7bc5795dac312f4e0213d37a9cc5d027376d7cbe"
+          }
+        },
+        {
+          "client_id": "842660303576-t703omgoulmsc0i97f19rbdclplic74h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDzxRGz381503FqR3mBXymsvwB6M6Ha2LA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "842660303576-t703omgoulmsc0i97f19rbdclplic74h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
