@@ -7,13 +7,13 @@ plugins {
 android {
     signingConfigs {
         debug {
-            storeFile file('/Users/leandro.kim/keystores/upload-keystore')
+            storeFile file('./upload-keystore')
             keyAlias 'install'
             storePassword '123456'
             keyPassword '123456'
         }
         release {
-            storeFile file('/Users/leandro.kim/keystores/upload-keystore')
+            storeFile file('./upload-keystore')
             keyAlias 'install'
             storePassword '123456'
             keyPassword '123456'
