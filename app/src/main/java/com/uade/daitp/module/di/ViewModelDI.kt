@@ -1,5 +1,6 @@
 package com.uade.daitp.module.di
 
+import com.uade.daitp.client.presentation.ClientRegisterViewModel
 import com.uade.daitp.login.presentation.LoginOwnerViewModel
 import com.uade.daitp.owner.home.presentation.*
 import com.uade.daitp.owner.recovery.presentacion.OwnerRecoverEmailViewModel
@@ -69,4 +70,6 @@ object ViewModelDI {
         ActionsDI.getDeleteUser(),
         ActionsDI.getLogoutUser()
     )
+
+    fun getClientRegisterViewModel() = ClientRegisterViewModel()
 }

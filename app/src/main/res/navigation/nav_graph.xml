@@ -17,6 +17,26 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <action
+            android:id="@+id/action_loginChoiceFragment_to_clientRegisterFragment"
+            app:destination="@id/clientRegisterFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/loginChoiceFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_loginChoiceFragment_to_clientHomeFragment"
+            app:destination="@id/clientHomeFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/loginChoiceFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/loginEmailFragment"
@@ -191,4 +211,23 @@
             app:popUpTo="@id/loginChoiceFragment"
             app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/clientRegisterFragment"
+        android:name="com.uade.daitp.client.presentation.ClientRegisterFragment"
+        android:label="ClientRegisterFragment">
+        <action
+            android:id="@+id/action_clientRegisterFragment_to_clientHomeFragment"
+            app:destination="@id/clientHomeFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim"
+            app:popUpTo="@id/clientRegisterFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/clientHomeFragment"
+        android:name="com.uade.daitp.client.presentation.ClientHomeFragment"
+        android:label="ClientHomeFragment" />
 </navigation>

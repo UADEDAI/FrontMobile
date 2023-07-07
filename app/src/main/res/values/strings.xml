@@ -96,4 +96,7 @@
     <string name="invalid_email_password">Incorrect email, password combination</string>
     <string name="password_not_match">Password does not match</string>
     <string name="save_button">Save</string>
+    <string name="skip_button">Skip</string>
+    <string name="reservation">Reservation</string>
+    <string name="start">Home</string>
 </resources>

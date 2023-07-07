@@ -6,38 +6,28 @@
     android:padding="@dimen/activity_margin">
 
     <TextView
-        android:id="@+id/recover_back"
+        android:id="@+id/profile_title"
+        style="@style/TextAppearance.AppCompat.Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/back_to_login"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/recover_logo"
-        android:layout_width="0dp"
-        android:layout_height="200dp"
         android:layout_marginTop="50dp"
-        android:src="@drawable/img_logo"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/personal_data"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/recover_code"
+        android:id="@+id/profile_name_input"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:hint="@string/recover_code_hint"
-        app:endIconMode="clear_text"
+        android:layout_marginTop="25dp"
+        android:hint="@string/user_name_hint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/recover_logo">
+        app:layout_constraintTop_toBottomOf="@id/profile_title">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/recover_code_text"
+            android:id="@+id/profile_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text" />
@@ -45,53 +35,36 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/recover_password"
+        android:id="@+id/profile_email_input"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:hint="@string/recover_password_hint"
-        app:endIconMode="password_toggle"
+        android:layout_marginTop="20dp"
+        android:hint="@string/user_email_hint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/recover_code">
+        app:layout_constraintTop_toBottomOf="@id/profile_name_input">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/recover_password_text"
+            android:id="@+id/profile_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/recover_new_password"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:hint="@string/recover_new_password_hint"
-        app:endIconMode="password_toggle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/recover_password">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/recover_new_password_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword" />
+            android:clickable="false"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:inputType="none" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/recover_button"
+        android:id="@+id/profile_button"
         style="@style/Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/confirm_button"
+        android:text="@string/save_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

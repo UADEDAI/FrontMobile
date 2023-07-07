@@ -96,4 +96,7 @@
     <string name="invalid_email_password">Combinación de email, password incorrecta</string>
     <string name="password_not_match">Las contraseñas no coinciden</string>
     <string name="save_button">Guardar</string>
+    <string name="skip_button">Saltear</string>
+    <string name="reservation">Reservas</string>
+    <string name="start">Inicio</string>
 </resources>
