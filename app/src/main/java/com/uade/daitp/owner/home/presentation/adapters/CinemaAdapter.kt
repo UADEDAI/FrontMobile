@@ -14,8 +14,10 @@ import com.uade.daitp.owner.home.presentation.OwnerCinemaFragment
 import com.uade.daitp.owner.home.presentation.OwnerCinemasListViewModel
 import com.uade.daitp.presentation.util.setOnClickListenerWithThrottle
 
-
-class CinemaAdapter(private val cinemas: List<Cinema>, private val viewModel: OwnerCinemasListViewModel) :
+class CinemaAdapter(
+    private val cinemas: List<Cinema>,
+    private val viewModel: OwnerCinemasListViewModel
+) :
     RecyclerView.Adapter<CinemaAdapter.ViewHolder>() {
 
     class ViewHolder(

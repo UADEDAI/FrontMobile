@@ -1,5 +1,6 @@
 package com.uade.daitp.login.core.repository
 
+import com.uade.daitp.login.core.model.LoginGoogleIntent
 import com.uade.daitp.login.core.model.LoginIntent
 import com.uade.daitp.login.core.model.LoginResponse
 import com.uade.daitp.login.core.model.User
@@ -7,6 +8,9 @@ import com.uade.daitp.owner.register.core.model.exceptions.*
 import retrofit2.http.*
 
 interface LoginService {
+    @POST("/auth/google")
+    suspend fun loginClient(@Body intent: LoginGoogleIntent): LoginResponse
+
     @POST("/auth/login")
     suspend fun loginOwner(@Body intent: LoginIntent): LoginResponse
 

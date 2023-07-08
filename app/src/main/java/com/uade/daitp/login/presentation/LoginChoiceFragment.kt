@@ -10,6 +10,8 @@ import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract
 import com.google.firebase.auth.FirebaseAuth
 import com.uade.daitp.R
 import com.uade.daitp.databinding.FragmentLoginChoiceBinding
+import com.uade.daitp.module.di.ViewModelDI
+import com.uade.daitp.presentation.util.errorDialog
 import com.uade.daitp.presentation.util.setOnClickListenerWithThrottle
 
 class LoginChoiceFragment : Fragment(R.layout.fragment_login_choice) {
@@ -17,6 +19,7 @@ class LoginChoiceFragment : Fragment(R.layout.fragment_login_choice) {
     private val providers = arrayListOf(
         AuthUI.IdpConfig.GoogleBuilder().build(),
     )
+    private val viewModel: LoginGoogleViewModel = ViewModelDI.getGoogleLoginViewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -32,31 +35,42 @@ class LoginChoiceFragment : Fragment(R.layout.fragment_login_choice) {
             .setAvailableProviders(providers)
             .build()
 
-        AuthUI.getInstance().signOut(requireContext()).addOnCompleteListener {
-//            refreshSigninInfo()
-        }
-
-        //to sign out
-        //https://stackoverflow.com/questions/74778922/firebase-android-how-to-login-as-different-user-after-signing-in-with-google
         val signInLauncher = registerForActivityResult(
             FirebaseAuthUIActivityResultContract(),
         ) { result ->
             val response = result.idpResponse
             if (result.resultCode == RESULT_OK) {
-                // Successfully signed in
                 val user = FirebaseAuth.getInstance().currentUser
-                view.findNavController()
-                    .navigate(R.id.action_loginChoiceFragment_to_clientRegisterFragment)
+                user?.getIdToken(true)?.addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val idToken = task.result?.token
+                        idToken?.let {
+                            viewModel.loginGoogle(idToken)
+                        } ?: run {
+                            errorDialog()
+                        }
+                    } else {
+                        errorDialog()
+                    }
+                }
             } else {
-                // Sign in failed. If response is null the user canceled the
-                // sign-in flow using the back button. Otherwise check
-                // response.getError().getErrorCode() and handle the error.
-                // ...
+                if (response != null) errorDialog()
             }
         }
 
         binding.loginGoogle.setOnClickListenerWithThrottle {
             signInLauncher.launch(signInIntent)
+        }
+
+        viewModel.userLoggedIn.observe(viewLifecycleOwner) { shouldDefineName ->
+            if (shouldDefineName) view.findNavController()
+                .navigate(R.id.action_loginChoiceFragment_to_clientRegisterFragment)
+            else view.findNavController()
+                .navigate(R.id.action_loginChoiceFragment_to_clientHomeFragment)
+        }
+
+        viewModel.error.observe(viewLifecycleOwner) {
+            errorDialog()
         }
     }
 

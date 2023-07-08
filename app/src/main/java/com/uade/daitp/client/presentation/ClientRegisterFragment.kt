@@ -20,6 +20,11 @@ class ClientRegisterFragment : Fragment(R.layout.fragment_client_register) {
 
         binding = FragmentClientRegisterBinding.bind(view)
 
+        binding.registerSkipButton.setOnClickListenerWithThrottle {
+            view.findNavController()
+                .navigate(R.id.action_clientRegisterFragment_to_clientHomeFragment)
+        }
+
         binding.registerButton.setOnClickListenerWithThrottle {
             viewModel.register(
                 binding.registerUsername.text.toString(),
@@ -31,9 +36,8 @@ class ClientRegisterFragment : Fragment(R.layout.fragment_client_register) {
         }
 
         viewModel.registerSuccess.observe(viewLifecycleOwner) {
-            if (it)
-                view.findNavController()
-                    .navigate(R.id.action_clientRegisterFragment_to_clientHomeFragment)
+            if (it) view.findNavController()
+                .navigate(R.id.action_clientRegisterFragment_to_clientHomeFragment)
         }
     }
 

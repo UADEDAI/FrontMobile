@@ -28,7 +28,14 @@ class ClientMoviePagerFragment : Fragment(R.layout.fragment_client_movie_pager) 
         binding.moviePager.adapter = pagerAdapter
         binding.moviePager.setPageTransformer(ZoomOutPageTransformer())
 
-        TabLayoutMediator(binding.movieTabs, binding.moviePager) { _, _ -> }.attach()
+        TabLayoutMediator(binding.movieTabs, binding.moviePager) { tab, position ->
+            when(position) {
+                0 ->
+                    tab.setText(R.string.movie_details)
+                1 ->
+                    tab.setText(R.string.movie_functions)
+            }
+        }.attach()
     }
 
     private inner class ScreenSlidePagerAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {

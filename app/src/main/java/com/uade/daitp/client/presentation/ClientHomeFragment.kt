@@ -10,7 +10,8 @@ import com.uade.daitp.R
 import com.uade.daitp.databinding.FragmentClientHomeBinding
 import com.uade.daitp.owner.home.presentation.animations.ZoomOutPageTransformer
 
-class ClientHomeFragment : Fragment(R.layout.fragment_client_home) {
+class ClientHomeFragment : Fragment(R.layout.fragment_client_home),
+    ClientHomeReservationsFragment.ReservationsListener {
 
     private lateinit var binding: FragmentClientHomeBinding
 
@@ -58,12 +59,16 @@ class ClientHomeFragment : Fragment(R.layout.fragment_client_home) {
         }
     }
 
+    override fun onBookReservation() {
+        binding.homePager.setCurrentItem(1, true)
+    }
+
     private inner class ScreenSlidePagerAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
         override fun getItemCount(): Int = NUM_PAGES
 
         override fun createFragment(position: Int): Fragment = when (position) {
             0 ->
-                ClientHomeReservationsFragment()
+                ClientHomeReservationsFragment(this@ClientHomeFragment)
             1 ->
                 ClientHomeMoviesListFragment()
             2 ->
@@ -76,4 +81,5 @@ class ClientHomeFragment : Fragment(R.layout.fragment_client_home) {
     private companion object {
         const val NUM_PAGES = 4
     }
+
 }

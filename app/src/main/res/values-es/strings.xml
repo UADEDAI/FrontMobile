@@ -101,4 +101,7 @@
     <string name="start">Inicio</string>
     <string name="movie_details">Detalles</string>
     <string name="movie_functions">Funciones</string>
+    <string name="client_reservations_title">Mis Reservas</string>
+    <string name="reservations_empty">Todavía no realizaste ninguna reserva</string>
+    <string name="reservations_empty_button">Reservar Ahora</string>
 </resources>

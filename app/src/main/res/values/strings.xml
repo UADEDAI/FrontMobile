@@ -101,4 +101,7 @@
     <string name="start">Home</string>
     <string name="movie_details">Details</string>
     <string name="movie_functions">Screenings</string>
+    <string name="client_reservations_title">My Reservations</string>
+    <string name="reservations_empty">You did not book any screenings yet</string>
+    <string name="reservations_empty_button">Book Now</string>
 </resources>

@@ -15,6 +15,12 @@ class ClientConfigurationFragment : Fragment(R.layout.fragment_client_configurat
 
         binding = FragmentClientConfigurationBinding.bind(view)
 
+
+        //to sign out
+//        AuthUI.getInstance().signOut(requireContext()).addOnCompleteListener {}
+        //https://stackoverflow.com/questions/74778922/firebase-android-how-to-login-as-different-user-after-signing-in-with-google
+
+
 //        binding.configLogoutButton.setOnClickListenerWithThrottle {
 //            viewModel.logout()
 //        }

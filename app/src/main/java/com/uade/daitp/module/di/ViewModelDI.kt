@@ -1,6 +1,8 @@
 package com.uade.daitp.module.di
 
 import com.uade.daitp.client.presentation.ClientRegisterViewModel
+import com.uade.daitp.client.presentation.ClientReservationsViewModel
+import com.uade.daitp.login.presentation.LoginGoogleViewModel
 import com.uade.daitp.login.presentation.LoginOwnerViewModel
 import com.uade.daitp.owner.home.presentation.*
 import com.uade.daitp.owner.recovery.presentacion.OwnerRecoverEmailViewModel
@@ -9,6 +11,8 @@ import com.uade.daitp.owner.register.presentation.OwnerRegisterViewModel
 import com.uade.daitp.owner.register.presentation.OwnerValidateViewModel
 
 object ViewModelDI {
+    fun getGoogleLoginViewModel() = LoginGoogleViewModel(ActionsDI.getLoginClient())
+
     fun getLoginViewModel() = LoginOwnerViewModel(ActionsDI.getLoginOwner(), ActionsDI.getUser())
 
     fun getOwnerValidateViewModel() = OwnerValidateViewModel(ActionsDI.getValidateOwner())
@@ -71,5 +75,8 @@ object ViewModelDI {
         ActionsDI.getLogoutUser()
     )
 
-    fun getClientRegisterViewModel() = ClientRegisterViewModel()
+    fun getClientRegisterViewModel() =
+        ClientRegisterViewModel(ActionsDI.getUser(), ActionsDI.getUpdateUser())
+
+    fun getHomeReservationsViewModel() = ClientReservationsViewModel()
 }

@@ -1,5 +1,6 @@
 package com.uade.daitp.module.di
 
+import com.uade.daitp.client.core.actions.GetReservations
 import com.uade.daitp.login.core.actions.*
 import com.uade.daitp.owner.home.core.actions.*
 import com.uade.daitp.owner.recovery.core.actions.RecoverEmail
@@ -63,4 +64,8 @@ object ActionsDI {
     fun getDeleteUser() = DeleteUser(RepositoryDI.getUserRepository())
 
     fun getLogoutUser() = LogoutUser(RepositoryDI.getUserRepository())
+
+    fun getLoginClient() = LoginClient(RepositoryDI.getLoginRepository())
+
+    fun getReservations()= GetReservations(RepositoryDI.getClientRepository())
 }

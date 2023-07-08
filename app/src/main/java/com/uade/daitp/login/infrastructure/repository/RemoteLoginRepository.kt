@@ -2,6 +2,7 @@ package com.uade.daitp.login.infrastructure.repository
 
 import android.util.Log
 import com.auth0.android.jwt.JWT
+import com.uade.daitp.login.core.model.LoginGoogleIntent
 import com.uade.daitp.login.core.model.LoginIntent
 import com.uade.daitp.login.core.model.User
 import com.uade.daitp.login.core.repository.LoginRepository
@@ -37,7 +38,7 @@ class RemoteLoginRepository(
         val user = loginService.getUser(userId, createToken(savedToken))
         persistenceUserRepository.saveUser(user)
 
-        refreshToken()
+        startRefreshTokenInterval()
     }
 
     override suspend fun loginOwner(userName: String, password: String) {
@@ -50,7 +51,21 @@ class RemoteLoginRepository(
         val user = loginService.getUser(userId, createToken(loginResponse.access_token))
         persistenceUserRepository.saveUser(user)
 
-        refreshToken()
+        startRefreshTokenInterval()
+    }
+
+    override suspend fun loginClient(idToken: String): Boolean {
+        val loginResponse = loginService.loginClient(LoginGoogleIntent(idToken))
+        persistenceUserRepository.saveToken(loginResponse.access_token)
+
+        val jwt = JWT(loginResponse.access_token)
+        val userId = jwt.getClaim("id").asInt()!!
+        val user = loginService.getUser(userId, createToken(loginResponse.access_token))
+        persistenceUserRepository.saveUser(user)
+
+        startRefreshTokenInterval()
+
+        return user.username == null
     }
 
     override suspend fun registerOwner(
@@ -72,7 +87,7 @@ class RemoteLoginRepository(
         val token = loginService.validateOTP(validateIntent)
         persistenceUserRepository.saveToken(token.access_token)
 
-        refreshToken()
+        startRefreshTokenInterval()
     }
 
     override suspend fun resetPassword(email: String) {
@@ -86,7 +101,7 @@ class RemoteLoginRepository(
         persistenceUserRepository.saveUser(user)
     }
 
-    private fun refreshToken() {
+    private fun startRefreshTokenInterval() {
         CoroutineScope(Dispatchers.Default).launch {
             flow = flow {
                 try {
@@ -120,7 +135,8 @@ class RemoteLoginRepository(
 
     private suspend fun requestNewAccessToken(): String {
         val refreshIntent = RefreshIntent(persistenceUserRepository.getUser().email)
-        val newToken = loginService.refreshToken(refreshIntent, persistenceUserRepository.getBearerToken())
+        val newToken =
+            loginService.refreshToken(refreshIntent, persistenceUserRepository.getBearerToken())
         persistenceUserRepository.saveToken(newToken.access_token)
         Log.d("RemoteLoginRepository", "NEW TOKEN ${newToken.access_token}")
         return newToken.access_token

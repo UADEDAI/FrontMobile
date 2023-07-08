@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/cinema_list_background"
+    android:layout_marginBottom="8dp"
+    android:padding="15dp">
+
+    <TextView
+        android:id="@+id/item_cinema_title"
+        style="@style/TextAppearance.AppCompat.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Main cinema" />
+
+    <ImageView
+        android:id="@+id/item_cinema_location_icon"
+        android:layout_width="@dimen/item_cinema_icon"
+        android:layout_height="@dimen/item_cinema_icon"
+        android:layout_marginTop="8dp"
+        android:src="@mipmap/ic_location_plus"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/item_cinema_title" />
+
+    <TextView
+        android:id="@+id/item_cinema_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        app:layout_constraintStart_toEndOf="@id/item_cinema_location_icon"
+        app:layout_constraintEnd_toStartOf="@id/item_cinema_delete_button"
+        app:layout_constrainedWidth="true"
+        app:layout_constraintTop_toBottomOf="@id/item_cinema_title"
+        tools:text="Maipu 3298, Olivos, Buenos Aires, CABA, Argentina" />
+
+    <ImageView
+        android:id="@+id/item_cinema_room_icon"
+        android:layout_width="@dimen/item_cinema_icon"
+        android:layout_height="@dimen/item_cinema_icon"
+        android:layout_marginTop="16dp"
+        android:src="@mipmap/ic_cinema_room"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/item_cinema_location_icon" />
+
+    <TextView
+        android:id="@+id/item_cinema_room"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginHorizontal="8dp"
+        app:layout_constraintStart_toEndOf="@id/item_cinema_room_icon"
+        app:layout_constraintTop_toBottomOf="@id/item_cinema_location_icon"
+        tools:text="5 Rooms" />
+
+    <ImageView
+        android:id="@+id/item_cinema_projector_icon"
+        android:layout_width="@dimen/item_cinema_icon"
+        android:layout_height="@dimen/item_cinema_icon"
+        android:layout_margin="16dp"
+        android:src="@mipmap/ic_projector"
+        app:layout_constraintStart_toEndOf="@id/item_cinema_room"
+        app:layout_constraintTop_toBottomOf="@id/item_cinema_location_icon" />
+
+    <TextView
+        android:id="@+id/item_cinema_movies"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginHorizontal="8dp"
+        app:layout_constraintStart_toEndOf="@id/item_cinema_projector_icon"
+        app:layout_constraintTop_toBottomOf="@id/item_cinema_location_icon"
+        tools:text="10 movies" />
+
+    <ImageButton
+        android:id="@+id/item_cinema_delete_button"
+        style="@style/IconButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_delete"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/item_cinema_edit_button"
+        style="@style/IconButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_edit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/item_cinema_delete_button" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
