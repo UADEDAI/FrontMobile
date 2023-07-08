@@ -32,6 +32,12 @@ class LoginChoiceFragment : Fragment(R.layout.fragment_login_choice) {
             .setAvailableProviders(providers)
             .build()
 
+        AuthUI.getInstance().signOut(requireContext()).addOnCompleteListener {
+//            refreshSigninInfo()
+        }
+
+        //to sign out
+        //https://stackoverflow.com/questions/74778922/firebase-android-how-to-login-as-different-user-after-signing-in-with-google
         val signInLauncher = registerForActivityResult(
             FirebaseAuthUIActivityResultContract(),
         ) { result ->
