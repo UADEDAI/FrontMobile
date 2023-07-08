@@ -1,5 +1,6 @@
 package com.uade.daitp.module.di
 
+import com.uade.daitp.client.presentation.ClientConfigurationViewModel
 import com.uade.daitp.client.presentation.ClientRegisterViewModel
 import com.uade.daitp.client.presentation.ClientReservationsViewModel
 import com.uade.daitp.login.presentation.LoginGoogleViewModel
@@ -79,4 +80,9 @@ object ViewModelDI {
         ClientRegisterViewModel(ActionsDI.getUser(), ActionsDI.getUpdateUser())
 
     fun getHomeReservationsViewModel() = ClientReservationsViewModel()
+
+    fun getClientConfigurationViewModel() = ClientConfigurationViewModel(
+        ActionsDI.getDeleteUser(),
+        ActionsDI.getLogoutUser()
+    )
 }

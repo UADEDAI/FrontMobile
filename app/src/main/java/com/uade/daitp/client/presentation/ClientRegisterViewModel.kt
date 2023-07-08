@@ -27,7 +27,6 @@ class ClientRegisterViewModel(
                 updateUser(savedUser.id, UserIntent(name, ""))
                 _registerSuccess.postValue(true)
             } catch (e: Exception) {
-                _registerSuccess.postValue(false)
                 _error.postValue(e.message)
             }
         }

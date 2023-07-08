@@ -67,5 +67,5 @@ object ActionsDI {
 
     fun getLoginClient() = LoginClient(RepositoryDI.getLoginRepository())
 
-    fun getReservations()= GetReservations(RepositoryDI.getClientRepository())
+    fun getReservations() = GetReservations(RepositoryDI.getClientRepository())
 }

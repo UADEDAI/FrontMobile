@@ -40,6 +40,4 @@ class ClientRegisterFragment : Fragment(R.layout.fragment_client_register) {
                 .navigate(R.id.action_clientRegisterFragment_to_clientHomeFragment)
         }
     }
-
-
 }
