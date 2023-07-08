@@ -31,7 +31,7 @@ class OwnerMovieDetailFragment : Fragment(R.layout.fragment_owner_movie_detail) 
             binding.movieName.text = it.title
             Glide.with(requireContext())
                 .load(it.imageUrl)
-                .into(binding.movieImage);
+                .into(binding.movieImage)
             binding.movieDescription.text = it.description
             binding.movieDuration.text = getDuration(it.duration)
             binding.movieYear.text = getYear(it.releaseDate)

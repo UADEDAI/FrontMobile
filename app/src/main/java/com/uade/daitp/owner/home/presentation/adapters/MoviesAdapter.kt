@@ -47,7 +47,7 @@ class MoviesAdapter(
             binding.itemMovieDuration.text = formatMinutes(movie.duration)
             Glide.with(itemView.context)
                 .load(movie.imageUrl)
-                .into(binding.itemMovieThumbnail);
+                .into(binding.itemMovieThumbnail)
 
             binding.root.setOnClickListenerWithThrottle(periodInMillis = 500L) {
                 val isActivated = it.isActivated

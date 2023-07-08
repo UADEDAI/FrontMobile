@@ -85,7 +85,7 @@ object ViewModelDI {
     fun getClientRegisterViewModel() =
         ClientRegisterViewModel(ActionsDI.getUser(), ActionsDI.getUpdateUser())
 
-    fun getHomeReservationsViewModel() = ClientReservationsViewModel()
+    fun getHomeReservationsViewModel() = ClientReservationsViewModel(ActionsDI.getReservations())
 
     fun getClientConfigurationViewModel() = ClientConfigurationViewModel(
         ActionsDI.getDeleteUser(),
