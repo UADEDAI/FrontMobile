@@ -99,4 +99,6 @@
     <string name="skip_button">Saltear</string>
     <string name="reservation">Reservas</string>
     <string name="start">Inicio</string>
+    <string name="movie_details">Detalles</string>
+    <string name="movie_functions">Funciones</string>
 </resources>

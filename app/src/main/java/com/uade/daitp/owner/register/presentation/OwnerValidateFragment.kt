@@ -1,7 +1,10 @@
 package com.uade.daitp.owner.register.presentation
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
+import android.view.inputmethod.InputMethodManager
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -10,6 +13,7 @@ import com.uade.daitp.databinding.FragmentOwnerValidateBinding
 import com.uade.daitp.module.di.ViewModelDI
 import com.uade.daitp.presentation.util.setOnClickListenerWithThrottle
 import com.uade.daitp.presentation.util.successDialog
+
 
 class OwnerValidateFragment : Fragment(R.layout.fragment_owner_validate) {
 
@@ -20,6 +24,16 @@ class OwnerValidateFragment : Fragment(R.layout.fragment_owner_validate) {
         super.onViewCreated(view, savedInstanceState)
 
         binding = FragmentOwnerValidateBinding.bind(view)
+
+        binding.validateText.addTextChangedListener {
+            it?.let {
+                if (it.length == 6) {
+                    val inputMethodManager =
+                        requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+                    inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+                }
+            }
+        }
 
         binding.validateButton.setOnClickListenerWithThrottle {
             viewModel.validate(

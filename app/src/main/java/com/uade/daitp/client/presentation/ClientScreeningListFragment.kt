@@ -6,20 +6,21 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.uade.daitp.R
 import com.uade.daitp.databinding.FragmentClientHomeReservationsBinding
+import com.uade.daitp.databinding.FragmentClientMovieScreeningsBinding
 import com.uade.daitp.presentation.util.setOnClickListenerWithThrottle
 
-class ClientHomeMoviesListFragment : Fragment(R.layout.fragment_client_home_reservations) {
+class ClientScreeningListFragment : Fragment(R.layout.fragment_client_movie_screenings) {
 
-    private lateinit var binding: FragmentClientHomeReservationsBinding
+    private lateinit var binding: FragmentClientMovieScreeningsBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding = FragmentClientHomeReservationsBinding.bind(view)
+        binding = FragmentClientMovieScreeningsBinding.bind(view)
 
         binding.homeCinemaAdd.setOnClickListenerWithThrottle {
             view.findNavController()
-                .navigate(R.id.action_clientHomeFragment_to_clientMoviePagerFragment)
+//                .navigate(R.id.action_clientHomeFragment_to_clientMoviePagerFragment)
         }
     }
 

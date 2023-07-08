@@ -52,6 +52,10 @@ class ClientHomeFragment : Fragment(R.layout.fragment_client_home) {
             }
             return@setOnItemSelectedListener true
         }
+
+        binding.homePager.post {
+            binding.homePager.setCurrentItem(1, true)
+        }
     }
 
     private inner class ScreenSlidePagerAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {

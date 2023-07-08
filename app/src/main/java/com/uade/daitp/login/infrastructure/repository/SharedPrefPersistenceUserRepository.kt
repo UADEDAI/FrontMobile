@@ -16,7 +16,7 @@ class SharedPrefPersistenceUserRepository : PersistenceUserRepository {
         val masterKeyAlias = MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC)
 
         sharedPreferences = EncryptedSharedPreferences.create(
-            "preferences",
+            "preferences_repository",
             masterKeyAlias,
             Cinemapp.getAppContext(),
             EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
