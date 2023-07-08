@@ -1,6 +1,7 @@
 package com.uade.daitp.module.di
 
 import com.uade.daitp.client.presentation.ClientConfigurationViewModel
+import com.uade.daitp.client.presentation.ClientProfileViewModel
 import com.uade.daitp.client.presentation.ClientRegisterViewModel
 import com.uade.daitp.client.presentation.ClientReservationsViewModel
 import com.uade.daitp.login.presentation.LoginGoogleViewModel
@@ -67,6 +68,11 @@ object ViewModelDI {
     )
 
     fun getOwnerProfileViewModel() = OwnerProfileViewModel(
+        ActionsDI.getUser(),
+        ActionsDI.getUpdateUser()
+    )
+
+    fun getClientProfileViewModel() = ClientProfileViewModel(
         ActionsDI.getUser(),
         ActionsDI.getUpdateUser()
     )
