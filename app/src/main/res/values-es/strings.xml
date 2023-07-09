@@ -86,6 +86,7 @@
     <string name="user_email_hint">Email</string>
     <string name="user_company_hint">Empresa</string>
     <string name="config_title">Al dar de baja tu cuenta todas las reservas y salas creadas se perderan permanentemente</string>
+    <string name="config_client_title">Al dar de baja tu cuenta todas tus reservas y comentarios se perderan permanentemente</string>
     <string name="logout">Cerrar Sesión</string>
     <string name="unsubscribe">Dar de Baja</string>
     <string name="success">Operación exitosa</string>
@@ -107,4 +108,20 @@
     <string name="client_home_movies">Ahora en Cines</string>
     <string name="client_home_movie_empty">Ups… Parece que no hay ninguna película en cines cercanos actualmente</string>
     <string name="no_location">Por favor, habilite los permisos de ubicación para permitir la busqueda de peliculas cerca tuyo</string>
+    <string name="filter_title">Filtros</string>
+    <string name="distance_hint">Distancia</string>
+    <string name="genre_hint">Genero</string>
+    <string name="action">Acción</string>
+    <string name="adventure">Aventura</string>
+    <string name="comedy">Comedia</string>
+    <string name="crime">Crimen</string>
+    <string name="drama">Drama</string>
+    <string name="fantasy">Fantasia</string>
+    <string name="horror">Horror</string>
+    <string name="mystery">Misteria</string>
+    <string name="romance">Romance</string>
+    <string name="scifi">Sci-Fi</string>
+    <string name="thriller">Thriller</string>
+    <string name="score">Calificación</string>
+    <string name="select_cinema">Seleccione un Cine</string>
 </resources>

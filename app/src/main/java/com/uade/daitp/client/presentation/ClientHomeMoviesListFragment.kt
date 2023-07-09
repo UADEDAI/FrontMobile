@@ -13,17 +13,24 @@ import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.uade.daitp.R
 import com.uade.daitp.client.presentation.adapters.ClientMovieAdapter
+import com.uade.daitp.client.presentation.bottomSheet.CinemasBottomSheet
+import com.uade.daitp.client.presentation.bottomSheet.FilterBottomSheet
 import com.uade.daitp.databinding.FragmentClientHomeMoviesBinding
 import com.uade.daitp.module.di.ViewModelDI
+import com.uade.daitp.owner.home.core.models.Cinema
 import com.uade.daitp.owner.home.core.models.emptyMovieList
 import com.uade.daitp.presentation.util.errorDialog
 
-class ClientHomeMoviesListFragment : Fragment(R.layout.fragment_client_home_movies) {
+class ClientHomeMoviesListFragment : Fragment(R.layout.fragment_client_home_movies),
+    FilterBottomSheet.FilterListener,
+    CinemasBottomSheet.CinemasListener {
 
     private val viewModel = ViewModelDI.getHomeMoviesViewModel()
     private lateinit var binding: FragmentClientHomeMoviesBinding
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private var filterBottomSheet = FilterBottomSheet(this)
+    private var cinemasBottomSheet = CinemasBottomSheet(this)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -43,12 +50,33 @@ class ClientHomeMoviesListFragment : Fragment(R.layout.fragment_client_home_movi
             binding.clientHomeMovieEmpty.visibility =
                 if (it.showing.isEmpty()) View.VISIBLE else View.GONE
         }
+
+        showFilter()
+    }
+
+    override fun onFilterSelected(distance: Int, genre: String?, score: Double?) {
+        //TODO set filters
+        filterBottomSheet.dismiss()
+
+        showCinemas()
+    }
+
+    override fun onCinemaSelected(cinema: Cinema?) {
+        TODO("Not yet implemented")
     }
 
     override fun onResume() {
         super.onResume()
 
         viewModel.refreshData()
+    }
+
+    private fun showFilter() {
+        filterBottomSheet.show(parentFragmentManager, FilterBottomSheet.TAG)
+    }
+
+    private fun showCinemas() {
+        cinemasBottomSheet.show(parentFragmentManager, CinemasBottomSheet.TAG)
     }
 
     private fun requestLocationPermission() {
