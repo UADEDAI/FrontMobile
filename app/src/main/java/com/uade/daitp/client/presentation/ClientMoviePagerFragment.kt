@@ -9,14 +9,25 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 import com.uade.daitp.R
 import com.uade.daitp.databinding.FragmentClientMoviePagerBinding
+import com.uade.daitp.module.di.ViewModelDI
 import com.uade.daitp.owner.home.presentation.animations.ZoomOutPageTransformer
 
 class ClientMoviePagerFragment : Fragment(R.layout.fragment_client_movie_pager) {
 
+    private val viewModel = ViewModelDI.getClientMovieDetailViewModel()
     private lateinit var binding: FragmentClientMoviePagerBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val movieId = arguments?.getInt(ClientHomeMoviesListFragment.MOVIE_ID)
+        movieId?.let { id ->
+            viewModel.getMovieBy(id)
+        }
+
+        viewModel.movie.observe(viewLifecycleOwner) {
+            binding.topAppBar.title = it.title
+        }
 
         binding = FragmentClientMoviePagerBinding.bind(view)
 
@@ -29,7 +40,7 @@ class ClientMoviePagerFragment : Fragment(R.layout.fragment_client_movie_pager) 
         binding.moviePager.setPageTransformer(ZoomOutPageTransformer())
 
         TabLayoutMediator(binding.movieTabs, binding.moviePager) { tab, position ->
-            when(position) {
+            when (position) {
                 0 ->
                     tab.setText(R.string.movie_details)
                 1 ->
@@ -41,11 +52,16 @@ class ClientMoviePagerFragment : Fragment(R.layout.fragment_client_movie_pager) 
     private inner class ScreenSlidePagerAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
         override fun getItemCount(): Int = NUM_PAGES
 
-        override fun createFragment(position: Int): Fragment = when (position) {
-            0 ->
-                ClientMovieDetailFragment()
-            else ->
-                ClientScreeningListFragment()
+        override fun createFragment(position: Int): Fragment {
+            val fragment = when (position) {
+                0 -> {
+                    ClientMovieDetailFragment()
+                }
+                else ->
+                    ClientScreeningListFragment()
+            }
+            fragment.arguments = arguments
+            return fragment
         }
     }
 

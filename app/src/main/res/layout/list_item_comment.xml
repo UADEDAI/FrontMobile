@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="16dp">
+
+    <TextView
+        android:id="@+id/item_person_name"
+        style="@style/TextAppearance.AppCompat.Subhead"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/cinema_screening_background"
+        android:padding="4dp"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="AN"
+        tools:text="LK"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/item_title"
+        style="@style/TextAppearance.AppCompat.Subhead"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/item_person_name"
+        app:layout_constraintStart_toEndOf="@id/item_person_name"
+        app:layout_constraintTop_toTopOf="@id/item_person_name"
+        tools:text="Muy entretenida" />
+
+    <TextView
+        android:id="@+id/item_score"
+        style="@style/TextAppearance.AppCompat.Subhead"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/purple_500"
+        app:layout_constraintBottom_toBottomOf="@id/item_person_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/item_person_name"
+        tools:text="8.0" />
+
+    <TextView
+        android:id="@+id/item_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:maxLines="5"
+        android:textColor="@color/grey"
+        android:textSize="12sp"
+        app:layout_constraintTop_toBottomOf="@id/item_person_name"
+        tools:text="@string/lorem_ipsum" />
+
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/item_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/item_description" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

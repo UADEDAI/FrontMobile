@@ -13,6 +13,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -24,6 +25,7 @@ import com.uade.daitp.databinding.FragmentClientHomeMoviesBinding
 import com.uade.daitp.module.di.ViewModelDI
 import com.uade.daitp.owner.home.core.models.Cinema
 import com.uade.daitp.owner.home.core.models.emptyMovieList
+import com.uade.daitp.owner.home.presentation.OwnerCinemaFragment
 import com.uade.daitp.presentation.util.errorDialog
 import com.uade.daitp.presentation.util.setOnClickListenerWithThrottle
 
@@ -99,9 +101,17 @@ class ClientHomeMoviesListFragment : Fragment(R.layout.fragment_client_home_movi
 
     override fun onCinemaSelected(cinema: Cinema?) {
         cinemasBottomSheet.dismiss()
-        // GO TO ANOTHER SCREEN
-        Log.d("TESTYTEST", "SUCCESS!!!!!!")
-        //TODO("Not yet implemented")
+        cinema?.let {
+            view?.let { view ->
+                val bundle = Bundle()
+                bundle.putInt(CINEMA_ID, it.id)
+                bundle.putInt(MOVIE_ID, viewModel.selectedMovie.value!!.id)
+                view.findNavController()
+                    .navigate(R.id.action_clientHomeFragment_to_clientMoviePagerFragment, bundle)
+            }
+        } ?: run {
+            errorDialog(getString(R.string.select_cinema_error))
+        }
     }
 
     override fun onResume() {
@@ -186,6 +196,7 @@ class ClientHomeMoviesListFragment : Fragment(R.layout.fragment_client_home_movi
     }
 
     companion object {
-        const val BOOKING_ID = "booking_id"
+        const val MOVIE_ID = "movie_id"
+        const val CINEMA_ID = "cinema_id"
     }
 }

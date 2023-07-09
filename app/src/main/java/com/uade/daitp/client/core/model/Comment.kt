@@ -6,5 +6,6 @@ data class Comment(
     val movieId: Int,
     val title: String,
     val body: String,
-    val rating: Double
+    val rating: Double,
+    val user: Author?
 )

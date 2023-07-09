@@ -126,4 +126,12 @@
     <string name="select_cinema">Select a Cinema</string>
     <string name="search_hint">Search</string>
     <string name="cinema_hint">Cinemas</string>
+    <string name="movie_score">Score</string>
+    <string name="comment">Comment</string>
+    <string name="select_cinema_error">Select a cinema to see functions</string>
+    <string name="comment_title">Leave your comment here</string>
+    <string name="title_hint">Title</string>
+    <string name="body_hint">Comment</string>
+    <string name="share_using">Share movie</string>
+    <string name="share_text">Get the app to see this movie with me!</string>
 </resources>

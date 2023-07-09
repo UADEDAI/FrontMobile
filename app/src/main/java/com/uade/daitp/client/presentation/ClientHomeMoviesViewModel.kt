@@ -27,6 +27,9 @@ class ClientHomeMoviesViewModel(
     private val _nearCinemas: MutableLiveData<List<Cinema>> by lazy { MutableLiveData<List<Cinema>>() }
     val nearCinemas: LiveData<List<Cinema>> get() = _nearCinemas
 
+    private val _selectedMovie: MutableLiveData<Movie> by lazy { MutableLiveData<Movie>() }
+    val selectedMovie: LiveData<Movie> get() = _selectedMovie
+
     private var latitude: Double = 0.0
     private var longitude: Double = 0.0
     private var distance: Double = defaultDistance
@@ -82,6 +85,7 @@ class ClientHomeMoviesViewModel(
     }
 
     fun getCinemas(movie: Movie) {
+        _selectedMovie.value = movie
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val cinemas = getNearCinemasForMovie(latitude, longitude, distance, movie.id)

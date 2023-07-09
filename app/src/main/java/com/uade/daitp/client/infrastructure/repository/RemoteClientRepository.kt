@@ -3,15 +3,13 @@ package com.uade.daitp.client.infrastructure.repository
 import com.uade.daitp.client.core.model.*
 import com.uade.daitp.client.core.repository.ClientRepository
 import com.uade.daitp.login.core.repository.ClientService
-import com.uade.daitp.login.infrastructure.repository.SharedPrefPersistenceUserRepository
+import com.uade.daitp.login.infrastructure.repository.PersistenceUserRepository
 import com.uade.daitp.owner.home.core.models.Cinema
 import com.uade.daitp.owner.home.core.models.MoviesList
-import com.uade.daitp.owner.home.core.models.emptyMovieList
-import retrofit2.http.Query
 
 class RemoteClientRepository(
     private val clientService: ClientService,
-    private val sharedPrefPersistenceUserRepository: SharedPrefPersistenceUserRepository
+    private val userRepository: PersistenceUserRepository
 ) : ClientRepository {
 
     override suspend fun getReservations(): List<Reservation> {
@@ -55,6 +53,8 @@ class RemoteClientRepository(
     }
 
     override suspend fun createComment(commentIntent: CommentIntent) {
+        val user =  userRepository.getUser()
+        commentIntent.userId = user.id
         clientService.createComment(commentIntent.movieId, commentIntent)
     }
 }

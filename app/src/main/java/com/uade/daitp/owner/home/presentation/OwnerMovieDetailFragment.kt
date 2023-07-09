@@ -9,6 +9,7 @@ import com.uade.daitp.R
 import com.uade.daitp.databinding.FragmentOwnerMovieDetailBinding
 import com.uade.daitp.module.di.ViewModelDI
 import com.uade.daitp.owner.home.presentation.OwnerMovieManagerFragment.Companion.MOVIE_ID
+import com.uade.daitp.presentation.util.errorDialog
 import com.uade.daitp.presentation.util.setOnClickListenerWithThrottle
 import java.util.*
 
@@ -38,6 +39,10 @@ class OwnerMovieDetailFragment : Fragment(R.layout.fragment_owner_movie_detail) 
             binding.movieCategory.text = it.genre
             binding.movieDirector.text = it.director
             binding.movieCast.text = it.cast
+        }
+
+        viewModel.error.observe(viewLifecycleOwner) {
+            errorDialog()
         }
 
         binding.movieBack.setOnClickListenerWithThrottle {

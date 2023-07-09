@@ -33,12 +33,17 @@ class CinemasBottomSheet(private val listener: CinemasListener) : BottomSheetDia
         binding = BottomSheetCinemasBinding.bind(view)
 
         binding.cinemaSelectButton.setOnClickListenerWithThrottle {
-            val cinema =
-                cinemaList.filter { cinema -> cinema.name.contains(binding.cinemaSelectText.text.toString()) }
-            if (cinema.isNotEmpty()){
-                listener.onCinemaSelected(
-                    cinema[0]
-                )
+            val searchText = binding.cinemaSelectText.text.toString()
+            if (searchText.isNotEmpty()) {
+                val cinema =
+                    cinemaList.filter { cinema -> cinema.name.contains(searchText) }
+                if (cinema.isNotEmpty()) {
+                    listener.onCinemaSelected(
+                        cinema[0]
+                    )
+                }
+            } else {
+                listener.onCinemaSelected(null)
             }
         }
 

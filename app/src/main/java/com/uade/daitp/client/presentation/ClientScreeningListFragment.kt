@@ -18,6 +18,9 @@ class ClientScreeningListFragment : Fragment(R.layout.fragment_client_movie_scre
 
         binding = FragmentClientMovieScreeningsBinding.bind(view)
 
+        val movieId = arguments?.getInt(ClientHomeMoviesListFragment.MOVIE_ID)
+        val cinemaId = arguments?.getInt(ClientHomeMoviesListFragment.CINEMA_ID)
+
         binding.homeCinemaAdd.setOnClickListenerWithThrottle {
             view.findNavController()
 //                .navigate(R.id.action_clientHomeFragment_to_clientMoviePagerFragment)

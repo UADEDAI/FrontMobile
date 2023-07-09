@@ -93,4 +93,10 @@ object ViewModelDI {
         ActionsDI.getFilteredMovies(),
         ActionsDI.getNearCinemaForMovie()
     )
+
+    fun getClientMovieDetailViewModel()= ClientMovieDetailViewModel(
+        ActionsDI.getMovie(),
+        ActionsDI.getComments(),
+        ActionsDI.createComment()
+    )
 }
