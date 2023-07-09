@@ -1,9 +1,12 @@
 package com.uade.daitp.client.core.model
 
+import com.uade.daitp.owner.home.core.models.Screening
+import java.util.*
+
 data class Reservation(
     val id: Int,
-    val userId: Int,
     val screeningId: Int,
-    val seats: List<String>,
-    val active: Boolean
+    val userId: Int,
+    val time: Date,
+    val screening: Screening
 )
