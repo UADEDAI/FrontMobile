@@ -1,9 +1,6 @@
 package com.uade.daitp.module.di
 
-import com.uade.daitp.client.presentation.ClientConfigurationViewModel
-import com.uade.daitp.client.presentation.ClientProfileViewModel
-import com.uade.daitp.client.presentation.ClientRegisterViewModel
-import com.uade.daitp.client.presentation.ClientReservationsViewModel
+import com.uade.daitp.client.presentation.*
 import com.uade.daitp.login.presentation.LoginGoogleViewModel
 import com.uade.daitp.login.presentation.LoginOwnerViewModel
 import com.uade.daitp.owner.home.presentation.*
@@ -90,5 +87,10 @@ object ViewModelDI {
     fun getClientConfigurationViewModel() = ClientConfigurationViewModel(
         ActionsDI.getDeleteUser(),
         ActionsDI.getLogoutUser()
+    )
+
+    fun getHomeMoviesViewModel() = ClientHomeMoviesViewModel(
+        ActionsDI.getFilteredMovies(),
+        ActionsDI.getNearCinemaForMovie()
     )
 }

@@ -104,4 +104,7 @@
     <string name="client_reservations_title">My Reservations</string>
     <string name="reservations_empty">You did not book any screenings yet</string>
     <string name="reservations_empty_button">Book Now</string>
+    <string name="client_home_movies">Now in Cinemas</string>
+    <string name="client_home_movie_empty">Oops… It looks like there aren\'t any movies in theaters nearby right now</string>
+    <string name="no_location">Please give location permissions to search for movies close to you</string>
 </resources>

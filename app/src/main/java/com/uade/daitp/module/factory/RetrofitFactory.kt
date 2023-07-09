@@ -1,6 +1,7 @@
 package com.uade.daitp.module.factory
 
 import com.squareup.moshi.Moshi
+import com.uade.daitp.login.core.repository.ClientService
 import com.uade.daitp.login.core.repository.LoginService
 import com.uade.daitp.login.core.repository.UserService
 import com.uade.daitp.login.infrastructure.repository.PersistenceUserRepository
@@ -31,10 +32,14 @@ object RetrofitFactory {
             LoginService::class.java
         )
     }
-
     val userService: UserService by lazy {
         createRetrofitService(getAuthorizedHttpClient()).create(
             UserService::class.java
+        )
+    }
+    val clientService: ClientService by lazy {
+        createRetrofitService(getAuthorizedHttpClient()).create(
+            ClientService::class.java
         )
     }
 

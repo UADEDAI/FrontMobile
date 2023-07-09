@@ -7,37 +7,44 @@
     android:padding="@dimen/activity_margin">
 
     <TextView
-        android:id="@+id/reservations_title"
+        android:id="@+id/client_home_movie_title"
         style="@style/TextAppearance.AppCompat.Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="@string/client_reservations_title"
+        android:text="@string/client_home_movies"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/reservations_list"
+        android:id="@+id/client_home_movie_list"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginTop="20dp"
+        app:layout_constrainedHeight="true"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/reservations_title"
-        tools:listitem="@layout/list_item_reservation"/>
+        app:layout_constraintTop_toBottomOf="@id/client_home_movie_title"
+        tools:itemCount="10"
+        tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        tools:listitem="@layout/list_item_movie_booking"
+        tools:orientation="vertical"
+        tools:scrollbars="vertical"
+        tools:spanCount="2" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/reservations_empty"
+        android:id="@+id/client_home_movie_empty"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/reservations_title">
+        app:layout_constraintTop_toBottomOf="@id/client_home_movie_title">
 
         <ImageView
-            android:id="@+id/reservations_empty_logo"
+            android:id="@+id/client_home_movie_empty_logo"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:src="@drawable/img_logo"
@@ -46,25 +53,15 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/reservations_empty_text"
+            android:id="@+id/client_home_movie_empty_text"
             style="@style/TextAppearance.MaterialComponents.Subtitle1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/reservations_empty"
+            android:text="@string/client_home_movie_empty"
+            android:gravity="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/reservations_empty_logo" />
-
-        <Button
-            android:id="@+id/reservations_empty_button"
-            style="@style/Button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/reservations_empty_button"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/reservations_empty_text" />
+            app:layout_constraintTop_toBottomOf="@id/client_home_movie_empty_logo" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

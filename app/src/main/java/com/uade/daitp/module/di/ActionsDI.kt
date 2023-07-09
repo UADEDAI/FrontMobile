@@ -1,5 +1,7 @@
 package com.uade.daitp.module.di
 
+import com.uade.daitp.client.core.actions.GetFilteredMovies
+import com.uade.daitp.client.core.actions.GetNearCinemaForMovie
 import com.uade.daitp.client.core.actions.GetReservations
 import com.uade.daitp.login.core.actions.*
 import com.uade.daitp.owner.home.core.actions.*
@@ -68,4 +70,8 @@ object ActionsDI {
     fun getLoginClient() = LoginClient(RepositoryDI.getLoginRepository())
 
     fun getReservations() = GetReservations(RepositoryDI.getClientRepository())
+
+    fun getFilteredMovies() = GetFilteredMovies(RepositoryDI.getClientRepository())
+
+    fun getNearCinemaForMovie() = GetNearCinemaForMovie(RepositoryDI.getClientRepository())
 }
