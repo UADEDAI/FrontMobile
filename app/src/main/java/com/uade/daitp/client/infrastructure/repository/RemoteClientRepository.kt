@@ -6,6 +6,8 @@ import com.uade.daitp.login.core.repository.ClientService
 import com.uade.daitp.login.infrastructure.repository.PersistenceUserRepository
 import com.uade.daitp.owner.home.core.models.Cinema
 import com.uade.daitp.owner.home.core.models.MoviesList
+import java.text.SimpleDateFormat
+import java.util.*
 
 class RemoteClientRepository(
     private val clientService: ClientService,
@@ -56,5 +58,16 @@ class RemoteClientRepository(
         val user =  userRepository.getUser()
         commentIntent.userId = user.id
         clientService.createComment(commentIntent.movieId, commentIntent)
+    }
+
+    private val timeFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+
+    override suspend fun getScreeningsBy(
+        cinemaId: Int,
+        movieId: Int,
+        date: Date
+    ): List<ScreeningClient> {
+        val dateString :String = timeFormat.format(date)
+        return clientService.getScreeningBy(cinemaId, movieId)
     }
 }

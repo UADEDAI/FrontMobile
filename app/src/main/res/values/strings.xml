@@ -134,4 +134,13 @@
     <string name="body_hint">Comment</string>
     <string name="share_using">Share movie</string>
     <string name="share_text">Get the app to see this movie with me!</string>
+    <string name="sort_time">Sort time</string>
+    <string name="hour">Hour</string>
+    <string name="price">Price</string>
+    <string name="format">Format</string>
+    <string name="seats">Seats</string>
+    <string name="original">English</string>
+    <string name="select_date">Select Screening day</string>
+    <string name="tickets_title">Number of tickets</string>
+    <string name="ticket_hint">Amount</string>
 </resources>

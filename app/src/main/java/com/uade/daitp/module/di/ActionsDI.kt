@@ -82,4 +82,6 @@ object ActionsDI {
     fun getComments() = GetComments(RepositoryDI.getClientRepository())
 
     fun getReservationById() = GetReservationById(RepositoryDI.getClientRepository())
+
+    fun getScreeningsClientBy() = GetScreeningsClientBy(RepositoryDI.getClientRepository())
 }

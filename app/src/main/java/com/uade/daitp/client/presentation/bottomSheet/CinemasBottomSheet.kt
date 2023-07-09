@@ -31,6 +31,7 @@ class CinemasBottomSheet(private val listener: CinemasListener) : BottomSheetDia
         super.onViewCreated(view, savedInstanceState)
 
         binding = BottomSheetCinemasBinding.bind(view)
+        binding.cinemaSelectText.setText("")
 
         binding.cinemaSelectButton.setOnClickListenerWithThrottle {
             val searchText = binding.cinemaSelectText.text.toString()
@@ -41,6 +42,8 @@ class CinemasBottomSheet(private val listener: CinemasListener) : BottomSheetDia
                     listener.onCinemaSelected(
                         cinema[0]
                     )
+                } else {
+                    binding.cinemaSelectText.setText("")
                 }
             } else {
                 listener.onCinemaSelected(null)
@@ -50,6 +53,12 @@ class CinemasBottomSheet(private val listener: CinemasListener) : BottomSheetDia
         val items = cinemaList.map { cinema -> cinema.name }
         val adapter = ArrayAdapter(requireContext(), R.layout.list_popup_window_item, items)
         binding.cinemaSelectText.setAdapter(adapter)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        binding.cinemaSelectText.setText("")
     }
 
     fun setCinemas(cinemas: List<Cinema>) {

@@ -134,4 +134,13 @@
     <string name="body_hint">Comentario</string>
     <string name="share_using">Compartir película</string>
     <string name="share_text">Bajate esta aplicacion para ver esta película con migo!</string>
+    <string name="sort_time">Ordenar por tiempo</string>
+    <string name="hour">Hora</string>
+    <string name="price">Precio</string>
+    <string name="format">Formato</string>
+    <string name="seats">Asientos</string>
+    <string name="original">Español</string>
+    <string name="select_date">Seleccione el día de función</string>
+    <string name="tickets_title">Cantidad de entradas</string>
+    <string name="ticket_hint">Cantidad</string>
 </resources>

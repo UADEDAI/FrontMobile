@@ -94,9 +94,15 @@ object ViewModelDI {
         ActionsDI.getNearCinemaForMovie()
     )
 
-    fun getClientMovieDetailViewModel()= ClientMovieDetailViewModel(
+    fun getClientMovieDetailViewModel() = ClientMovieDetailViewModel(
         ActionsDI.getMovie(),
         ActionsDI.getComments(),
         ActionsDI.createComment()
+    )
+
+    fun getClientScreeningListFragment() = ClientScreeningListViewModel(
+        ActionsDI.getScreeningsClientBy(),
+        ActionsDI.getCinema(),
+        RepositoryDI.getReservationRepository()
     )
 }

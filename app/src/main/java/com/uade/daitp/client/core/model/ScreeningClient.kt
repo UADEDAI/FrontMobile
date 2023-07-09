@@ -8,9 +8,10 @@ data class ScreeningClient(
     val id: Int,
     val roomId: Int,
     val movieId: Int,
-    val format: ScreeningFormat,
+    val format: String,
     val startAt: Date,
     val endAt: Date,
     val movie: Movie,
-    val room: CinemaRoomClient
+    val room: CinemaRoomClient,
+    val availableSeats: Int
 )

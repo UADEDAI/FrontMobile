@@ -1,5 +1,6 @@
 package com.uade.daitp.module.di
 
+import com.uade.daitp.client.infrastructure.repository.LocalReservationRepository
 import com.uade.daitp.client.infrastructure.repository.RemoteClientRepository
 import com.uade.daitp.login.infrastructure.repository.RemoteLoginRepository
 import com.uade.daitp.login.infrastructure.repository.RemoteUserRepository
@@ -56,4 +57,10 @@ object RepositoryDI {
     }
 
     fun getClientRepository() = clientRepo
+
+    private val reservationRepo by lazy {
+        LocalReservationRepository()
+    }
+
+    fun getReservationRepository() = reservationRepo
 }
