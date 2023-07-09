@@ -124,4 +124,6 @@
     <string name="thriller">Thriller</string>
     <string name="score">Score</string>
     <string name="select_cinema">Select a Cinema</string>
+    <string name="search_hint">Search</string>
+    <string name="cinema_hint">Cinemas</string>
 </resources>

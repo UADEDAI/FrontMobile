@@ -3,19 +3,26 @@ package com.uade.daitp.client.presentation.adapters
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.uade.daitp.databinding.ListItemMovieBookingBinding
 import com.uade.daitp.owner.home.core.models.Movie
 import com.uade.daitp.owner.home.core.models.MoviesList
+import com.uade.daitp.presentation.util.setOnClickListenerWithThrottle
 
 class ClientMovieAdapter(
     private val moviesList: MoviesList
 ) :
     RecyclerView.Adapter<ClientMovieAdapter.ViewHolder>() {
 
+    private val _selectedMovie: MutableLiveData<Movie> by lazy { MutableLiveData<Movie>() }
+    val selectedMovie: LiveData<Movie> get() = _selectedMovie
+
     class ViewHolder(
-        private val binding: ListItemMovieBookingBinding
+        private val binding: ListItemMovieBookingBinding,
+        private val selectedMovie: MutableLiveData<Movie>
     ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(movie: Movie) {
@@ -26,13 +33,16 @@ class ClientMovieAdapter(
             binding.itemMovieGenre.text = movie.genre
             binding.itemMovieScore.text = movie.score.toString()
 
+            binding.root.setOnClickListenerWithThrottle {
+                selectedMovie.postValue(movie)
+            }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
             ListItemMovieBookingBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return ViewHolder(binding)
+        return ViewHolder(binding, _selectedMovie)
     }
 
     override fun getItemCount() = moviesList.showing.size
@@ -47,5 +57,4 @@ class ClientMovieAdapter(
         this.moviesList.showing.addAll(moviesList.showing)
         notifyDataSetChanged()
     }
-
 }

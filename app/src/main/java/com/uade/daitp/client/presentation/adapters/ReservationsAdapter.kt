@@ -9,11 +9,15 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.squareup.moshi.FromJson
+import com.squareup.moshi.JsonReader
 import com.uade.daitp.R
 import com.uade.daitp.client.core.model.Reservation
 import com.uade.daitp.client.presentation.ClientHomeReservationsFragment.Companion.RESERVATION_ID
 import com.uade.daitp.databinding.ListItemReservationBinding
 import com.uade.daitp.presentation.util.setOnClickListenerWithThrottle
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ReservationsAdapter(
     private val reservations: List<Reservation>
@@ -25,20 +29,25 @@ class ReservationsAdapter(
     ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(reservation: Reservation) {
-            //TODO
-//            Glide.with(itemView.context)
-//                .load(reservation.imageUrl)
-//                .into(binding.itemReservationThumbnail)
-//            binding.itemReservationTitle
-//            binding.itemReservationDate
-//            binding.itemReservationCinema
+            Glide.with(itemView.context)
+                .load(reservation.screening.movie.imageUrl)
+                .into(binding.itemReservationThumbnail)
+            binding.itemReservationTitle.text = reservation.screening.movie.title
+            binding.itemReservationDate.text = toFriendlyDateString(reservation.time)
+            binding.itemReservationCinema.text = reservation.screening.room.cinema.name
 
             binding.root.setOnClickListenerWithThrottle {
                 val bundle = Bundle()
                 bundle.putInt(RESERVATION_ID, reservation.id)
-//                itemView.findNavController()
-//                    .navigate(R.id.action_ownerHomeFragment_to_ownerCinemaFragment, bundle)
+                itemView.findNavController()
+                    .navigate(R.id.action_clientHomeFragment_to_clientMovieReservationFragment, bundle)
             }
+        }
+
+        private val dateFormat = SimpleDateFormat("dd MMMM yyyy, HH:mm", Locale.getDefault())
+
+        private fun toFriendlyDateString(date: Date): String {
+            return dateFormat.format(date)
         }
     }
 
@@ -53,5 +62,4 @@ class ReservationsAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(reservations[position])
     }
-
 }

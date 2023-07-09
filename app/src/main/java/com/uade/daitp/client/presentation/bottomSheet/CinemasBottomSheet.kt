@@ -41,15 +41,15 @@ class CinemasBottomSheet(private val listener: CinemasListener) : BottomSheetDia
                 )
             }
         }
+
+        val items = cinemaList.map { cinema -> cinema.name }
+        val adapter = ArrayAdapter(requireContext(), R.layout.list_popup_window_item, items)
+        binding.cinemaSelectText.setAdapter(adapter)
     }
 
     fun setCinemas(cinemas: List<Cinema>) {
         cinemaList.clear()
         cinemaList.addAll(cinemas)
-
-        val items = cinemaList.map { cinema -> cinema.name }
-        val adapter = ArrayAdapter(requireContext(), R.layout.list_popup_window_item, items)
-        binding.cinemaSelectText.setAdapter(adapter)
     }
 
     interface CinemasListener {

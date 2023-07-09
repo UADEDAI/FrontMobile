@@ -59,24 +59,30 @@ class FilterBottomSheet(private val listener: FilterListener) : BottomSheetDialo
                 else -> ""
             }
             listener.onFilterSelected(
-                binding.filterDistanceText.text.toInt(),
+                binding.filterDistanceText.text.toDouble(),
                 genre,
                 binding.filterScore.values[0].toDouble()
             )
         }
+
+        binding.filterClear.setOnClickListenerWithThrottle {
+            listener.clearFilters()
+        }
     }
 
-    private fun Editable?.toInt(): Int {
-        if (this == null || this.isEmpty()) return 0
-        return this.toString().toInt()
+    private fun Editable?.toDouble(): Double {
+        if (this == null || this.isEmpty()) return 0.0
+        return this.toString().toDouble()
     }
 
     interface FilterListener {
         fun onFilterSelected(
-            distance: Int,
+            distance: Double,
             genre: String?,
             score: Double?
         )
+
+        fun clearFilters()
     }
 
     companion object {

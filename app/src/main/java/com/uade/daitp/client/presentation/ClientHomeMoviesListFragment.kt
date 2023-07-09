@@ -1,10 +1,15 @@
 package com.uade.daitp.client.presentation
 
 import android.Manifest
+import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
@@ -20,6 +25,7 @@ import com.uade.daitp.module.di.ViewModelDI
 import com.uade.daitp.owner.home.core.models.Cinema
 import com.uade.daitp.owner.home.core.models.emptyMovieList
 import com.uade.daitp.presentation.util.errorDialog
+import com.uade.daitp.presentation.util.setOnClickListenerWithThrottle
 
 class ClientHomeMoviesListFragment : Fragment(R.layout.fragment_client_home_movies),
     FilterBottomSheet.FilterListener,
@@ -32,10 +38,29 @@ class ClientHomeMoviesListFragment : Fragment(R.layout.fragment_client_home_movi
     private var filterBottomSheet = FilterBottomSheet(this)
     private var cinemasBottomSheet = CinemasBottomSheet(this)
 
+    private var editMode = false
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding = FragmentClientHomeMoviesBinding.bind(view)
+
+        binding.clientHomeMovieSearchButton.setOnClickListenerWithThrottle { toggleEditMode() }
+
+        binding.clientHomeMovieFilter.setOnClickListenerWithThrottle {
+            showFilter()
+        }
+
+        binding.clientHomeMovieText.setOnEditorActionListener { textView, actionId, keyEvent ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                viewModel.search(textView.text.toString())
+                textView.clearFocus()
+                hideKeyboard()
+                true
+            } else {
+                false
+            }
+        }
 
         requestLocationPermission()
         initializeLocationClient()
@@ -48,21 +73,35 @@ class ClientHomeMoviesListFragment : Fragment(R.layout.fragment_client_home_movi
             (recyclerView.adapter as ClientMovieAdapter).refreshMovies(it)
 
             binding.clientHomeMovieEmpty.visibility =
-                if (it.showing.isEmpty()) View.VISIBLE else View.GONE
+                if (it.showing.isEmpty()) VISIBLE else GONE
         }
 
-        showFilter()
+        (recyclerView.adapter as ClientMovieAdapter).selectedMovie.observe(viewLifecycleOwner) {
+            viewModel.getCinemas(it)
+        }
+
+        viewModel.nearCinemas.observe(viewLifecycleOwner) {
+            showCinemas(it)
+        }
     }
 
-    override fun onFilterSelected(distance: Int, genre: String?, score: Double?) {
-        //TODO set filters
+    override fun onFilterSelected(distance: Double, genre: String?, score: Double?) {
+        viewModel.setFilters(distance, genre, score)
         filterBottomSheet.dismiss()
+    }
 
-        showCinemas()
+    override fun clearFilters() {
+        binding.clientHomeMovieText.setText("")
+        viewModel.clearFilters()
+        filterBottomSheet.dismiss()
+        toggleEditMode()
     }
 
     override fun onCinemaSelected(cinema: Cinema?) {
-        TODO("Not yet implemented")
+        cinemasBottomSheet.dismiss()
+        // GO TO ANOTHER SCREEN
+        Log.d("TESTYTEST", "SUCCESS!!!!!!")
+        //TODO("Not yet implemented")
     }
 
     override fun onResume() {
@@ -71,11 +110,29 @@ class ClientHomeMoviesListFragment : Fragment(R.layout.fragment_client_home_movi
         viewModel.refreshData()
     }
 
+    private fun toggleEditMode() {
+        editMode = !editMode
+        if (editMode) {
+            binding.clientHomeMovieFilter.visibility = VISIBLE
+            binding.clientHomeMovieSearch.visibility = VISIBLE
+
+            binding.clientHomeMovieTitle.visibility = GONE
+            binding.clientHomeMovieSearchButton.visibility = GONE
+        } else {
+            binding.clientHomeMovieFilter.visibility = GONE
+            binding.clientHomeMovieSearch.visibility = GONE
+
+            binding.clientHomeMovieTitle.visibility = VISIBLE
+            binding.clientHomeMovieSearchButton.visibility = VISIBLE
+        }
+    }
+
     private fun showFilter() {
         filterBottomSheet.show(parentFragmentManager, FilterBottomSheet.TAG)
     }
 
-    private fun showCinemas() {
+    private fun showCinemas(cinemas: List<Cinema>) {
+        cinemasBottomSheet.setCinemas(cinemas)
         cinemasBottomSheet.show(parentFragmentManager, CinemasBottomSheet.TAG)
     }
 
@@ -116,9 +173,16 @@ class ClientHomeMoviesListFragment : Fragment(R.layout.fragment_client_home_movi
             fusedLocationClient =
                 LocationServices.getFusedLocationProviderClient(requireActivity())
             fusedLocationClient.lastLocation.addOnSuccessListener { location ->
-                Log.d("TESTYTEST", "${location.latitude} : ${location.longitude}")
+                viewModel.setLocation(location.latitude, location.longitude)
+                Log.d("UserLocation", "${location.latitude} : ${location.longitude}")
             }
         }
+    }
+
+    private fun hideKeyboard() {
+        val inputMethodManager =
+            requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(view?.windowToken, 0)
     }
 
     companion object {

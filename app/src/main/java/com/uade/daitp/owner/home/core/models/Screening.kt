@@ -10,5 +10,4 @@ data class Screening(
     val format: ScreeningFormat,
     val startAt: Date,
     val endAt: Date,
-//    val availableSeats: List<String>
 )

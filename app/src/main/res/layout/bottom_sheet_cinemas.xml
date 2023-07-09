@@ -22,7 +22,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/genre_hint"
+        android:hint="@string/cinema_hint"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="20dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,6 +32,7 @@
             android:id="@+id/cinema_select_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:focusable="false"
             android:inputType="none" />
 
     </com.google.android.material.textfield.TextInputLayout>

@@ -42,8 +42,8 @@ class RemoteClientRepository(
         return clientService.getReservationById(reservationId)
     }
 
-    override suspend fun createReservation(reservationIntent: ReservationIntent) {
-        clientService.createReservation(reservationIntent)
+    override suspend fun createReservation(reservationIntent: ReservationIntent): Reservation {
+        return clientService.createReservation(reservationIntent)
     }
 
     override suspend fun getAvailableSeats(screeningId: Int): List<AvailableSeat> {
