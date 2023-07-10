@@ -100,9 +100,14 @@ object ViewModelDI {
         ActionsDI.createComment()
     )
 
-    fun getClientScreeningListFragment() = ClientScreeningListViewModel(
+    fun getClientScreeningListViewModel() = ClientScreeningListViewModel(
         ActionsDI.getScreeningsClientBy(),
         ActionsDI.getCinema(),
+        RepositoryDI.getReservationRepository()
+    )
+
+    fun getClientSeatingViewModel() = ClientMovieSeatingViewModel(
+        ActionsDI.createReservation(),
         RepositoryDI.getReservationRepository()
     )
 }

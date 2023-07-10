@@ -33,7 +33,7 @@ import java.util.*
 
 class ClientScreeningListFragment : Fragment(R.layout.fragment_client_movie_screenings) {
 
-    private val viewModel = ViewModelDI.getClientScreeningListFragment()
+    private val viewModel = ViewModelDI.getClientScreeningListViewModel()
     private lateinit var binding: FragmentClientMovieScreeningsBinding
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 

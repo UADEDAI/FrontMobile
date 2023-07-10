@@ -6,75 +6,193 @@
     android:layout_height="match_parent"
     android:padding="@dimen/activity_margin">
 
-    <TextView
-        android:id="@+id/home_title"
-        style="@style/TextAppearance.AppCompat.Title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:text="@string/owner_home_cinemas"
+    <ImageButton
+        android:id="@+id/seating_back"
+        style="@style/BackButton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="-15dp"
+        android:backgroundTint="@color/white"
+        android:padding="15dp"
+        android:src="@drawable/ic_left"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageButton
-        android:id="@+id/home_cinema_add"
-        style="@style/IconButton"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@drawable/ic_plus"
-        app:layout_constraintBottom_toBottomOf="@id/home_title"
+    <TextView
+        android:id="@+id/seating_cinema"
+        style="@style/TextAppearance.AppCompat.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/home_title" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Cine Hoyts" />
+
+    <TextView
+        android:id="@+id/seating_movie"
+        style="@style/TextAppearance.AppCompat.Subhead"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/grey"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/seating_cinema"
+        tools:text="The Batman" />
+
+    <TextView
+        android:id="@+id/seating_date"
+        style="@style/TextAppearance.AppCompat.Subhead"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/divider_vertical"
+        app:layout_constraintEnd_toEndOf="@id/divider_vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/divider_vertical"
+        tools:text="April, 17" />
+
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/divider_vertical"
+        android:layout_width="1dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/seating_movie" />
+
+    <TextView
+        android:id="@+id/seating_time"
+        style="@style/TextAppearance.AppCompat.Subhead"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/divider_vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/divider_vertical"
+        app:layout_constraintTop_toTopOf="@id/divider_vertical"
+        tools:text="18:00" />
+
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/divider_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/divider_vertical" />
+
+    <View
+        android:id="@+id/available_color"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginEnd="8dp"
+        android:background="@color/lightGrey"
+        app:layout_constraintBottom_toBottomOf="@id/unvailable_color"
+        app:layout_constraintEnd_toStartOf="@id/available"
+        app:layout_constraintTop_toTopOf="@id/unvailable_color" />
+
+    <TextView
+        android:id="@+id/available"
+        style="@style/TextAppearance.AppCompat.Subhead"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="@string/available"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/unvailable_color"
+        app:layout_constraintEnd_toStartOf="@id/unvailable_color"
+        app:layout_constraintTop_toTopOf="@id/unvailable_color" />
+
+    <View
+        android:id="@+id/unvailable_color"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintTop_toBottomOf="@id/divider_horizontal" />
+
+    <TextView
+        android:id="@+id/unvailable"
+        style="@style/TextAppearance.AppCompat.Subhead"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/unavailable"
+        android:layout_marginStart="8dp"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/unvailable_color"
+        app:layout_constraintStart_toEndOf="@id/unvailable_color"
+        app:layout_constraintTop_toTopOf="@id/unvailable_color" />
+
+    <View
+        android:id="@+id/chosen_color"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginStart="16dp"
+        android:background="@color/purple_500"
+        app:layout_constraintBottom_toBottomOf="@id/unvailable_color"
+        app:layout_constraintStart_toEndOf="@id/unvailable"
+        app:layout_constraintTop_toTopOf="@id/unvailable_color" />
+
+    <TextView
+        android:id="@+id/chosen"
+        style="@style/TextAppearance.AppCompat.Subhead"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/chosen"
+        android:textColor="@color/black"
+        android:layout_marginStart="8dp"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@id/unvailable_color"
+        app:layout_constraintStart_toEndOf="@id/chosen_color"
+        app:layout_constraintTop_toTopOf="@id/unvailable_color" />
+
+    <ImageView
+        android:id="@+id/movie_screen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/img_movie_screen"
+        app:layout_constraintTop_toBottomOf="@id/unvailable_color"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/home_cinema_list"
+        android:id="@+id/seats_grid"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_height="match_parent"
+        app:layout_constrainedHeight="true"
+        app:layout_constraintBottom_toTopOf="@id/button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/home_title" />
+        app:layout_constraintTop_toBottomOf="@id/movie_screen"
+        tools:itemCount="500"
+        tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        tools:listitem="@layout/list_item_seat"
+        tools:orientation="horizontal"
+        tools:scrollbars="vertical"
+        tools:spanCount="10" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/home_cinema_empty"
+    <Button
+        android:id="@+id/button"
+        style="@style/Button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:visibility="gone"
+        android:text="@string/book_confirm"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/home_title">
-
-        <ImageView
-            android:id="@+id/home_cinema_empty_logo"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/img_logo"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/home_cinema_empty_text"
-            style="@style/TextAppearance.MaterialComponents.Subtitle1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/home_empty_text"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/home_cinema_empty_logo" />
-
-        <Button
-            android:id="@+id/home_cinema_empty_button"
-            style="@style/Button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/home_cinema_empty_button"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/home_cinema_empty_text" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_marginVertical="20dp"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

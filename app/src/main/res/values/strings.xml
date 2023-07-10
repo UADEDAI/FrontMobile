@@ -143,4 +143,8 @@
     <string name="select_date">Select Screening day</string>
     <string name="tickets_title">Number of tickets</string>
     <string name="ticket_hint">Amount</string>
+    <string name="available">Available</string>
+    <string name="unavailable">Unavailable</string>
+    <string name="chosen">Chosen</string>
+    <string name="book_confirm">Book Tickets</string>
 </resources>

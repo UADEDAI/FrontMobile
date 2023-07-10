@@ -143,4 +143,8 @@
     <string name="select_date">Seleccione el día de función</string>
     <string name="tickets_title">Cantidad de entradas</string>
     <string name="ticket_hint">Cantidad</string>
+    <string name="available">Disponible</string>
+    <string name="unavailable">Ocupado</string>
+    <string name="chosen">Elegido</string>
+    <string name="book_confirm">Reservar</string>
 </resources>
