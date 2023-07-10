@@ -32,8 +32,6 @@ class OwnerCinemaFormFragment : Fragment(R.layout.fragment_owner_cinema_form) {
                 state = binding.cinemaFormProvinceText.text.toString(),
                 city = binding.cinemaFormLocalityText.text.toString(),
                 neighbourhood = binding.cinemaFormNeighbourhoodText.text.toString(),
-                latitude = binding.cinemaFormLatitudeText.text.toDouble(),
-                longitude = binding.cinemaFormLongitudeText.text.toDouble(),
                 price = binding.cinemaFormPriceText.text.toDouble(),
                 enabled = binding.cinemaFormEnabled.isChecked,
             )
@@ -56,8 +54,6 @@ class OwnerCinemaFormFragment : Fragment(R.layout.fragment_owner_cinema_form) {
             binding.cinemaFormProvinceText.setText(it.city)
             binding.cinemaFormLocalityText.setText(it.state)
             binding.cinemaFormNeighbourhoodText.setText(it.neighbourhood)
-            binding.cinemaFormLatitudeText.setText(it.latitude)
-            binding.cinemaFormLongitudeText.setText(it.longitude)
             binding.cinemaFormPriceText.setText(it.price.toString())
             binding.cinemaFormEnabled.isChecked = it.enabled
 

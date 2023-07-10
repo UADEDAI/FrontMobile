@@ -13,12 +13,15 @@ import com.uade.daitp.presentation.util.setOnClickListenerWithThrottle
 import java.text.SimpleDateFormat
 import java.util.*
 
+@SuppressLint("NotifyDataSetChanged")
 class ScreeningsClientAdapter : RecyclerView.Adapter<ScreeningsClientAdapter.ViewHolder>() {
 
     private val _selectedScreening: MutableLiveData<ScreeningClient> by lazy { MutableLiveData<ScreeningClient>() }
     val selectedScreening: LiveData<ScreeningClient> get() = _selectedScreening
 
     private val screenings: MutableList<ScreeningClient> = mutableListOf()
+
+    private var descending = true
 
     class ViewHolder(
         private val binding: ListItemClientScreeningBinding,
@@ -68,10 +71,19 @@ class ScreeningsClientAdapter : RecyclerView.Adapter<ScreeningsClientAdapter.Vie
         holder.bind(screenings[position])
     }
 
-    @SuppressLint("NotifyDataSetChanged")
     fun refreshData(data: List<ScreeningClient>) {
         screenings.clear()
         screenings.addAll(data)
         notifyDataSetChanged()
+    }
+
+    fun sortToggle() {
+        screenings.sortByDescending { it.startAt }
+        if (!descending) {
+            screenings.reverse()
+        }
+        notifyDataSetChanged()
+
+        descending = !descending
     }
 }

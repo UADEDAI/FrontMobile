@@ -4,9 +4,11 @@ import android.app.Activity.RESULT_OK
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Matrix
 import android.os.Bundle
 import android.util.Base64
 import android.view.View
+import androidx.exifinterface.media.ExifInterface
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.uade.daitp.R
@@ -17,9 +19,7 @@ import com.uade.daitp.presentation.util.errorDialog
 import com.uade.daitp.presentation.util.setOnClickListenerWithThrottle
 import com.uade.daitp.presentation.util.successDialog
 import java.io.ByteArrayOutputStream
-import java.io.File
 import java.io.InputStream
-import java.util.*
 
 class ClientProfileFragment : Fragment(R.layout.fragment_client_profile) {
 
@@ -42,8 +42,10 @@ class ClientProfileFragment : Fragment(R.layout.fragment_client_profile) {
 
         binding.profileButton.setOnClickListenerWithThrottle {
             val name = binding.profileName.text.toString()
-            val base64ImageValue = base64Image ?: "" // Provide a default value if base64Image is null
-            viewModel.update(name, base64ImageValue)        }
+            val base64ImageValue =
+                base64Image ?: ""
+            viewModel.update(name, base64ImageValue)
+        }
 
         binding.editButton.setOnClickListenerWithThrottle {
             // Open gallery to select image
@@ -68,10 +70,17 @@ class ClientProfileFragment : Fragment(R.layout.fragment_client_profile) {
         if (requestCode == SELECT_IMAGE_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
             val imageUri = data.data
             imageUri?.let { uri ->
-                val inputStream: InputStream? = activity?.contentResolver?.openInputStream(uri)
-                val bitmap = BitmapFactory.decodeStream(inputStream)
-                base64Image = bitmapToBase64(bitmap)
-                loadImage(base64Image)
+                try {
+                    val inputStream: InputStream? = activity?.contentResolver?.openInputStream(uri)
+                    val bitmap = BitmapFactory.decodeStream(inputStream)
+
+                    val straightBitmap = rotate(bitmap, 270f)
+
+                    base64Image = bitmapToBase64(getResizedBitmap(straightBitmap, 1024))
+                    loadImage(base64Image)
+                } catch (e: Exception) {
+                    errorDialog()
+                }
             }
         }
     }
@@ -91,24 +100,31 @@ class ClientProfileFragment : Fragment(R.layout.fragment_client_profile) {
         }
     }
 
-
-    private fun generateUniqueFileName(): String {
-        val uniqueId = UUID.randomUUID().toString()
-        return "$uniqueId.jpg" // or any other file extension
-    }
-
-    private fun saveBase64ImageToFile(base64Image: String, file: File) {
-        val decodedBytes = Base64.decode(base64Image, Base64.DEFAULT)
-        file.writeBytes(decodedBytes)
-    }
-
-
-
     private fun bitmapToBase64(bitmap: Bitmap): String {
         val outputStream = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 40, outputStream) // Adjust the compression quality as needed (80 is just an example)
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, outputStream)
         val byteArray = outputStream.toByteArray()
         return Base64.encodeToString(byteArray, Base64.DEFAULT)
+    }
+
+    private fun getResizedBitmap(image: Bitmap, maxSize: Int): Bitmap {
+        var width = image.width
+        var height = image.height
+        val bitmapRatio = width.toFloat() / height.toFloat()
+        if (bitmapRatio > 1) {
+            width = maxSize
+            height = (width / bitmapRatio).toInt()
+        } else {
+            height = maxSize
+            width = (height * bitmapRatio).toInt()
+        }
+        return Bitmap.createScaledBitmap(image, width, height, true)
+    }
+
+    private fun rotate(bitmap: Bitmap, degrees: Float): Bitmap {
+        val matrix = Matrix()
+        matrix.postRotate(degrees)
+        return Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
     }
 
 }

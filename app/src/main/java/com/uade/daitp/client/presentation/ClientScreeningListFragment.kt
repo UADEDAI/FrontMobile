@@ -74,6 +74,10 @@ class ClientScreeningListFragment : Fragment(R.layout.fragment_client_movie_scre
             showDialog(it)
         }
 
+        binding.screeningTimeButton.setOnClickListenerWithThrottle {
+            (recyclerView.adapter as ScreeningsClientAdapter).sortToggle()
+        }
+
         viewModel.cinema.observe(viewLifecycleOwner) {
             binding.screeningCinemaName.text = it.name
             binding.screeningCinemaAddress.text = it.getAddress()
