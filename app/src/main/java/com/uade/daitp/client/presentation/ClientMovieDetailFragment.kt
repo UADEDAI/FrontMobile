@@ -70,10 +70,12 @@ class ClientMovieDetailFragment : Fragment(R.layout.fragment_client_movie_detail
                 .setView(dialogBinding.root)
                 .setNegativeButton(getString(R.string.cancel)) { _, _ -> }
                 .setPositiveButton(getString(R.string.accept)) { _, _ ->
+                    var value = dialogBinding.dialogScore.values[0].toDouble()
+                    if (value < 1) value = 1.0
                     viewModel.createCommentOf(
                         dialogBinding.dialogTitleText.text.toString(),
                         dialogBinding.dialogBodyText.text.toString(),
-                        dialogBinding.dialogScore.values[0].toDouble()
+                        value
                     )
                 }
                 .show()
