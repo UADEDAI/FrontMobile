@@ -52,7 +52,8 @@ object RepositoryDI {
     private val clientRepo by lazy {
         RemoteClientRepository(
             clientService,
-            SharedPrefPersistenceUserRepository()
+            SharedPrefPersistenceUserRepository(),
+            reservationRepo
         )
     }
 

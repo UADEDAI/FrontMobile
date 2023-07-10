@@ -11,7 +11,8 @@ import java.util.*
 
 class RemoteClientRepository(
     private val clientService: ClientService,
-    private val userRepository: PersistenceUserRepository
+    private val userRepository: PersistenceUserRepository,
+    private val reservationRepository: LocalReservationRepository
 ) : ClientRepository {
 
     override suspend fun getReservations(): List<Reservation> {
@@ -43,11 +44,25 @@ class RemoteClientRepository(
     }
 
     override suspend fun createReservation(reservationIntent: ReservationIntent): Reservation {
-        return clientService.createReservation(reservationIntent)
+        val user = userRepository.getUser()
+        val intent = ReservationIntent(
+            user.id,
+            reservationIntent.screeningId,
+            reservationIntent.seats,
+            reservationIntent.time
+        )
+        return clientService.createReservation(intent)
     }
 
     override suspend fun getAvailableSeats(screeningId: Int): List<AvailableSeat> {
-        return clientService.getAvailableSeats(screeningId)
+        val calendar = Calendar.getInstance()
+        calendar.timeInMillis = reservationRepository.dateInMillis
+        return clientService.getAvailableSeats(
+            screeningId,
+            calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH)
+        )
     }
 
     override suspend fun getComments(movieId: Int): List<Comment> {
@@ -55,7 +70,7 @@ class RemoteClientRepository(
     }
 
     override suspend fun createComment(commentIntent: CommentIntent) {
-        val user =  userRepository.getUser()
+        val user = userRepository.getUser()
         commentIntent.userId = user.id
         clientService.createComment(commentIntent.movieId, commentIntent)
     }
@@ -67,7 +82,7 @@ class RemoteClientRepository(
         movieId: Int,
         date: Date
     ): List<ScreeningClient> {
-        val dateString :String = timeFormat.format(date)
+        val dateString: String = timeFormat.format(date)
         return clientService.getScreeningBy(cinemaId, movieId)
     }
 }

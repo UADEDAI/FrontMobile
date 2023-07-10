@@ -147,4 +147,7 @@
     <string name="unavailable">Ocupado</string>
     <string name="chosen">Elegido</string>
     <string name="book_confirm">Reservar</string>
+    <string name="tickets_zero">Tiene que elegir un numero mayor a 0</string>
+    <string name="not_enough_tickets">No hay suficientes entradas para esta función</string>
+    <string name="missing_seats">Todavia le quedan asientos a seleccionar</string>
 </resources>

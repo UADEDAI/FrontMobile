@@ -21,7 +21,12 @@ interface ClientService {
     suspend fun createReservation(@Body reservationIntent: ReservationIntent): Reservation
 
     @GET("/screenings/{id}/available-seats")
-    suspend fun getAvailableSeats(@Path("id") screeningId: Int): List<AvailableSeat>
+    suspend fun getAvailableSeats(
+        @Path("id") screeningId: Int,
+        @Query("year") year: Int,
+        @Query("month") month: Int,
+        @Query("day") day: Int
+    ): List<AvailableSeat>
 
     @GET("/cinemas/{id}/screenings")
     suspend fun getScreeningBy(

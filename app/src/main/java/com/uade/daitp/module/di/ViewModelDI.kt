@@ -107,6 +107,7 @@ object ViewModelDI {
     )
 
     fun getClientSeatingViewModel() = ClientMovieSeatingViewModel(
+        ActionsDI.getAvailableSeats(),
         ActionsDI.createReservation(),
         RepositoryDI.getReservationRepository()
     )

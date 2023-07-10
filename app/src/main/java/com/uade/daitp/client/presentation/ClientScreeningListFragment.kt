@@ -101,13 +101,26 @@ class ClientScreeningListFragment : Fragment(R.layout.fragment_client_movie_scre
             .setView(dialogBinding.root)
             .setNegativeButton(getString(R.string.cancel)) { _, _ -> }
             .setPositiveButton(getString(R.string.accept)) { _, _ ->
-                viewModel.getTickets(
-                    dialogBinding.dialogNumber.text.toString().toInt(),
-                    currentDate.timeInMillis,
-                    screeningClient
-                )
-                binding.root.findNavController()
-                    .navigate(R.id.action_clientMoviePagerFragment_to_clientMovieSeatingFragment)
+                val numberOfTickets = dialogBinding.dialogNumber.text.toString().toInt()
+                if (numberOfTickets > screeningClient.availableSeats) {
+                    errorDialog(getString(R.string.not_enough_tickets))
+                    return@setPositiveButton
+                }
+                if (numberOfTickets > 0) {
+                    val screeningCalendar = Calendar.getInstance()
+                    screeningCalendar.time = screeningClient.startAt
+                    currentDate.set(Calendar.HOUR, screeningCalendar.get(Calendar.HOUR))
+                    currentDate.set(Calendar.MINUTE, screeningCalendar.get(Calendar.MINUTE))
+                    viewModel.getTickets(
+                        numberOfTickets,
+                        currentDate.timeInMillis,
+                        screeningClient
+                    )
+                    binding.root.findNavController()
+                        .navigate(R.id.action_clientMoviePagerFragment_to_clientMovieSeatingFragment)
+                } else {
+                    errorDialog(getString(R.string.tickets_zero))
+                }
             }
             .show()
     }
@@ -128,6 +141,7 @@ class ClientScreeningListFragment : Fragment(R.layout.fragment_client_movie_scre
         datePicker.show(parentFragmentManager, "DatePicker")
         datePicker.addOnPositiveButtonClickListener {
             currentDate.timeInMillis = it
+            currentDate.add(Calendar.HOUR, 3)
             viewModel.getScreenings(currentDate.time)
 
             binding.screeningDate.text = toFriendlyDateString(currentDate.time)

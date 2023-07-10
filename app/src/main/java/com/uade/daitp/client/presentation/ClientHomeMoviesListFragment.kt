@@ -25,7 +25,6 @@ import com.uade.daitp.databinding.FragmentClientHomeMoviesBinding
 import com.uade.daitp.module.di.ViewModelDI
 import com.uade.daitp.owner.home.core.models.Cinema
 import com.uade.daitp.owner.home.core.models.emptyMovieList
-import com.uade.daitp.owner.home.presentation.OwnerCinemaFragment
 import com.uade.daitp.presentation.util.errorDialog
 import com.uade.daitp.presentation.util.setOnClickListenerWithThrottle
 
