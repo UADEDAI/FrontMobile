@@ -41,7 +41,7 @@ class ClientMovieReservationFragment : Fragment(R.layout.fragment_client_movie_r
                 .into(binding.reservationImage)
             binding.movieCinema.text = reservation.screening.room.cinema.name
             binding.movieRoom.text = reservation.screening.room.name
-            binding.movieDate.text = toFriendlyDateString(reservation.screening.startAt)
+            binding.movieDate.text = toFriendlyDateString(reservation.time)
             binding.movieFormat.text = when (reservation.screening.format) {
                 "subtitled" ->
                     getString(R.string.subtitled)
