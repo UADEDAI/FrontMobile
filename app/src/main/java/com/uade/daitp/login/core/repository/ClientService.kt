@@ -27,7 +27,8 @@ interface ClientService {
     @GET("/cinemas/{id}/screenings")
     suspend fun getScreeningBy(
         @Path("id") cinemaId: Int,
-        @Query("movie") movieId: Int
+        @Query("movie") movieId: Int,
+        @Query("date") date: String
     ): List<ScreeningClient>
 
     @GET("/cinemas/nearest")

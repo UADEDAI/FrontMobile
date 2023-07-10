@@ -83,6 +83,6 @@ class RemoteClientRepository(
         date: Date
     ): List<ScreeningClient> {
         val dateString: String = timeFormat.format(date)
-        return clientService.getScreeningBy(cinemaId, movieId)
+        return clientService.getScreeningBy(cinemaId, movieId, dateString)
     }
 }
