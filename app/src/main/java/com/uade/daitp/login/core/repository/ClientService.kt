@@ -3,11 +3,7 @@ package com.uade.daitp.login.core.repository
 import com.uade.daitp.client.core.model.*
 import com.uade.daitp.owner.home.core.models.Cinema
 import com.uade.daitp.owner.home.core.models.MoviesList
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 import java.util.*
 
 interface ClientService {

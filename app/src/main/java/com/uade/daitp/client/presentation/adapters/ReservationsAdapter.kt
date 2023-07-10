@@ -3,14 +3,9 @@ package com.uade.daitp.client.presentation.adapters
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.squareup.moshi.FromJson
-import com.squareup.moshi.JsonReader
 import com.uade.daitp.R
 import com.uade.daitp.client.core.model.Reservation
 import com.uade.daitp.client.presentation.ClientHomeReservationsFragment.Companion.RESERVATION_ID

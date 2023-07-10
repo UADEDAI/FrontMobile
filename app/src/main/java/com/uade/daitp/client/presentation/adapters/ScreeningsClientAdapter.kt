@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.uade.daitp.R
 import com.uade.daitp.client.core.model.ScreeningClient
 import com.uade.daitp.databinding.ListItemClientScreeningBinding
-import com.uade.daitp.owner.home.core.models.enums.ScreeningFormat
 import com.uade.daitp.presentation.util.setOnClickListenerWithThrottle
 import java.text.SimpleDateFormat
 import java.util.*

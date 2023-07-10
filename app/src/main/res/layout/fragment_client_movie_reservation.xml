@@ -7,142 +7,178 @@
     android:padding="16dp">
 
     <ImageButton
-        android:id="@+id/movie_back"
+        android:id="@+id/reservation_back"
         style="@style/BackButton"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginStart="-15dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="-5dp"
         android:backgroundTint="@color/white"
         android:padding="15dp"
-        android:src="@drawable/ic_left"
-        app:layout_constraintStart_toStartOf="parent"
+        android:src="@drawable/ic_close"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/movie_name"
+        android:id="@+id/reservation_title"
         style="@style/TextAppearance.AppCompat.Medium"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/reservation_title"
         android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="@id/movie_back"
-        app:layout_constraintStart_toEndOf="@id/movie_back"
-        app:layout_constraintTop_toTopOf="@id/movie_back"
-        tools:text="The Batman" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/movie_image"
+        android:id="@+id/reservation_image"
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/movie_back"
+        app:layout_constraintTop_toBottomOf="@id/reservation_title"
         tools:background="@color/black" />
 
-    <TextView
-        android:id="@+id/movie_description"
+    <ImageView
+        android:id="@+id/reservation_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:textColor="@color/black"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/tear_line"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/movie_image"
-        tools:text="@string/lorem_ipsum" />
+        app:layout_constraintTop_toBottomOf="@id/reservation_image" />
 
     <TextView
-        android:id="@+id/movie_duration_title"
+        android:id="@+id/reservation_movie_title"
+        style="@style/TextAppearance.AppCompat.Subhead"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:text="@string/movie_duration"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/movie_description" />
+        app:layout_constraintTop_toBottomOf="@id/reservation_style"
+        tools:text="The Batman" />
 
     <TextView
-        android:id="@+id/movie_duration"
+        android:id="@+id/movie_cinema_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/cinema"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/reservation_movie_title" />
+
+    <TextView
+        android:id="@+id/movie_cinema"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.25"
+        app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/movie_duration_title"
-        tools:text="02:56" />
+        app:layout_constraintTop_toTopOf="@id/movie_cinema_title"
+        tools:text="Hoyts" />
 
     <TextView
-        android:id="@+id/movie_year_title"
+        android:id="@+id/movie_room"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/grey"
+        app:layout_constraintStart_toStartOf="@id/movie_cinema"
+        app:layout_constraintTop_toBottomOf="@id/movie_cinema"
+        tools:text="Sala 1" />
+
+    <TextView
+        android:id="@+id/movie_date_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="@string/movie_year"
+        android:text="@string/date"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/movie_duration_title" />
+        app:layout_constraintTop_toBottomOf="@id/movie_room" />
 
     <TextView
-        android:id="@+id/movie_year"
+        android:id="@+id/movie_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="@id/movie_duration"
-        app:layout_constraintTop_toTopOf="@id/movie_year_title"
-        tools:text="2022" />
+        app:layout_constraintStart_toStartOf="@id/movie_cinema"
+        app:layout_constraintTop_toTopOf="@id/movie_date_title"
+        tools:text="17 de Abril 2023, 18:00" />
 
     <TextView
-        android:id="@+id/movie_category_title"
+        android:id="@+id/movie_format_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="@string/movie_category"
+        android:text="@string/format"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/movie_year_title" />
+        app:layout_constraintTop_toBottomOf="@id/movie_date_title" />
 
     <TextView
-        android:id="@+id/movie_category"
+        android:id="@+id/movie_format"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="@id/movie_duration"
-        app:layout_constraintTop_toTopOf="@id/movie_category_title"
-        tools:text="Action" />
+        app:layout_constraintStart_toStartOf="@id/movie_cinema"
+        app:layout_constraintTop_toTopOf="@id/movie_format_title"
+        tools:text="Doblado" />
 
     <TextView
-        android:id="@+id/movie_director_title"
+        android:id="@+id/movie_seats_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="@string/movie_director"
+        android:text="@string/seats"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/movie_category_title" />
+        app:layout_constraintTop_toBottomOf="@id/movie_format_title" />
 
     <TextView
-        android:id="@+id/movie_director"
+        android:id="@+id/movie_seats"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="@id/movie_duration"
-        app:layout_constraintTop_toTopOf="@id/movie_director_title"
-        tools:text="Matt Reeves" />
+        app:layout_constraintStart_toStartOf="@id/movie_cinema"
+        app:layout_constraintTop_toTopOf="@id/movie_seats_title"
+        tools:text="F7C3, F7C4" />
 
     <TextView
-        android:id="@+id/movie_cast_title"
+        android:id="@+id/movie_price_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="@string/movie_cast"
+        android:text="@string/price"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/movie_director_title" />
-
+        app:layout_constraintTop_toBottomOf="@id/movie_seats_title" />
 
     <TextView
-        android:id="@+id/movie_cast"
+        android:id="@+id/movie_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
-        app:layout_constraintStart_toStartOf="@id/movie_duration"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintVertical_bias="0"
-        app:layout_constraintTop_toTopOf="@id/movie_cast_title"
-        tools:text="Robert Pattinson, Zoë Kravitz, Paul Dano, Jeffrey Wright, John Turturro, Peter Sarsgaard, Barry Keoghan, Jayme Lawson, Andy Serkis, Colin Farrell" />
+        app:layout_constraintStart_toStartOf="@id/movie_cinema"
+        app:layout_constraintTop_toTopOf="@id/movie_price_title"
+        tools:text="$ 500" />
+
+    <TextView
+        android:id="@+id/movie_code_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/code"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/movie_price_title" />
+
+    <TextView
+        android:id="@+id/movie_code"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="@id/movie_cinema"
+        app:layout_constraintTop_toTopOf="@id/movie_code_title"
+        tools:text="1f221f" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

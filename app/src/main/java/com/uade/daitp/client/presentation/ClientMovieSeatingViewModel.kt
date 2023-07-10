@@ -5,10 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.uade.daitp.client.core.actions.CreateReservation
 import com.uade.daitp.client.core.actions.GetAvailableSeats
-import com.uade.daitp.client.core.model.AvailableSeat
-import com.uade.daitp.client.core.model.ReservationIntent
-import com.uade.daitp.client.core.model.ScreeningClient
-import com.uade.daitp.client.core.model.SeatViewData
+import com.uade.daitp.client.core.model.*
 import com.uade.daitp.client.infrastructure.repository.LocalReservationRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -26,8 +23,8 @@ class ClientMovieSeatingViewModel(
     private val _availableSeats: MutableLiveData<List<AvailableSeat>> by lazy { MutableLiveData<List<AvailableSeat>>() }
     val availableSeats: LiveData<List<AvailableSeat>> get() = _availableSeats
 
-    private val _success: MutableLiveData<Boolean> by lazy { MutableLiveData<Boolean>() }
-    val success: LiveData<Boolean> get() = _success
+    private val _success: MutableLiveData<Reservation> by lazy { MutableLiveData<Reservation>() }
+    val success: LiveData<Reservation> get() = _success
 
     init {
         CoroutineScope(Dispatchers.IO).launch {
@@ -61,8 +58,8 @@ class ClientMovieSeatingViewModel(
                     selectedSeats.map { seatViewData -> seatViewData.availableSeat!!.id },
                     time
                 )
-                createReservation(reservationIntent)
-                _success.postValue(true)
+                val reservation = createReservation(reservationIntent)
+                _success.postValue(reservation)
             } catch (e: Exception) {
                 _error.postValue(e.message)
             }

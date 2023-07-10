@@ -150,4 +150,9 @@
     <string name="tickets_zero">You have to select a number bigger than 0</string>
     <string name="not_enough_tickets">There are not enough seats available in this screening</string>
     <string name="missing_seats">You still have missing seats to select</string>
+    <string name="reservation_title">Your Screening</string>
+    <string name="cinema">Cinema</string>
+    <string name="date">Date</string>
+    <string name="code">Reservation Code</string>
+    <string name="row">R</string>
 </resources>

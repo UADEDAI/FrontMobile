@@ -111,4 +111,8 @@ object ViewModelDI {
         ActionsDI.createReservation(),
         RepositoryDI.getReservationRepository()
     )
+
+    fun getReservationViewModel() = ClientReservationViewModel(
+        ActionsDI.getReservationById()
+    )
 }

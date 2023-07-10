@@ -9,5 +9,5 @@ data class Reservation(
     val time: Date,
     val screening: ScreeningClient,
     val seats: List<AvailableSeat>?,
-    val code: String
+    val otp: OTP
 )

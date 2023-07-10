@@ -66,6 +66,13 @@ class ClientMovieSeatingFragment : Fragment(R.layout.fragment_client_movie_seati
             }
             viewModel.reserveMovie(selectedSeats, apiFormat.format(calendar.time))
         }
+
+        viewModel.success.observe(viewLifecycleOwner) {
+            val bundle = Bundle()
+            bundle.putInt(ClientHomeReservationsFragment.RESERVATION_ID, it.id)
+            view.findNavController()
+                .navigate(R.id.action_clientMovieSeatingFragment_to_clientMovieReservationFragment, bundle)
+        }
     }
 
     private fun createSeats(
@@ -85,5 +92,4 @@ class ClientMovieSeatingFragment : Fragment(R.layout.fragment_client_movie_seati
         }
         return list
     }
-
 }

@@ -1,16 +1,13 @@
 package com.uade.daitp.client.presentation.bottomSheet
 
 import android.os.Bundle
-import android.text.Editable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.uade.daitp.R
 import com.uade.daitp.databinding.BottomSheetCinemasBinding
-import com.uade.daitp.databinding.BottomSheetFilterBinding
 import com.uade.daitp.owner.home.core.models.Cinema
 import com.uade.daitp.presentation.util.setOnClickListenerWithThrottle
 

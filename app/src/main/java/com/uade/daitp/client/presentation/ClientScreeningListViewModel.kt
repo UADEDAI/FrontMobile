@@ -11,7 +11,7 @@ import com.uade.daitp.owner.home.core.models.Cinema
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.util.Date
+import java.util.*
 
 class ClientScreeningListViewModel(
     private val getScreeningsClientBy: GetScreeningsClientBy,

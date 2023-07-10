@@ -1,7 +1,6 @@
 package com.uade.daitp.client.core.model
 
 import com.uade.daitp.owner.home.core.models.Movie
-import com.uade.daitp.owner.home.core.models.enums.ScreeningFormat
 import java.util.*
 
 data class ScreeningClient(
