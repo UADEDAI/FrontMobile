@@ -33,7 +33,7 @@ class OwnerProfileViewModel(
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val user = _user.value!!
-                updateUser(user.id, UserIntent(name, company))
+                updateUser(user.id, UserIntent(name, company, avatar = ""))
                 _profileUpdated.postValue(true)
                 refreshUser()
             } catch (e: Exception) {

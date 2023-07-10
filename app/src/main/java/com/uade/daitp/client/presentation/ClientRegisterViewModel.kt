@@ -24,7 +24,7 @@ class ClientRegisterViewModel(
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val savedUser = getUser()
-                updateUser(savedUser.id, UserIntent(name, ""))
+                updateUser(savedUser.id, UserIntent(name, "", ""))
                 _registerSuccess.postValue(true)
             } catch (e: Exception) {
                 _error.postValue(e.message)

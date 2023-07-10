@@ -29,11 +29,11 @@ class ClientProfileViewModel(
         refreshUser()
     }
 
-    fun update(name: String) {
+    fun update(name: String, avatar: String) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
                 val user = _user.value!!
-                updateUser(user.id, UserIntent(name, ""))
+                updateUser(user.id, UserIntent(name, "", avatar))
                 _profileUpdated.postValue(true)
                 refreshUser()
             } catch (e: Exception) {
