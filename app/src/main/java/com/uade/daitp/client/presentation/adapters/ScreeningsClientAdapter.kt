@@ -33,7 +33,7 @@ class ScreeningsClientAdapter : RecyclerView.Adapter<ScreeningsClientAdapter.Vie
             binding.itemTime.text = toFriendlyDateString(screening.startAt)
             binding.itemRoomName.text = screening.room.name
             binding.itemPrice.text = "\$${screening.room.cinema.price}"
-            binding.itemFormat.text = when (screening.format) {
+            binding.itemFormat.text = when (screening.format.lowercase()) {
                 "subtitled" ->
                     itemView.resources.getString(R.string.subtitled)
                 "dubbed" ->
